@@ -1,6 +1,17 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@babel/runtime/regenerator/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime.js");
+
+
+/***/ }),
+
 /***/ "./node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js":
 /*!*******************************************************************************!*\
   !*** ./node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js ***!
@@ -3145,15 +3156,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/hooks.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/TileLayer.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/MapContainer.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/hooks.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/TileLayer.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/MapContainer.js");
 /* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _services_strava__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/strava */ "./resources/js/services/strava.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject, _templateObject2;
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /* eslint-disable no-tabs */
 
@@ -3164,17 +3188,23 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-var MyComponent = function MyComponent() {
-  var map = (0,react_leaflet__WEBPACK_IMPORTED_MODULE_4__.useMap)();
+
+var MyComponent = function MyComponent(_ref) {
+  var setLocation = _ref.setLocation;
+  var map = (0,react_leaflet__WEBPACK_IMPORTED_MODULE_5__.useMap)();
   var options = {
-    enableHighAccuracy: true,
-    timeout: 2000,
+    enableHighAccuracy: false,
+    timeout: 5000,
     maximumAge: 2000
   };
 
   function success(pos) {
     var crd = pos.coords;
     map.flyTo({
+      lat: crd.latitude,
+      lng: crd.longitude
+    });
+    setLocation({
       lat: crd.latitude,
       lng: crd.longitude
     });
@@ -3189,8 +3219,6 @@ var MyComponent = function MyComponent() {
   }
 
   var _onClick = function onClick() {
-    console.log('click');
-
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(success, error, options);
     } else {
@@ -3198,7 +3226,7 @@ var MyComponent = function MyComponent() {
     }
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(StyledButton, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(StyledButton, {
     onClick: function onClick() {
       return _onClick();
     },
@@ -3207,24 +3235,109 @@ var MyComponent = function MyComponent() {
 };
 
 function Example() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(StyledContainer, {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    lat: undefined,
+    lng: undefined
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      location = _useState2[0],
+      setLocation = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    console.log('ASF');
+
+    if (location.lat && location.lng) {
+      (0,_services_strava__WEBPACK_IMPORTED_MODULE_3__.default)(location.lat, location.lng);
+    }
+  }, [location, _services_strava__WEBPACK_IMPORTED_MODULE_3__.default]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(StyledContainer, {
     center: [59, 0],
     zoom: 13,
     scrollWheelZoom: false,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(MyComponent, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_5__.TileLayer, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(MyComponent, {
+      setLocation: setLocation
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_6__.TileLayer, {
       attribution: "\xA9 <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     })]
   });
 }
 
-var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_6__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_7__.MapContainer)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
-var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_6__.default.button(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 0;\n    right: 0;\n    z-index: 999;\n"])));
+var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_7__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_8__.MapContainer)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
+var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_7__.default.button(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 0;\n    right: 0;\n    z-index: 999;\n"])));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Example);
 
 if (document.getElementById('example')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Example, {}), document.getElementById('example'));
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Example, {}), document.getElementById('example'));
 }
+
+/***/ }),
+
+/***/ "./resources/js/services/strava.js":
+/*!*****************************************!*\
+  !*** ./resources/js/services/strava.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var geolib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! geolib */ "./node_modules/geolib/es/index.js");
+/* harmony import */ var geolib__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(geolib__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var cheap_ruler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cheap-ruler */ "./node_modules/cheap-ruler/index.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+var STRAVA_BASE_URL = 'https://www.strava.com/api/v3';
+
+var exploreSegments = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(lat, lng) {
+    var ruler, bounds, segments;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            ruler = new cheap_ruler__WEBPACK_IMPORTED_MODULE_3__.default(53.0686472, 'meters');
+            bounds = ruler.bufferPoint([lat, lng], 10000);
+            console.log(bounds);
+            _context.next = 5;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/explore?bounds=").concat(bounds, "&activity_type=riding"), {
+              headers: {
+                Authorization: "Bearer ".concat("57f26664588330974aac251e65760074216ff929")
+              }
+            }).then(function (response) {
+              console.log(response);
+            });
+
+          case 5:
+            segments = _context.sent;
+
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function exploreSegments(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (exploreSegments);
 
 /***/ }),
 
@@ -7669,6 +7782,494 @@ if (document.getElementById('example')) {
 
 /***/ }),
 
+/***/ "./node_modules/cheap-ruler/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/cheap-ruler/index.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CheapRuler)
+/* harmony export */ });
+ /* @flow */
+
+/**
+ * Multipliers for converting between units.
+ *
+ * @example
+ * // convert 50 meters to yards
+ * 50 * cheapRuler.units.yards / cheapRuler.units.meters;
+ */
+const factors = {
+    kilometers: 1,
+    miles: 1000 / 1609.344,
+    nauticalmiles: 1000 / 1852,
+    meters: 1000,
+    metres: 1000,
+    yards: 1000 / 0.9144,
+    feet: 1000 / 0.3048,
+    inches: 1000 / 0.0254
+};
+
+// Values that define WGS84 ellipsoid model of the Earth
+const RE = 6378.137; // equatorial radius
+const FE = 1 / 298.257223563; // flattening
+
+const E2 = FE * (2 - FE);
+const RAD = Math.PI / 180;
+
+/**
+ * A collection of very fast approximations to common geodesic measurements. Useful for performance-sensitive code that measures things on a city scale.
+ *
+ * @param {number} lat latitude
+ * @param {string} [units='kilometers']
+ * @returns {CheapRuler}
+ * @example
+ * const ruler = cheapRuler(35.05, 'miles');
+ * //=ruler
+ */
+class CheapRuler {
+    /**
+     * Creates a ruler object from tile coordinates (y and z).
+     *
+     * @param {number} y
+     * @param {number} z
+     * @param {string} [units='kilometers']
+     * @returns {CheapRuler}
+     * @example
+     * const ruler = cheapRuler.fromTile(1567, 12);
+     * //=ruler
+     */
+    static fromTile(y, z, units) {
+        const n = Math.PI * (1 - 2 * (y + 0.5) / Math.pow(2, z));
+        const lat = Math.atan(0.5 * (Math.exp(n) - Math.exp(-n))) / RAD;
+        return new CheapRuler(lat, units);
+    }
+
+    static get units() {
+        return factors;
+    }
+
+    /**
+     * Creates a ruler instance for very fast approximations to common geodesic measurements around a certain latitude.
+     *
+     * @param {number} lat latitude
+     * @param {string} [units='kilometers']
+     * @returns {CheapRuler}
+     * @example
+     * const ruler = cheapRuler(35.05, 'miles');
+     * //=ruler
+     */
+    constructor(lat, units) {
+        if (lat === undefined) throw new Error('No latitude given.');
+        if (units && !factors[units]) throw new Error(`Unknown unit ${  units  }. Use one of: ${  Object.keys(factors).join(', ')}`);
+
+        // Curvature formulas from https://en.wikipedia.org/wiki/Earth_radius#Meridional
+        const m = RAD * RE * (units ? factors[units] : 1);
+        const coslat = Math.cos(lat * RAD);
+        const w2 = 1 / (1 - E2 * (1 - coslat * coslat));
+        const w = Math.sqrt(w2);
+
+        // multipliers for converting longitude and latitude degrees into distance
+        this.kx = m * w * coslat;        // based on normal radius of curvature
+        this.ky = m * w * w2 * (1 - E2); // based on meridonal radius of curvature
+    }
+
+    /**
+     * Given two points of the form [longitude, latitude], returns the distance.
+     *
+     * @param {Array<number>} a point [longitude, latitude]
+     * @param {Array<number>} b point [longitude, latitude]
+     * @returns {number} distance
+     * @example
+     * const distance = ruler.distance([30.5, 50.5], [30.51, 50.49]);
+     * //=distance
+     */
+    distance(a, b) {
+        const dx = wrap(a[0] - b[0]) * this.kx;
+        const dy = (a[1] - b[1]) * this.ky;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    /**
+     * Returns the bearing between two points in angles.
+     *
+     * @param {Array<number>} a point [longitude, latitude]
+     * @param {Array<number>} b point [longitude, latitude]
+     * @returns {number} bearing
+     * @example
+     * const bearing = ruler.bearing([30.5, 50.5], [30.51, 50.49]);
+     * //=bearing
+     */
+    bearing(a, b) {
+        const dx = wrap(b[0] - a[0]) * this.kx;
+        const dy = (b[1] - a[1]) * this.ky;
+        return Math.atan2(dx, dy) / RAD;
+    }
+
+    /**
+     * Returns a new point given distance and bearing from the starting point.
+     *
+     * @param {Array<number>} p point [longitude, latitude]
+     * @param {number} dist distance
+     * @param {number} bearing
+     * @returns {Array<number>} point [longitude, latitude]
+     * @example
+     * const point = ruler.destination([30.5, 50.5], 0.1, 90);
+     * //=point
+     */
+    destination(p, dist, bearing) {
+        const a = bearing * RAD;
+        return this.offset(p,
+            Math.sin(a) * dist,
+            Math.cos(a) * dist);
+    }
+
+    /**
+     * Returns a new point given easting and northing offsets (in ruler units) from the starting point.
+     *
+     * @param {Array<number>} p point [longitude, latitude]
+     * @param {number} dx easting
+     * @param {number} dy northing
+     * @returns {Array<number>} point [longitude, latitude]
+     * @example
+     * const point = ruler.offset([30.5, 50.5], 10, 10);
+     * //=point
+     */
+    offset(p, dx, dy) {
+        return [
+            p[0] + dx / this.kx,
+            p[1] + dy / this.ky
+        ];
+    }
+
+    /**
+     * Given a line (an array of points), returns the total line distance.
+     *
+     * @param {Array<Array<number>>} points [longitude, latitude]
+     * @returns {number} total line distance
+     * @example
+     * const length = ruler.lineDistance([
+     *     [-67.031, 50.458], [-67.031, 50.534],
+     *     [-66.929, 50.534], [-66.929, 50.458]
+     * ]);
+     * //=length
+     */
+    lineDistance(points) {
+        let total = 0;
+        for (let i = 0; i < points.length - 1; i++) {
+            total += this.distance(points[i], points[i + 1]);
+        }
+        return total;
+    }
+
+    /**
+     * Given a polygon (an array of rings, where each ring is an array of points), returns the area.
+     *
+     * @param {Array<Array<Array<number>>>} polygon
+     * @returns {number} area value in the specified units (square kilometers by default)
+     * @example
+     * const area = ruler.area([[
+     *     [-67.031, 50.458], [-67.031, 50.534], [-66.929, 50.534],
+     *     [-66.929, 50.458], [-67.031, 50.458]
+     * ]]);
+     * //=area
+     */
+    area(polygon) {
+        let sum = 0;
+
+        for (let i = 0; i < polygon.length; i++) {
+            const ring = polygon[i];
+
+            for (let j = 0, len = ring.length, k = len - 1; j < len; k = j++) {
+                sum += wrap(ring[j][0] - ring[k][0]) * (ring[j][1] + ring[k][1]) * (i ? -1 : 1);
+            }
+        }
+
+        return (Math.abs(sum) / 2) * this.kx * this.ky;
+    }
+
+    /**
+     * Returns the point at a specified distance along the line.
+     *
+     * @param {Array<Array<number>>} line
+     * @param {number} dist distance
+     * @returns {Array<number>} point [longitude, latitude]
+     * @example
+     * const point = ruler.along(line, 2.5);
+     * //=point
+     */
+    along(line, dist) {
+        let sum = 0;
+
+        if (dist <= 0) return line[0];
+
+        for (let i = 0; i < line.length - 1; i++) {
+            const p0 = line[i];
+            const p1 = line[i + 1];
+            const d = this.distance(p0, p1);
+            sum += d;
+            if (sum > dist) return interpolate(p0, p1, (dist - (sum - d)) / d);
+        }
+
+        return line[line.length - 1];
+    }
+
+    /**
+     * Returns the distance from a point `p` to a line segment `a` to `b`.
+     *
+     * @pointToSegmentDistance
+     * @param {Array<number>} p point [longitude, latitude]
+     * @param {Array<number>} p1 segment point 1 [longitude, latitude]
+     * @param {Array<number>} p2 segment point 2 [longitude, latitude]
+     * @returns {number} distance
+     * @example
+     * const distance = ruler.pointToSegmentDistance([-67.04, 50.5], [-67.05, 50.57], [-67.03, 50.54]);
+     * //=distance
+     */
+    pointToSegmentDistance(p, a, b) {
+        let [x, y] = a;
+        let dx = wrap(b[0] - x) * this.kx;
+        let dy = (b[1] - y) * this.ky;
+        let t = 0;
+
+        if (dx !== 0 || dy !== 0) {
+            t = (wrap(p[0] - x) * this.kx * dx + (p[1] - y) * this.ky * dy) / (dx * dx + dy * dy);
+
+            if (t > 1) {
+                x = b[0];
+                y = b[1];
+
+            } else if (t > 0) {
+                x += (dx / this.kx) * t;
+                y += (dy / this.ky) * t;
+            }
+        }
+
+        dx = wrap(p[0] - x) * this.kx;
+        dy = (p[1] - y) * this.ky;
+
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    /**
+     * Returns an object of the form {point, index, t}, where point is closest point on the line
+     * from the given point, index is the start index of the segment with the closest point,
+     * and t is a parameter from 0 to 1 that indicates where the closest point is on that segment.
+     *
+     * @param {Array<Array<number>>} line
+     * @param {Array<number>} p point [longitude, latitude]
+     * @returns {Object} {point, index, t}
+     * @example
+     * const point = ruler.pointOnLine(line, [-67.04, 50.5]).point;
+     * //=point
+     */
+    pointOnLine(line, p) {
+        let minDist = Infinity;
+        let minX, minY, minI, minT;
+
+        for (let i = 0; i < line.length - 1; i++) {
+
+            let x = line[i][0];
+            let y = line[i][1];
+            let dx = wrap(line[i + 1][0] - x) * this.kx;
+            let dy = (line[i + 1][1] - y) * this.ky;
+            let t = 0;
+
+            if (dx !== 0 || dy !== 0) {
+                t = (wrap(p[0] - x) * this.kx * dx + (p[1] - y) * this.ky * dy) / (dx * dx + dy * dy);
+
+                if (t > 1) {
+                    x = line[i + 1][0];
+                    y = line[i + 1][1];
+
+                } else if (t > 0) {
+                    x += (dx / this.kx) * t;
+                    y += (dy / this.ky) * t;
+                }
+            }
+
+            dx = wrap(p[0] - x) * this.kx;
+            dy = (p[1] - y) * this.ky;
+
+            const sqDist = dx * dx + dy * dy;
+            if (sqDist < minDist) {
+                minDist = sqDist;
+                minX = x;
+                minY = y;
+                minI = i;
+                minT = t;
+            }
+        }
+
+        return {
+            point: [minX, minY],
+            index: minI,
+            t: Math.max(0, Math.min(1, minT))
+        };
+    }
+
+    /**
+     * Returns a part of the given line between the start and the stop points (or their closest points on the line).
+     *
+     * @param {Array<number>} start point [longitude, latitude]
+     * @param {Array<number>} stop point [longitude, latitude]
+     * @param {Array<Array<number>>} line
+     * @returns {Array<Array<number>>} line part of a line
+     * @example
+     * const line2 = ruler.lineSlice([-67.04, 50.5], [-67.05, 50.56], line1);
+     * //=line2
+     */
+    lineSlice(start, stop, line) {
+        let p1 = this.pointOnLine(line, start);
+        let p2 = this.pointOnLine(line, stop);
+
+        if (p1.index > p2.index || (p1.index === p2.index && p1.t > p2.t)) {
+            const tmp = p1;
+            p1 = p2;
+            p2 = tmp;
+        }
+
+        const slice = [p1.point];
+
+        const l = p1.index + 1;
+        const r = p2.index;
+
+        if (!equals(line[l], slice[0]) && l <= r)
+            slice.push(line[l]);
+
+        for (let i = l + 1; i <= r; i++) {
+            slice.push(line[i]);
+        }
+
+        if (!equals(line[r], p2.point))
+            slice.push(p2.point);
+
+        return slice;
+    }
+
+    /**
+     * Returns a part of the given line between the start and the stop points indicated by distance along the line.
+     *
+     * @param {number} start distance
+     * @param {number} stop distance
+     * @param {Array<Array<number>>} line
+     * @returns {Array<Array<number>>} line part of a line
+     * @example
+     * const line2 = ruler.lineSliceAlong(10, 20, line1);
+     * //=line2
+     */
+    lineSliceAlong(start, stop, line) {
+        let sum = 0;
+        const slice = [];
+
+        for (let i = 0; i < line.length - 1; i++) {
+            const p0 = line[i];
+            const p1 = line[i + 1];
+            const d = this.distance(p0, p1);
+
+            sum += d;
+
+            if (sum > start && slice.length === 0) {
+                slice.push(interpolate(p0, p1, (start - (sum - d)) / d));
+            }
+
+            if (sum >= stop) {
+                slice.push(interpolate(p0, p1, (stop - (sum - d)) / d));
+                return slice;
+            }
+
+            if (sum > start) slice.push(p1);
+        }
+
+        return slice;
+    }
+
+    /**
+     * Given a point, returns a bounding box object ([w, s, e, n]) created from the given point buffered by a given distance.
+     *
+     * @param {Array<number>} p point [longitude, latitude]
+     * @param {number} buffer
+     * @returns {Array<number>} box object ([w, s, e, n])
+     * @example
+     * const bbox = ruler.bufferPoint([30.5, 50.5], 0.01);
+     * //=bbox
+     */
+    bufferPoint(p, buffer) {
+        const v = buffer / this.ky;
+        const h = buffer / this.kx;
+        return [
+            p[0] - h,
+            p[1] - v,
+            p[0] + h,
+            p[1] + v
+        ];
+    }
+
+    /**
+     * Given a bounding box, returns the box buffered by a given distance.
+     *
+     * @param {Array<number>} box object ([w, s, e, n])
+     * @param {number} buffer
+     * @returns {Array<number>} box object ([w, s, e, n])
+     * @example
+     * const bbox = ruler.bufferBBox([30.5, 50.5, 31, 51], 0.2);
+     * //=bbox
+     */
+    bufferBBox(bbox, buffer) {
+        const v = buffer / this.ky;
+        const h = buffer / this.kx;
+        return [
+            bbox[0] - h,
+            bbox[1] - v,
+            bbox[2] + h,
+            bbox[3] + v
+        ];
+    }
+
+    /**
+     * Returns true if the given point is inside in the given bounding box, otherwise false.
+     *
+     * @param {Array<number>} p point [longitude, latitude]
+     * @param {Array<number>} box object ([w, s, e, n])
+     * @returns {boolean}
+     * @example
+     * const inside = ruler.insideBBox([30.5, 50.5], [30, 50, 31, 51]);
+     * //=inside
+     */
+    insideBBox(p, bbox) {
+        return wrap(p[0] - bbox[0]) >= 0 &&
+               wrap(p[0] - bbox[2]) <= 0 &&
+               p[1] >= bbox[1] &&
+               p[1] <= bbox[3];
+    }
+}
+
+function equals(a, b) {
+    return a[0] === b[0] && a[1] === b[1];
+}
+
+function interpolate(a, b, t) {
+    const dx = wrap(b[0] - a[0]);
+    const dy = b[1] - a[1];
+    return [
+        a[0] + dx * t,
+        a[1] + dy * t
+    ];
+}
+
+// normalize a degree value into [-180..180] range
+function wrap(deg) {
+    while (deg < -180) deg += 360;
+    while (deg > 180) deg -= 360;
+    return deg;
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./node_modules/leaflet/dist/leaflet.css":
 /*!*********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].oneOf[1].use[2]!./node_modules/leaflet/dist/leaflet.css ***!
@@ -7867,6 +8468,468 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/vendor/leaflet/dist/marker-icon.png?2b3e1faf89f94a4835397e7a43b4f77d");
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/computeDestinationPoint.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/geolib/es/computeDestinationPoint.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _toDeg=_interopRequireDefault(__webpack_require__(/*! ./toDeg */ "./node_modules/geolib/es/toDeg.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var computeDestinationPoint=function computeDestinationPoint(start,distance,bearing){var radius=arguments.length>3&&arguments[3]!==undefined?arguments[3]:6371000;var lat=(0,_getLatitude.default)(start);var lng=(0,_getLongitude.default)(start);var delta=distance/radius;var theta=(0,_toRad.default)(bearing);var phi1=(0,_toRad.default)(lat);var lambda1=(0,_toRad.default)(lng);var phi2=Math.asin(Math.sin(phi1)*Math.cos(delta)+Math.cos(phi1)*Math.sin(delta)*Math.cos(theta));var lambda2=lambda1+Math.atan2(Math.sin(theta)*Math.sin(delta)*Math.cos(phi1),Math.cos(delta)-Math.sin(phi1)*Math.sin(phi2));var longitude=(0,_toDeg.default)(lambda2);if(longitude<_constants.MINLON||longitude>_constants.MAXLON){lambda2=(lambda2+3*Math.PI)%(2*Math.PI)-Math.PI;longitude=(0,_toDeg.default)(lambda2)}return{latitude:(0,_toDeg.default)(phi2),longitude:longitude}};var _default=computeDestinationPoint;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/constants.js":
+/*!*********************************************!*\
+  !*** ./node_modules/geolib/es/constants.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.areaConversion=exports.timeConversion=exports.distanceConversion=exports.altitudeKeys=exports.latitudeKeys=exports.longitudeKeys=exports.MAXLON=exports.MINLON=exports.MAXLAT=exports.MINLAT=exports.earthRadius=exports.sexagesimalPattern=void 0;var sexagesimalPattern=/^([0-9]{1,3})°\s*([0-9]{1,3}(?:\.(?:[0-9]{1,}))?)['′]\s*(([0-9]{1,3}(\.([0-9]{1,}))?)["″]\s*)?([NEOSW]?)$/;exports.sexagesimalPattern=sexagesimalPattern;var earthRadius=6378137;exports.earthRadius=earthRadius;var MINLAT=-90;exports.MINLAT=MINLAT;var MAXLAT=90;exports.MAXLAT=MAXLAT;var MINLON=-180;exports.MINLON=MINLON;var MAXLON=180;exports.MAXLON=MAXLON;var longitudeKeys=["lng","lon","longitude",0];exports.longitudeKeys=longitudeKeys;var latitudeKeys=["lat","latitude",1];exports.latitudeKeys=latitudeKeys;var altitudeKeys=["alt","altitude","elevation","elev",2];exports.altitudeKeys=altitudeKeys;var distanceConversion={m:1,km:0.001,cm:100,mm:1000,mi:1/1609.344,sm:1/1852.216,ft:100/30.48,in:100/2.54,yd:1/0.9144};exports.distanceConversion=distanceConversion;var timeConversion={m:60,h:3600,d:86400};exports.timeConversion=timeConversion;var areaConversion={m2:1,km2:0.000001,ha:0.0001,a:0.01,ft2:10.763911,yd2:1.19599,in2:1550.0031};exports.areaConversion=areaConversion;areaConversion.sqm=areaConversion.m2;areaConversion.sqkm=areaConversion.km2;areaConversion.sqft=areaConversion.ft2;areaConversion.sqyd=areaConversion.yd2;areaConversion.sqin=areaConversion.in2;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/convertArea.js":
+/*!***********************************************!*\
+  !*** ./node_modules/geolib/es/convertArea.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var convertArea=function convertArea(squareMeters){var targetUnit=arguments.length>1&&arguments[1]!==undefined?arguments[1]:"m";var factor=_constants.areaConversion[targetUnit];if(factor){return squareMeters*factor}throw new Error("Invalid unit used for area conversion.")};var _default=convertArea;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/convertDistance.js":
+/*!***************************************************!*\
+  !*** ./node_modules/geolib/es/convertDistance.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var convertDistance=function convertDistance(meters){var targetUnit=arguments.length>1&&arguments[1]!==undefined?arguments[1]:"m";var factor=_constants.distanceConversion[targetUnit];if(factor){return meters*factor}throw new Error("Invalid unit used for distance conversion.")};var _default=convertDistance;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/convertSpeed.js":
+/*!************************************************!*\
+  !*** ./node_modules/geolib/es/convertSpeed.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var convertSpeed=function convertSpeed(metersPerSecond){var targetUnit=arguments.length>1&&arguments[1]!==undefined?arguments[1]:"kmh";switch(targetUnit){case"kmh":return metersPerSecond*_constants.timeConversion.h*_constants.distanceConversion.km;case"mph":return metersPerSecond*_constants.timeConversion.h*_constants.distanceConversion.mi;default:return metersPerSecond;}};var _default=convertSpeed;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/decimalToSexagesimal.js":
+/*!********************************************************!*\
+  !*** ./node_modules/geolib/es/decimalToSexagesimal.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;function _slicedToArray(arr,i){return _arrayWithHoles(arr)||_iterableToArrayLimit(arr,i)||_unsupportedIterableToArray(arr,i)||_nonIterableRest()}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _unsupportedIterableToArray(o,minLen){if(!o)return;if(typeof o==="string")return _arrayLikeToArray(o,minLen);var n=Object.prototype.toString.call(o).slice(8,-1);if(n==="Object"&&o.constructor)n=o.constructor.name;if(n==="Map"||n==="Set")return Array.from(o);if(n==="Arguments"||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return _arrayLikeToArray(o,minLen)}function _arrayLikeToArray(arr,len){if(len==null||len>arr.length)len=arr.length;for(var i=0,arr2=new Array(len);i<len;i++){arr2[i]=arr[i]}return arr2}function _iterableToArrayLimit(arr,i){if(typeof Symbol==="undefined"||!(Symbol.iterator in Object(arr)))return;var _arr=[];var _n=true;var _d=false;var _e=undefined;try{for(var _i=arr[Symbol.iterator](),_s;!(_n=(_s=_i.next()).done);_n=true){_arr.push(_s.value);if(i&&_arr.length===i)break}}catch(err){_d=true;_e=err}finally{try{if(!_n&&_i["return"]!=null)_i["return"]()}finally{if(_d)throw _e}}return _arr}function _arrayWithHoles(arr){if(Array.isArray(arr))return arr}var imprecise=function imprecise(number){var factor=Math.pow(10,12);return Math.round(number*factor)/factor};var decimal2sexagesimal=function decimal2sexagesimal(decimal){var _decimal$toString$spl=decimal.toString().split("."),_decimal$toString$spl2=_slicedToArray(_decimal$toString$spl,2),pre=_decimal$toString$spl2[0],post=_decimal$toString$spl2[1];var deg=Math.abs(Number(pre));var minFull=imprecise(Number("0."+(post||0))*60);var min=Math.floor(minFull);var sec=imprecise((minFull%min||0)*60);return deg+"\xB0 "+Number(min.toFixed(6)).toString().split(".").map(function(v,i){return i===0?v.padStart(2,"0"):v}).join(".")+"' "+Number(sec.toFixed(4)).toString().split(".").map(function(v,i){return i===0?v.padStart(2,"0"):v}).join(".")+"\""};var _default=decimal2sexagesimal;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/findNearest.js":
+/*!***********************************************!*\
+  !*** ./node_modules/geolib/es/findNearest.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _orderByDistance=_interopRequireDefault(__webpack_require__(/*! ./orderByDistance */ "./node_modules/geolib/es/orderByDistance.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var findNearest=function findNearest(point,coords){return(0,_orderByDistance.default)(point,coords)[0]};var _default=findNearest;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getAreaOfPolygon.js":
+/*!****************************************************!*\
+  !*** ./node_modules/geolib/es/getAreaOfPolygon.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getAreaOfPolygon=function getAreaOfPolygon(points){var area=0;if(points.length>2){var lowerIndex;var middleIndex;var upperIndex;for(var i=0;i<points.length;i++){if(i===points.length-2){lowerIndex=points.length-2;middleIndex=points.length-1;upperIndex=0}else if(i===points.length-1){lowerIndex=points.length-1;middleIndex=0;upperIndex=1}else{lowerIndex=i;middleIndex=i+1;upperIndex=i+2}var p1lon=(0,_getLongitude.default)(points[lowerIndex]);var p2lat=(0,_getLatitude.default)(points[middleIndex]);var p3lon=(0,_getLongitude.default)(points[upperIndex]);area+=((0,_toRad.default)(p3lon)-(0,_toRad.default)(p1lon))*Math.sin((0,_toRad.default)(p2lat))}area=area*_constants.earthRadius*_constants.earthRadius/2}return Math.abs(area)};var _default=getAreaOfPolygon;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getBounds.js":
+/*!*********************************************!*\
+  !*** ./node_modules/geolib/es/getBounds.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getBounds=function getBounds(points){if(Array.isArray(points)===false||points.length===0){throw new Error("No points were given.")}return points.reduce(function(stats,point){var latitude=(0,_getLatitude.default)(point);var longitude=(0,_getLongitude.default)(point);return{maxLat:Math.max(latitude,stats.maxLat),minLat:Math.min(latitude,stats.minLat),maxLng:Math.max(longitude,stats.maxLng),minLng:Math.min(longitude,stats.minLng)}},{maxLat:-Infinity,minLat:Infinity,maxLng:-Infinity,minLng:Infinity})};var _default=getBounds;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getBoundsOfDistance.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/geolib/es/getBoundsOfDistance.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _toDeg=_interopRequireDefault(__webpack_require__(/*! ./toDeg */ "./node_modules/geolib/es/toDeg.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getBoundsOfDistance=function getBoundsOfDistance(point,distance){var latitude=(0,_getLatitude.default)(point);var longitude=(0,_getLongitude.default)(point);var radLat=(0,_toRad.default)(latitude);var radLon=(0,_toRad.default)(longitude);var radDist=distance/_constants.earthRadius;var minLat=radLat-radDist;var maxLat=radLat+radDist;var MAX_LAT_RAD=(0,_toRad.default)(_constants.MAXLAT);var MIN_LAT_RAD=(0,_toRad.default)(_constants.MINLAT);var MAX_LON_RAD=(0,_toRad.default)(_constants.MAXLON);var MIN_LON_RAD=(0,_toRad.default)(_constants.MINLON);var minLon;var maxLon;if(minLat>MIN_LAT_RAD&&maxLat<MAX_LAT_RAD){var deltaLon=Math.asin(Math.sin(radDist)/Math.cos(radLat));minLon=radLon-deltaLon;if(minLon<MIN_LON_RAD){minLon+=Math.PI*2}maxLon=radLon+deltaLon;if(maxLon>MAX_LON_RAD){maxLon-=Math.PI*2}}else{minLat=Math.max(minLat,MIN_LAT_RAD);maxLat=Math.min(maxLat,MAX_LAT_RAD);minLon=MIN_LON_RAD;maxLon=MAX_LON_RAD}return[{latitude:(0,_toDeg.default)(minLat),longitude:(0,_toDeg.default)(minLon)},{latitude:(0,_toDeg.default)(maxLat),longitude:(0,_toDeg.default)(maxLon)}]};var _default=getBoundsOfDistance;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getCenter.js":
+/*!*********************************************!*\
+  !*** ./node_modules/geolib/es/getCenter.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _toDeg=_interopRequireDefault(__webpack_require__(/*! ./toDeg */ "./node_modules/geolib/es/toDeg.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getCenter=function getCenter(points){if(Array.isArray(points)===false||points.length===0){return false}var numberOfPoints=points.length;var sum=points.reduce(function(acc,point){var pointLat=(0,_toRad.default)((0,_getLatitude.default)(point));var pointLon=(0,_toRad.default)((0,_getLongitude.default)(point));return{X:acc.X+Math.cos(pointLat)*Math.cos(pointLon),Y:acc.Y+Math.cos(pointLat)*Math.sin(pointLon),Z:acc.Z+Math.sin(pointLat)}},{X:0,Y:0,Z:0});var X=sum.X/numberOfPoints;var Y=sum.Y/numberOfPoints;var Z=sum.Z/numberOfPoints;return{longitude:(0,_toDeg.default)(Math.atan2(Y,X)),latitude:(0,_toDeg.default)(Math.atan2(Z,Math.sqrt(X*X+Y*Y)))}};var _default=getCenter;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getCenterOfBounds.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/geolib/es/getCenterOfBounds.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getBounds=_interopRequireDefault(__webpack_require__(/*! ./getBounds */ "./node_modules/geolib/es/getBounds.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getCenterOfBounds=function getCenterOfBounds(coords){var bounds=(0,_getBounds.default)(coords);var latitude=bounds.minLat+(bounds.maxLat-bounds.minLat)/2;var longitude=bounds.minLng+(bounds.maxLng-bounds.minLng)/2;return{latitude:parseFloat(latitude.toFixed(6)),longitude:parseFloat(longitude.toFixed(6))}};var _default=getCenterOfBounds;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getCompassDirection.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/geolib/es/getCompassDirection.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getRhumbLineBearing=_interopRequireDefault(__webpack_require__(/*! ./getRhumbLineBearing */ "./node_modules/geolib/es/getRhumbLineBearing.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getCompassDirection=function getCompassDirection(origin,dest){var bearingFn=arguments.length>2&&arguments[2]!==undefined?arguments[2]:_getRhumbLineBearing.default;var bearing=typeof bearingFn==="function"?bearingFn(origin,dest):(0,_getRhumbLineBearing.default)(origin,dest);if(isNaN(bearing)){throw new Error("Could not calculate bearing for given points. Check your bearing function")}switch(Math.round(bearing/22.5)){case 1:return"NNE";case 2:return"NE";case 3:return"ENE";case 4:return"E";case 5:return"ESE";case 6:return"SE";case 7:return"SSE";case 8:return"S";case 9:return"SSW";case 10:return"SW";case 11:return"WSW";case 12:return"W";case 13:return"WNW";case 14:return"NW";case 15:return"NNW";default:return"N";}};var _default=getCompassDirection;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getCoordinateKey.js":
+/*!****************************************************!*\
+  !*** ./node_modules/geolib/es/getCoordinateKey.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var getCoordinateKey=function getCoordinateKey(point,keysToLookup){return keysToLookup.reduce(function(foundKey,key){if(typeof point==="undefined"||point===null){throw new Error("'".concat(point,"' is no valid coordinate."))}if(Object.prototype.hasOwnProperty.call(point,key)&&typeof key!=="undefined"&&typeof foundKey==="undefined"){foundKey=key;return key}return foundKey},undefined)};var _default=getCoordinateKey;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getCoordinateKeys.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/geolib/es/getCoordinateKeys.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var _getCoordinateKey=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKey */ "./node_modules/geolib/es/getCoordinateKey.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable});keys.push.apply(keys,symbols)}return keys}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){_defineProperty(target,key,source[key])})}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source))}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key))})}}return target}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true})}else{obj[key]=value}return obj}var getCoordinateKeys=function getCoordinateKeys(point){var keysToLookup=arguments.length>1&&arguments[1]!==undefined?arguments[1]:{longitude:_constants.longitudeKeys,latitude:_constants.latitudeKeys,altitude:_constants.altitudeKeys};var longitude=(0,_getCoordinateKey.default)(point,keysToLookup.longitude);var latitude=(0,_getCoordinateKey.default)(point,keysToLookup.latitude);var altitude=(0,_getCoordinateKey.default)(point,keysToLookup.altitude);return _objectSpread({latitude:latitude,longitude:longitude},altitude?{altitude:altitude}:{})};var _default=getCoordinateKeys;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getDistance.js":
+/*!***********************************************!*\
+  !*** ./node_modules/geolib/es/getDistance.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _robustAcos=_interopRequireDefault(__webpack_require__(/*! ./robustAcos */ "./node_modules/geolib/es/robustAcos.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getDistance=function getDistance(from,to){var accuracy=arguments.length>2&&arguments[2]!==undefined?arguments[2]:1;accuracy=typeof accuracy!=="undefined"&&!isNaN(accuracy)?accuracy:1;var fromLat=(0,_getLatitude.default)(from);var fromLon=(0,_getLongitude.default)(from);var toLat=(0,_getLatitude.default)(to);var toLon=(0,_getLongitude.default)(to);var distance=Math.acos((0,_robustAcos.default)(Math.sin((0,_toRad.default)(toLat))*Math.sin((0,_toRad.default)(fromLat))+Math.cos((0,_toRad.default)(toLat))*Math.cos((0,_toRad.default)(fromLat))*Math.cos((0,_toRad.default)(fromLon)-(0,_toRad.default)(toLon))))*_constants.earthRadius;return Math.round(distance/accuracy)*accuracy};var _default=getDistance;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getDistanceFromLine.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/geolib/es/getDistanceFromLine.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));var _robustAcos=_interopRequireDefault(__webpack_require__(/*! ./robustAcos */ "./node_modules/geolib/es/robustAcos.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getDistanceFromLine=function getDistanceFromLine(point,lineStart,lineEnd){var d1=(0,_getDistance.default)(lineStart,point);var d2=(0,_getDistance.default)(point,lineEnd);var d3=(0,_getDistance.default)(lineStart,lineEnd);var alpha=Math.acos((0,_robustAcos.default)((d1*d1+d3*d3-d2*d2)/(2*d1*d3)));var beta=Math.acos((0,_robustAcos.default)((d2*d2+d3*d3-d1*d1)/(2*d2*d3)));if(alpha>Math.PI/2){return d1}if(beta>Math.PI/2){return d2}return Math.sin(alpha)*d1};var _default=getDistanceFromLine;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getGreatCircleBearing.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/geolib/es/getGreatCircleBearing.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _toDeg=_interopRequireDefault(__webpack_require__(/*! ./toDeg */ "./node_modules/geolib/es/toDeg.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getGreatCircleBearing=function getGreatCircleBearing(origin,dest){var destLat=(0,_getLatitude.default)(dest);var detLon=(0,_getLongitude.default)(dest);var originLat=(0,_getLatitude.default)(origin);var originLon=(0,_getLongitude.default)(origin);var bearing=((0,_toDeg.default)(Math.atan2(Math.sin((0,_toRad.default)(detLon)-(0,_toRad.default)(originLon))*Math.cos((0,_toRad.default)(destLat)),Math.cos((0,_toRad.default)(originLat))*Math.sin((0,_toRad.default)(destLat))-Math.sin((0,_toRad.default)(originLat))*Math.cos((0,_toRad.default)(destLat))*Math.cos((0,_toRad.default)(detLon)-(0,_toRad.default)(originLon))))+360)%360;return bearing};var _default=getGreatCircleBearing;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getLatitude.js":
+/*!***********************************************!*\
+  !*** ./node_modules/geolib/es/getLatitude.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var _getCoordinateKey=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKey */ "./node_modules/geolib/es/getCoordinateKey.js"));var _toDecimal=_interopRequireDefault(__webpack_require__(/*! ./toDecimal */ "./node_modules/geolib/es/toDecimal.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getLatitude=function getLatitude(point,raw){var latKey=(0,_getCoordinateKey.default)(point,_constants.latitudeKeys);if(typeof latKey==="undefined"||latKey===null){return}var value=point[latKey];return raw===true?value:(0,_toDecimal.default)(value)};var _default=getLatitude;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getLongitude.js":
+/*!************************************************!*\
+  !*** ./node_modules/geolib/es/getLongitude.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var _getCoordinateKey=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKey */ "./node_modules/geolib/es/getCoordinateKey.js"));var _toDecimal=_interopRequireDefault(__webpack_require__(/*! ./toDecimal */ "./node_modules/geolib/es/toDecimal.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getLongitude=function getLongitude(point,raw){var latKey=(0,_getCoordinateKey.default)(point,_constants.longitudeKeys);if(typeof latKey==="undefined"||latKey===null){return}var value=point[latKey];return raw===true?value:(0,_toDecimal.default)(value)};var _default=getLongitude;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getPathLength.js":
+/*!*************************************************!*\
+  !*** ./node_modules/geolib/es/getPathLength.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}function _typeof(obj){"@babel/helpers - typeof";if(typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"){_typeof=function _typeof(obj){return typeof obj}}else{_typeof=function _typeof(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj}}return _typeof(obj)}var getPathLength=function getPathLength(points){var distanceFn=arguments.length>1&&arguments[1]!==undefined?arguments[1]:_getDistance.default;return points.reduce(function(acc,point){if(_typeof(acc)==="object"&&acc.last!==null){acc.distance+=distanceFn(point,acc.last)}acc.last=point;return acc},{last:null,distance:0}).distance};var _default=getPathLength;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getPreciseDistance.js":
+/*!******************************************************!*\
+  !*** ./node_modules/geolib/es/getPreciseDistance.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getDistance=function getDistance(start,end){var accuracy=arguments.length>2&&arguments[2]!==undefined?arguments[2]:1;accuracy=typeof accuracy!=="undefined"&&!isNaN(accuracy)?accuracy:1;var startLat=(0,_getLatitude.default)(start);var startLon=(0,_getLongitude.default)(start);var endLat=(0,_getLatitude.default)(end);var endLon=(0,_getLongitude.default)(end);var b=6356752.314245;var ellipsoidParams=1/298.257223563;var L=(0,_toRad.default)(endLon-startLon);var cosSigma;var sigma;var sinAlpha;var cosSqAlpha;var cos2SigmaM;var sinSigma;var U1=Math.atan((1-ellipsoidParams)*Math.tan((0,_toRad.default)(parseFloat(startLat))));var U2=Math.atan((1-ellipsoidParams)*Math.tan((0,_toRad.default)(parseFloat(endLat))));var sinU1=Math.sin(U1);var cosU1=Math.cos(U1);var sinU2=Math.sin(U2);var cosU2=Math.cos(U2);var lambda=L;var lambdaP;var iterLimit=100;do{var sinLambda=Math.sin(lambda);var cosLambda=Math.cos(lambda);sinSigma=Math.sqrt(cosU2*sinLambda*(cosU2*sinLambda)+(cosU1*sinU2-sinU1*cosU2*cosLambda)*(cosU1*sinU2-sinU1*cosU2*cosLambda));if(sinSigma===0){return 0}cosSigma=sinU1*sinU2+cosU1*cosU2*cosLambda;sigma=Math.atan2(sinSigma,cosSigma);sinAlpha=cosU1*cosU2*sinLambda/sinSigma;cosSqAlpha=1-sinAlpha*sinAlpha;cos2SigmaM=cosSigma-2*sinU1*sinU2/cosSqAlpha;if(isNaN(cos2SigmaM)){cos2SigmaM=0}var C=ellipsoidParams/16*cosSqAlpha*(4+ellipsoidParams*(4-3*cosSqAlpha));lambdaP=lambda;lambda=L+(1-C)*ellipsoidParams*sinAlpha*(sigma+C*sinSigma*(cos2SigmaM+C*cosSigma*(-1+2*cos2SigmaM*cos2SigmaM)))}while(Math.abs(lambda-lambdaP)>1e-12&&--iterLimit>0);if(iterLimit===0){return NaN}var uSq=cosSqAlpha*(_constants.earthRadius*_constants.earthRadius-b*b)/(b*b);var A=1+uSq/16384*(4096+uSq*(-768+uSq*(320-175*uSq)));var B=uSq/1024*(256+uSq*(-128+uSq*(74-47*uSq)));var deltaSigma=B*sinSigma*(cos2SigmaM+B/4*(cosSigma*(-1+2*cos2SigmaM*cos2SigmaM)-B/6*cos2SigmaM*(-3+4*sinSigma*sinSigma)*(-3+4*cos2SigmaM*cos2SigmaM)));var distance=b*A*(sigma-deltaSigma);return Math.round(distance/accuracy)*accuracy};var _default=getDistance;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getRhumbLineBearing.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/geolib/es/getRhumbLineBearing.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _toDeg=_interopRequireDefault(__webpack_require__(/*! ./toDeg */ "./node_modules/geolib/es/toDeg.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getRhumbLineBearing=function getRhumbLineBearing(origin,dest){var diffLon=(0,_toRad.default)((0,_getLongitude.default)(dest))-(0,_toRad.default)((0,_getLongitude.default)(origin));var diffPhi=Math.log(Math.tan((0,_toRad.default)((0,_getLatitude.default)(dest))/2+Math.PI/4)/Math.tan((0,_toRad.default)((0,_getLatitude.default)(origin))/2+Math.PI/4));if(Math.abs(diffLon)>Math.PI){if(diffLon>0){diffLon=(Math.PI*2-diffLon)*-1}else{diffLon=Math.PI*2+diffLon}}return((0,_toDeg.default)(Math.atan2(diffLon,diffPhi))+360)%360};var _default=getRhumbLineBearing;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getRoughCompassDirection.js":
+/*!************************************************************!*\
+  !*** ./node_modules/geolib/es/getRoughCompassDirection.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var getRoughCompassDirection=function getRoughCompassDirection(exact){if(/^NNE|NE|NNW|N$/.test(exact)){return"N"}if(/^ENE|E|ESE|SE$/.test(exact)){return"E"}if(/^SSE|S|SSW|SW$/.test(exact)){return"S"}if(/^WSW|W|WNW|NW$/.test(exact)){return"W"}};var _default=getRoughCompassDirection;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/getSpeed.js":
+/*!********************************************!*\
+  !*** ./node_modules/geolib/es/getSpeed.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getSpeed=function getSpeed(start,end){var distanceFn=arguments.length>2&&arguments[2]!==undefined?arguments[2]:_getDistance.default;var distance=distanceFn(start,end);var time=Number(end.time)-Number(start.time);var metersPerSecond=distance/time*1000;return metersPerSecond};var _default=getSpeed;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/geolib/es/index.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));var _exportNames={computeDestinationPoint:true,convertArea:true,convertDistance:true,convertSpeed:true,decimalToSexagesimal:true,findNearest:true,getAreaOfPolygon:true,getBounds:true,getBoundsOfDistance:true,getCenter:true,getCenterOfBounds:true,getCompassDirection:true,getCoordinateKey:true,getCoordinateKeys:true,getDistance:true,getDistanceFromLine:true,getGreatCircleBearing:true,getLatitude:true,getLongitude:true,getPathLength:true,getPreciseDistance:true,getRhumbLineBearing:true,getRoughCompassDirection:true,getSpeed:true,isDecimal:true,isPointInLine:true,isPointInPolygon:true,isPointNearLine:true,isPointWithinRadius:true,isSexagesimal:true,isValidCoordinate:true,isValidLatitude:true,isValidLongitude:true,orderByDistance:true,sexagesimalToDecimal:true,toDecimal:true,toRad:true,toDeg:true,wktToPolygon:true};Object.defineProperty(exports, "computeDestinationPoint", ({enumerable:true,get:function get(){return _computeDestinationPoint.default}}));Object.defineProperty(exports, "convertArea", ({enumerable:true,get:function get(){return _convertArea.default}}));Object.defineProperty(exports, "convertDistance", ({enumerable:true,get:function get(){return _convertDistance.default}}));Object.defineProperty(exports, "convertSpeed", ({enumerable:true,get:function get(){return _convertSpeed.default}}));Object.defineProperty(exports, "decimalToSexagesimal", ({enumerable:true,get:function get(){return _decimalToSexagesimal.default}}));Object.defineProperty(exports, "findNearest", ({enumerable:true,get:function get(){return _findNearest.default}}));Object.defineProperty(exports, "getAreaOfPolygon", ({enumerable:true,get:function get(){return _getAreaOfPolygon.default}}));Object.defineProperty(exports, "getBounds", ({enumerable:true,get:function get(){return _getBounds.default}}));Object.defineProperty(exports, "getBoundsOfDistance", ({enumerable:true,get:function get(){return _getBoundsOfDistance.default}}));Object.defineProperty(exports, "getCenter", ({enumerable:true,get:function get(){return _getCenter.default}}));Object.defineProperty(exports, "getCenterOfBounds", ({enumerable:true,get:function get(){return _getCenterOfBounds.default}}));Object.defineProperty(exports, "getCompassDirection", ({enumerable:true,get:function get(){return _getCompassDirection.default}}));Object.defineProperty(exports, "getCoordinateKey", ({enumerable:true,get:function get(){return _getCoordinateKey.default}}));Object.defineProperty(exports, "getCoordinateKeys", ({enumerable:true,get:function get(){return _getCoordinateKeys.default}}));Object.defineProperty(exports, "getDistance", ({enumerable:true,get:function get(){return _getDistance.default}}));Object.defineProperty(exports, "getDistanceFromLine", ({enumerable:true,get:function get(){return _getDistanceFromLine.default}}));Object.defineProperty(exports, "getGreatCircleBearing", ({enumerable:true,get:function get(){return _getGreatCircleBearing.default}}));Object.defineProperty(exports, "getLatitude", ({enumerable:true,get:function get(){return _getLatitude.default}}));Object.defineProperty(exports, "getLongitude", ({enumerable:true,get:function get(){return _getLongitude.default}}));Object.defineProperty(exports, "getPathLength", ({enumerable:true,get:function get(){return _getPathLength.default}}));Object.defineProperty(exports, "getPreciseDistance", ({enumerable:true,get:function get(){return _getPreciseDistance.default}}));Object.defineProperty(exports, "getRhumbLineBearing", ({enumerable:true,get:function get(){return _getRhumbLineBearing.default}}));Object.defineProperty(exports, "getRoughCompassDirection", ({enumerable:true,get:function get(){return _getRoughCompassDirection.default}}));Object.defineProperty(exports, "getSpeed", ({enumerable:true,get:function get(){return _getSpeed.default}}));Object.defineProperty(exports, "isDecimal", ({enumerable:true,get:function get(){return _isDecimal.default}}));Object.defineProperty(exports, "isPointInLine", ({enumerable:true,get:function get(){return _isPointInLine.default}}));Object.defineProperty(exports, "isPointInPolygon", ({enumerable:true,get:function get(){return _isPointInPolygon.default}}));Object.defineProperty(exports, "isPointNearLine", ({enumerable:true,get:function get(){return _isPointNearLine.default}}));Object.defineProperty(exports, "isPointWithinRadius", ({enumerable:true,get:function get(){return _isPointWithinRadius.default}}));Object.defineProperty(exports, "isSexagesimal", ({enumerable:true,get:function get(){return _isSexagesimal.default}}));Object.defineProperty(exports, "isValidCoordinate", ({enumerable:true,get:function get(){return _isValidCoordinate.default}}));Object.defineProperty(exports, "isValidLatitude", ({enumerable:true,get:function get(){return _isValidLatitude.default}}));Object.defineProperty(exports, "isValidLongitude", ({enumerable:true,get:function get(){return _isValidLongitude.default}}));Object.defineProperty(exports, "orderByDistance", ({enumerable:true,get:function get(){return _orderByDistance.default}}));Object.defineProperty(exports, "sexagesimalToDecimal", ({enumerable:true,get:function get(){return _sexagesimalToDecimal.default}}));Object.defineProperty(exports, "toDecimal", ({enumerable:true,get:function get(){return _toDecimal.default}}));Object.defineProperty(exports, "toRad", ({enumerable:true,get:function get(){return _toRad.default}}));Object.defineProperty(exports, "toDeg", ({enumerable:true,get:function get(){return _toDeg.default}}));Object.defineProperty(exports, "wktToPolygon", ({enumerable:true,get:function get(){return _wktToPolygon.default}}));var _computeDestinationPoint=_interopRequireDefault(__webpack_require__(/*! ./computeDestinationPoint */ "./node_modules/geolib/es/computeDestinationPoint.js"));var _convertArea=_interopRequireDefault(__webpack_require__(/*! ./convertArea */ "./node_modules/geolib/es/convertArea.js"));var _convertDistance=_interopRequireDefault(__webpack_require__(/*! ./convertDistance */ "./node_modules/geolib/es/convertDistance.js"));var _convertSpeed=_interopRequireDefault(__webpack_require__(/*! ./convertSpeed */ "./node_modules/geolib/es/convertSpeed.js"));var _decimalToSexagesimal=_interopRequireDefault(__webpack_require__(/*! ./decimalToSexagesimal */ "./node_modules/geolib/es/decimalToSexagesimal.js"));var _findNearest=_interopRequireDefault(__webpack_require__(/*! ./findNearest */ "./node_modules/geolib/es/findNearest.js"));var _getAreaOfPolygon=_interopRequireDefault(__webpack_require__(/*! ./getAreaOfPolygon */ "./node_modules/geolib/es/getAreaOfPolygon.js"));var _getBounds=_interopRequireDefault(__webpack_require__(/*! ./getBounds */ "./node_modules/geolib/es/getBounds.js"));var _getBoundsOfDistance=_interopRequireDefault(__webpack_require__(/*! ./getBoundsOfDistance */ "./node_modules/geolib/es/getBoundsOfDistance.js"));var _getCenter=_interopRequireDefault(__webpack_require__(/*! ./getCenter */ "./node_modules/geolib/es/getCenter.js"));var _getCenterOfBounds=_interopRequireDefault(__webpack_require__(/*! ./getCenterOfBounds */ "./node_modules/geolib/es/getCenterOfBounds.js"));var _getCompassDirection=_interopRequireDefault(__webpack_require__(/*! ./getCompassDirection */ "./node_modules/geolib/es/getCompassDirection.js"));var _getCoordinateKey=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKey */ "./node_modules/geolib/es/getCoordinateKey.js"));var _getCoordinateKeys=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKeys */ "./node_modules/geolib/es/getCoordinateKeys.js"));var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));var _getDistanceFromLine=_interopRequireDefault(__webpack_require__(/*! ./getDistanceFromLine */ "./node_modules/geolib/es/getDistanceFromLine.js"));var _getGreatCircleBearing=_interopRequireDefault(__webpack_require__(/*! ./getGreatCircleBearing */ "./node_modules/geolib/es/getGreatCircleBearing.js"));var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _getPathLength=_interopRequireDefault(__webpack_require__(/*! ./getPathLength */ "./node_modules/geolib/es/getPathLength.js"));var _getPreciseDistance=_interopRequireDefault(__webpack_require__(/*! ./getPreciseDistance */ "./node_modules/geolib/es/getPreciseDistance.js"));var _getRhumbLineBearing=_interopRequireDefault(__webpack_require__(/*! ./getRhumbLineBearing */ "./node_modules/geolib/es/getRhumbLineBearing.js"));var _getRoughCompassDirection=_interopRequireDefault(__webpack_require__(/*! ./getRoughCompassDirection */ "./node_modules/geolib/es/getRoughCompassDirection.js"));var _getSpeed=_interopRequireDefault(__webpack_require__(/*! ./getSpeed */ "./node_modules/geolib/es/getSpeed.js"));var _isDecimal=_interopRequireDefault(__webpack_require__(/*! ./isDecimal */ "./node_modules/geolib/es/isDecimal.js"));var _isPointInLine=_interopRequireDefault(__webpack_require__(/*! ./isPointInLine */ "./node_modules/geolib/es/isPointInLine.js"));var _isPointInPolygon=_interopRequireDefault(__webpack_require__(/*! ./isPointInPolygon */ "./node_modules/geolib/es/isPointInPolygon.js"));var _isPointNearLine=_interopRequireDefault(__webpack_require__(/*! ./isPointNearLine */ "./node_modules/geolib/es/isPointNearLine.js"));var _isPointWithinRadius=_interopRequireDefault(__webpack_require__(/*! ./isPointWithinRadius */ "./node_modules/geolib/es/isPointWithinRadius.js"));var _isSexagesimal=_interopRequireDefault(__webpack_require__(/*! ./isSexagesimal */ "./node_modules/geolib/es/isSexagesimal.js"));var _isValidCoordinate=_interopRequireDefault(__webpack_require__(/*! ./isValidCoordinate */ "./node_modules/geolib/es/isValidCoordinate.js"));var _isValidLatitude=_interopRequireDefault(__webpack_require__(/*! ./isValidLatitude */ "./node_modules/geolib/es/isValidLatitude.js"));var _isValidLongitude=_interopRequireDefault(__webpack_require__(/*! ./isValidLongitude */ "./node_modules/geolib/es/isValidLongitude.js"));var _orderByDistance=_interopRequireDefault(__webpack_require__(/*! ./orderByDistance */ "./node_modules/geolib/es/orderByDistance.js"));var _sexagesimalToDecimal=_interopRequireDefault(__webpack_require__(/*! ./sexagesimalToDecimal */ "./node_modules/geolib/es/sexagesimalToDecimal.js"));var _toDecimal=_interopRequireDefault(__webpack_require__(/*! ./toDecimal */ "./node_modules/geolib/es/toDecimal.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _toDeg=_interopRequireDefault(__webpack_require__(/*! ./toDeg */ "./node_modules/geolib/es/toDeg.js"));var _wktToPolygon=_interopRequireDefault(__webpack_require__(/*! ./wktToPolygon */ "./node_modules/geolib/es/wktToPolygon.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");Object.keys(_constants).forEach(function(key){if(key==="default"||key==="__esModule")return;if(Object.prototype.hasOwnProperty.call(_exportNames,key))return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _constants[key]}})});function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/isDecimal.js":
+/*!*********************************************!*\
+  !*** ./node_modules/geolib/es/isDecimal.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var isDecimal=function isDecimal(value){var checkedValue=value.toString().trim();if(isNaN(parseFloat(checkedValue))){return false}return parseFloat(checkedValue)===Number(checkedValue)};var _default=isDecimal;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/isPointInLine.js":
+/*!*************************************************!*\
+  !*** ./node_modules/geolib/es/isPointInLine.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isPointInLine=function isPointInLine(point,lineStart,lineEnd){return(0,_getDistance.default)(lineStart,point)+(0,_getDistance.default)(point,lineEnd)===(0,_getDistance.default)(lineStart,lineEnd)};var _default=isPointInLine;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/isPointInPolygon.js":
+/*!****************************************************!*\
+  !*** ./node_modules/geolib/es/isPointInPolygon.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isPointInPolygon=function isPointInPolygon(point,polygon){var isInside=false;var totalPolys=polygon.length;for(var i=-1,j=totalPolys-1;++i<totalPolys;j=i){if(((0,_getLongitude.default)(polygon[i])<=(0,_getLongitude.default)(point)&&(0,_getLongitude.default)(point)<(0,_getLongitude.default)(polygon[j])||(0,_getLongitude.default)(polygon[j])<=(0,_getLongitude.default)(point)&&(0,_getLongitude.default)(point)<(0,_getLongitude.default)(polygon[i]))&&(0,_getLatitude.default)(point)<((0,_getLatitude.default)(polygon[j])-(0,_getLatitude.default)(polygon[i]))*((0,_getLongitude.default)(point)-(0,_getLongitude.default)(polygon[i]))/((0,_getLongitude.default)(polygon[j])-(0,_getLongitude.default)(polygon[i]))+(0,_getLatitude.default)(polygon[i])){isInside=!isInside}}return isInside};var _default=isPointInPolygon;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/isPointNearLine.js":
+/*!***************************************************!*\
+  !*** ./node_modules/geolib/es/isPointNearLine.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistanceFromLine=_interopRequireDefault(__webpack_require__(/*! ./getDistanceFromLine */ "./node_modules/geolib/es/getDistanceFromLine.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isPointNearLine=function isPointNearLine(point,start,end,distance){return(0,_getDistanceFromLine.default)(point,start,end)<distance};var _default=isPointNearLine;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/isPointWithinRadius.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/geolib/es/isPointWithinRadius.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isPointWithinRadius=function isPointWithinRadius(point,center,radius){return(0,_getDistance.default)(point,center)<radius};var _default=isPointWithinRadius;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/isSexagesimal.js":
+/*!*************************************************!*\
+  !*** ./node_modules/geolib/es/isSexagesimal.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var isSexagesimal=function isSexagesimal(value){return _constants.sexagesimalPattern.test(value.toString().trim())};var _default=isSexagesimal;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/isValidCoordinate.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/geolib/es/isValidCoordinate.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getCoordinateKeys2=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKeys */ "./node_modules/geolib/es/getCoordinateKeys.js"));var _isValidLatitude=_interopRequireDefault(__webpack_require__(/*! ./isValidLatitude */ "./node_modules/geolib/es/isValidLatitude.js"));var _isValidLongitude=_interopRequireDefault(__webpack_require__(/*! ./isValidLongitude */ "./node_modules/geolib/es/isValidLongitude.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isValidCoordinate=function isValidCoordinate(point){var _getCoordinateKeys=(0,_getCoordinateKeys2.default)(point),latitude=_getCoordinateKeys.latitude,longitude=_getCoordinateKeys.longitude;if(Array.isArray(point)&&point.length>=2){return(0,_isValidLongitude.default)(point[0])&&(0,_isValidLatitude.default)(point[1])}if(typeof latitude==="undefined"||typeof longitude==="undefined"){return false}var lon=point[longitude];var lat=point[latitude];if(typeof lat==="undefined"||typeof lon==="undefined"){return false}if((0,_isValidLatitude.default)(lat)===false||(0,_isValidLongitude.default)(lon)===false){return false}return true};var _default=isValidCoordinate;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/isValidLatitude.js":
+/*!***************************************************!*\
+  !*** ./node_modules/geolib/es/isValidLatitude.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _isDecimal=_interopRequireDefault(__webpack_require__(/*! ./isDecimal */ "./node_modules/geolib/es/isDecimal.js"));var _isSexagesimal=_interopRequireDefault(__webpack_require__(/*! ./isSexagesimal */ "./node_modules/geolib/es/isSexagesimal.js"));var _sexagesimalToDecimal=_interopRequireDefault(__webpack_require__(/*! ./sexagesimalToDecimal */ "./node_modules/geolib/es/sexagesimalToDecimal.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isValidLatitude=function isValidLatitude(value){if((0,_isDecimal.default)(value)){if(parseFloat(value)>_constants.MAXLAT||value<_constants.MINLAT){return false}return true}if((0,_isSexagesimal.default)(value)){return isValidLatitude((0,_sexagesimalToDecimal.default)(value))}return false};var _default=isValidLatitude;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/isValidLongitude.js":
+/*!****************************************************!*\
+  !*** ./node_modules/geolib/es/isValidLongitude.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _isDecimal=_interopRequireDefault(__webpack_require__(/*! ./isDecimal */ "./node_modules/geolib/es/isDecimal.js"));var _isSexagesimal=_interopRequireDefault(__webpack_require__(/*! ./isSexagesimal */ "./node_modules/geolib/es/isSexagesimal.js"));var _sexagesimalToDecimal=_interopRequireDefault(__webpack_require__(/*! ./sexagesimalToDecimal */ "./node_modules/geolib/es/sexagesimalToDecimal.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isValidLongitude=function isValidLongitude(value){if((0,_isDecimal.default)(value)){if(parseFloat(value)>_constants.MAXLON||value<_constants.MINLON){return false}return true}if((0,_isSexagesimal.default)(value)){return isValidLongitude((0,_sexagesimalToDecimal.default)(value))}return false};var _default=isValidLongitude;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/orderByDistance.js":
+/*!***************************************************!*\
+  !*** ./node_modules/geolib/es/orderByDistance.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var orderByDistance=function orderByDistance(point,coords){var distanceFn=arguments.length>2&&arguments[2]!==undefined?arguments[2]:_getDistance.default;distanceFn=typeof distanceFn==="function"?distanceFn:_getDistance.default;return coords.slice().sort(function(a,b){return distanceFn(point,a)-distanceFn(point,b)})};var _default=orderByDistance;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/robustAcos.js":
+/*!**********************************************!*\
+  !*** ./node_modules/geolib/es/robustAcos.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var robustAcos=function robustAcos(value){if(value>1){return 1}if(value<-1){return-1}return value};var _default=robustAcos;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/sexagesimalToDecimal.js":
+/*!********************************************************!*\
+  !*** ./node_modules/geolib/es/sexagesimalToDecimal.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var sexagesimalToDecimal=function sexagesimalToDecimal(sexagesimal){var data=new RegExp(_constants.sexagesimalPattern).exec(sexagesimal);if(typeof data==="undefined"||data===null){throw new Error("Given value is not in sexagesimal format")}var min=Number(data[2])/60||0;var sec=Number(data[4])/3600||0;var decimal=parseFloat(data[1])+min+sec;return["S","W"].includes(data[7])?-decimal:decimal};var _default=sexagesimalToDecimal;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/toDecimal.js":
+/*!*********************************************!*\
+  !*** ./node_modules/geolib/es/toDecimal.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _isDecimal=_interopRequireDefault(__webpack_require__(/*! ./isDecimal */ "./node_modules/geolib/es/isDecimal.js"));var _isSexagesimal=_interopRequireDefault(__webpack_require__(/*! ./isSexagesimal */ "./node_modules/geolib/es/isSexagesimal.js"));var _sexagesimalToDecimal=_interopRequireDefault(__webpack_require__(/*! ./sexagesimalToDecimal */ "./node_modules/geolib/es/sexagesimalToDecimal.js"));var _isValidCoordinate=_interopRequireDefault(__webpack_require__(/*! ./isValidCoordinate */ "./node_modules/geolib/es/isValidCoordinate.js"));var _getCoordinateKeys=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKeys */ "./node_modules/geolib/es/getCoordinateKeys.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable});keys.push.apply(keys,symbols)}return keys}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){_defineProperty(target,key,source[key])})}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source))}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key))})}}return target}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true})}else{obj[key]=value}return obj}var toDecimal=function toDecimal(value){if((0,_isDecimal.default)(value)){return Number(value)}if((0,_isSexagesimal.default)(value)){return(0,_sexagesimalToDecimal.default)(value)}if((0,_isValidCoordinate.default)(value)){var keys=(0,_getCoordinateKeys.default)(value);if(Array.isArray(value)){return value.map(function(v,index){return[0,1].includes(index)?toDecimal(v):v})}return _objectSpread(_objectSpread(_objectSpread({},value),keys.latitude&&_defineProperty({},keys.latitude,toDecimal(value[keys.latitude]))),keys.longitude&&_defineProperty({},keys.longitude,toDecimal(value[keys.longitude])))}if(Array.isArray(value)){return value.map(function(point){return(0,_isValidCoordinate.default)(point)?toDecimal(point):point})}return value};var _default=toDecimal;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/toDeg.js":
+/*!*****************************************!*\
+  !*** ./node_modules/geolib/es/toDeg.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var toDeg=function toDeg(value){return value*180/Math.PI};var _default=toDeg;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/toRad.js":
+/*!*****************************************!*\
+  !*** ./node_modules/geolib/es/toRad.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var toRad=function toRad(value){return value*Math.PI/180};var _default=toRad;exports.default=_default;
+
+/***/ }),
+
+/***/ "./node_modules/geolib/es/wktToPolygon.js":
+/*!************************************************!*\
+  !*** ./node_modules/geolib/es/wktToPolygon.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;function _slicedToArray(arr,i){return _arrayWithHoles(arr)||_iterableToArrayLimit(arr,i)||_unsupportedIterableToArray(arr,i)||_nonIterableRest()}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _unsupportedIterableToArray(o,minLen){if(!o)return;if(typeof o==="string")return _arrayLikeToArray(o,minLen);var n=Object.prototype.toString.call(o).slice(8,-1);if(n==="Object"&&o.constructor)n=o.constructor.name;if(n==="Map"||n==="Set")return Array.from(o);if(n==="Arguments"||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return _arrayLikeToArray(o,minLen)}function _arrayLikeToArray(arr,len){if(len==null||len>arr.length)len=arr.length;for(var i=0,arr2=new Array(len);i<len;i++){arr2[i]=arr[i]}return arr2}function _iterableToArrayLimit(arr,i){if(typeof Symbol==="undefined"||!(Symbol.iterator in Object(arr)))return;var _arr=[];var _n=true;var _d=false;var _e=undefined;try{for(var _i=arr[Symbol.iterator](),_s;!(_n=(_s=_i.next()).done);_n=true){_arr.push(_s.value);if(i&&_arr.length===i)break}}catch(err){_d=true;_e=err}finally{try{if(!_n&&_i["return"]!=null)_i["return"]()}finally{if(_d)throw _e}}return _arr}function _arrayWithHoles(arr){if(Array.isArray(arr))return arr}var wktToPolygon=function wktToPolygon(wkt){if(!wkt.startsWith("POLYGON")){throw new Error("Invalid wkt.")}var coordsText=wkt.slice(wkt.indexOf("(")+2,wkt.indexOf(")")).split(", ");var polygon=coordsText.map(function(coordText){var _coordText$split=coordText.split(" "),_coordText$split2=_slicedToArray(_coordText$split,2),longitude=_coordText$split2[0],latitude=_coordText$split2[1];return{longitude:parseFloat(longitude),latitude:parseFloat(latitude)}});return polygon};var _default=wktToPolygon;exports.default=_default;
 
 /***/ }),
 
@@ -83628,6 +84691,764 @@ if (false) {} else {
 
 if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-jsx-runtime.development.js */ "./node_modules/react/cjs/react-jsx-runtime.development.js");
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/regenerator-runtime/runtime.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+/***/ ((module) => {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var runtime = (function (exports) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  function define(obj, key, value) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+    return obj[key];
+  }
+  try {
+    // IE 8 has a broken Object.defineProperty that only works on DOM objects.
+    define({}, "");
+  } catch (err) {
+    define = function(obj, key, value) {
+      return obj[key] = value;
+    };
+  }
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  exports.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunction.displayName = define(
+    GeneratorFunctionPrototype,
+    toStringTagSymbol,
+    "GeneratorFunction"
+  );
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      define(prototype, method, function(arg) {
+        return this._invoke(method, arg);
+      });
+    });
+  }
+
+  exports.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  exports.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      define(genFun, toStringTagSymbol, "GeneratorFunction");
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  exports.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator, PromiseImpl) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return PromiseImpl.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return PromiseImpl.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new PromiseImpl(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  exports.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  exports.async = function(innerFn, outerFn, self, tryLocsList, PromiseImpl) {
+    if (PromiseImpl === void 0) PromiseImpl = Promise;
+
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList),
+      PromiseImpl
+    );
+
+    return exports.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        // Note: ["return"] must be used for ES3 parsing compatibility.
+        if (delegate.iterator["return"]) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  define(Gp, toStringTagSymbol, "Generator");
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  exports.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  exports.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+
+  // Regardless of whether this script is executing as a CommonJS module
+  // or not, return the runtime object so that we can declare the variable
+  // regeneratorRuntime in the outer scope, which allows this module to be
+  // injected easily by `bin/regenerator --include-runtime script.js`.
+  return exports;
+
+}(
+  // If this script is executing as a CommonJS module, use module.exports
+  // as the regeneratorRuntime namespace. Otherwise create a new empty
+  // object. Either way, the resulting object will be used to initialize
+  // the regeneratorRuntime variable at the top of this file.
+   true ? module.exports : 0
+));
+
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  // This module should not be running in strict mode, so the above
+  // assignment should always work unless something is misconfigured. Just
+  // in case runtime.js accidentally runs in strict mode, we can escape
+  // strict mode using a global Function call. This could conceivably fail
+  // if a Content Security Policy forbids using Function, but in that case
+  // the proper solution is to fix the accidental strict mode problem. If
+  // you've misconfigured your bundler to force strict mode and applied a
+  // CSP to forbid Function, and you're not willing to fix either of those
+  // problems, please detail your unique predicament in a GitHub issue.
+  Function("r", "regeneratorRuntime = r")(runtime);
 }
 
 

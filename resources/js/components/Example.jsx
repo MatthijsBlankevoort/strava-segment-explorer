@@ -8,19 +8,20 @@ import {
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import styled from 'styled-components';
+import exploreSegments from '../services/strava';
 
-const MyComponent = () => {
+const MyComponent = ({ setLocation }) => {
   const map = useMap();
   const options = {
-    enableHighAccuracy: true,
-    timeout: 2000,
+    enableHighAccuracy: false,
+    timeout: 5000,
     maximumAge: 2000,
   };
 
   function success(pos) {
     const crd = pos.coords;
     map.flyTo({ lat: crd.latitude, lng: crd.longitude });
-
+    setLocation({ lat: crd.latitude, lng: crd.longitude });
     console.log('Your current position is:');
     console.log(`Latitude : ${crd.latitude}`);
     console.log(`Longitude: ${crd.longitude}`);
@@ -31,8 +32,6 @@ const MyComponent = () => {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
   const onClick = () => {
-    console.log('click');
-
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(success, error, options);
     } else {
@@ -48,9 +47,16 @@ const MyComponent = () => {
 };
 
 function Example() {
+  const [location, setLocation] = useState({ lat: undefined, lng: undefined });
+  useEffect(() => {
+    console.log('ASF');
+    if (location.lat && location.lng) {
+      exploreSegments(location.lat, location.lng);
+    }
+  }, [location, exploreSegments]);
   return (
     <StyledContainer center={[59, 0]} zoom={13} scrollWheelZoom={false}>
-      <MyComponent />
+      <MyComponent setLocation={setLocation} />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
