@@ -8,12 +8,10 @@ const exploreSegments = async (lat, lng) => {
   const ruler = new CheapRuler(53.0686472, 'meters');
 
   const bounds = ruler.bufferPoint([lat, lng], 10000);
-  console.log(bounds);
   const segments = await axios.get(`${STRAVA_BASE_URL}/segments/explore?bounds=${bounds}&activity_type=riding`, {
     headers: { Authorization: `Bearer ${process.env.MIX_STRAVA_API_KEY}` },
-  }).then((response) => {
-    console.log(response);
-  });
+  }).then((response) => response.data.segments);
+  return segments;
 };
 
 export default exploreSegments;

@@ -4,10 +4,11 @@ import React, {
 } from 'react';
 import ReactDOM from 'react-dom';
 import {
-  MapContainer, TileLayer, useMap,
+  MapContainer, Polyline, TileLayer, useMap,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import styled from 'styled-components';
+import polyline from '@mapbox/polyline';
 import exploreSegments from '../services/strava';
 
 const MyComponent = ({ setLocation }) => {
@@ -48,12 +49,13 @@ const MyComponent = ({ setLocation }) => {
 
 function Example() {
   const [location, setLocation] = useState({ lat: undefined, lng: undefined });
-  useEffect(() => {
-    console.log('ASF');
+  const [segments, setSegments] = useState([]);
+  useEffect(async () => {
     if (location.lat && location.lng) {
-      exploreSegments(location.lat, location.lng);
+      setSegments(await exploreSegments(location.lat, location.lng));
     }
-  }, [location, exploreSegments]);
+  }, [location, exploreSegments, setSegments]);
+  console.log(segments);
   return (
     <StyledContainer center={[59, 0]} zoom={13} scrollWheelZoom={false}>
       <MyComponent setLocation={setLocation} />
@@ -61,6 +63,9 @@ function Example() {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      {segments?.map((segment) => (
+        <Polyline positions={polyline.decode(segment.points)} />
+      ))}
     </StyledContainer>
   );
 }
