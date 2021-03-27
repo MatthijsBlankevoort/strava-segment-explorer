@@ -6,3 +6,10 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.user-icon {
+    height: 1000px;
+    & i {
+        color: orange;
+    }
+}
