@@ -3347,6 +3347,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SEGMENT_EXPLORE_RADIUS": () => (/* binding */ SEGMENT_EXPLORE_RADIUS),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
@@ -3359,10 +3360,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/TileLayer.js");
 /* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Polyline.js");
 /* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Marker.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Circle.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/MapContainer.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Popup.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Circle.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/MapContainer.js");
 /* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _mapbox_polyline__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mapbox/polyline */ "./node_modules/@mapbox/polyline/src/polyline.js");
 /* harmony import */ var _mapbox_polyline__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_mapbox_polyline__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var react_dom_server__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-dom/server */ "./node_modules/react-dom/server.browser.js");
@@ -3402,6 +3404,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+var SEGMENT_EXPLORE_RADIUS = 10000;
 
 var MyComponent = function MyComponent(_ref) {
   var setLocation = _ref.setLocation;
@@ -3495,40 +3499,62 @@ function Example() {
   var iconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledIcon, {
     className: "fas fa-circle"
   }));
+  var segmentIconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledIcon, {
+    className: "fas fa-map-marker-alt"
+  }));
   var customMarkerIcon = (0,leaflet__WEBPACK_IMPORTED_MODULE_2__.divIcon)({
     html: iconMarkup,
     className: 'user-icon'
   });
+  var segmentMarker = (0,leaflet__WEBPACK_IMPORTED_MODULE_2__.divIcon)({
+    html: segmentIconMarkup,
+    className: 'segment-icon'
+  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(StyledContainer, {
     center: [(_location$lat = location.lat) !== null && _location$lat !== void 0 ? _location$lat : 0, (_location$lng = location.lng) !== null && _location$lng !== void 0 ? _location$lng : 0],
-    zoom: 20,
+    zoom: 13,
     scrollWheelZoom: false,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(MyComponent, {
       setLocation: setLocation
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_10__.TileLayer, {
       attribution: "\xA9 <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
-      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      url: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
     }), segments === null || segments === void 0 ? void 0 : segments.map(function (segment) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_11__.Polyline, {
-        positions: _mapbox_polyline__WEBPACK_IMPORTED_MODULE_5___default().decode(segment.points)
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_11__.Polyline, {
+          color: "orange",
+          positions: _mapbox_polyline__WEBPACK_IMPORTED_MODULE_5___default().decode(segment.points)
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.Marker, {
+          icon: segmentMarker,
+          position: segment.start_latlng,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_leaflet__WEBPACK_IMPORTED_MODULE_13__.Popup, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
+              children: segment.name
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+              children: ["Afstand:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("strong", {
+                children: [(segment.distance / 1000).toFixed(2), ' ', "km"]
+              })]
+            })]
+          })
+        })]
       });
     }), location.lat && location.lng && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.Marker, {
       icon: customMarkerIcon,
       position: [location.lat, location.lng]
-    }), location.lat && location.lng && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_13__.Circle, {
+    }), location.lat && location.lng && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_14__.Circle, {
       center: {
         lat: location.lat,
         lng: location.lng
       },
-      color: "orange",
-      radius: location.radius
+      color: "dodgerblue",
+      radius: SEGMENT_EXPLORE_RADIUS * 2
     })]
   });
 }
 
-var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_14__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_15__.MapContainer)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
-var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_14__.default.button(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 0;\n    right: 0;\n    z-index: 999;\n"])));
-var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_14__.default.i(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    color: orange;\n"])));
+var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_15__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_16__.MapContainer)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
+var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.button(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 0;\n    right: 0;\n    z-index: 999;\n"])));
+var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.i(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n\n    &.fa-map-marker-alt {\n        color: limegreen;\n        font-size: 1.5rem;\n    }\n\n    &.fa-circle {\n        color: dodgerblue;\n    }\n    position: absolute;\n    right: 0;\n    bottom: 0;\n"])));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Example);
 
 if (document.getElementById('example')) {
@@ -3555,11 +3581,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var geolib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! geolib */ "./node_modules/geolib/es/index.js");
 /* harmony import */ var geolib__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(geolib__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var cheap_ruler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cheap-ruler */ "./node_modules/cheap-ruler/index.js");
+/* harmony import */ var _components_Example__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Example */ "./resources/js/components/Example.jsx");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 
@@ -3574,11 +3602,11 @@ var exploreSegments = /*#__PURE__*/function () {
         switch (_context.prev = _context.next) {
           case 0:
             ruler = new cheap_ruler__WEBPACK_IMPORTED_MODULE_3__.default(53.0686472, 'meters');
-            bounds = ruler.bufferPoint([lat, lng], 10000);
+            bounds = ruler.bufferPoint([lat, lng], _components_Example__WEBPACK_IMPORTED_MODULE_4__.SEGMENT_EXPLORE_RADIUS);
             _context.next = 4;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/explore?bounds=").concat(bounds, "&activity_type=riding"), {
               headers: {
-                Authorization: "Bearer ".concat("f9a4192020a7e84e0e299c3cb655dd877e444916")
+                Authorization: "Bearer ".concat("c62cb2fce7265459fc8b2f05ee8bd6140484fe58")
               }
             }).then(function (response) {
               return response.data.segments;
@@ -85765,6 +85793,89 @@ const Polyline = (0,_react_leaflet_core__WEBPACK_IMPORTED_MODULE_1__.createPathC
   if (props.positions !== prevProps.positions) {
     layer.setLatLngs(props.positions);
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-leaflet/esm/Popup.js":
+/*!*************************************************!*\
+  !*** ./node_modules/react-leaflet/esm/Popup.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Popup": () => (/* binding */ Popup)
+/* harmony export */ });
+/* harmony import */ var _react_leaflet_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @react-leaflet/core */ "./node_modules/@react-leaflet/core/esm/generic.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+
+const Popup = (0,_react_leaflet_core__WEBPACK_IMPORTED_MODULE_2__.createOverlayComponent)(function createPopup(props, context) {
+  return {
+    instance: new leaflet__WEBPACK_IMPORTED_MODULE_0__.Popup(props, context.overlayContainer),
+    context
+  };
+}, function usePopupLifecycle(element, context, props, setOpen) {
+  const {
+    onClose,
+    onOpen,
+    position
+  } = props;
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function addPopup() {
+    const {
+      instance
+    } = element;
+
+    function onPopupOpen(event) {
+      if (event.popup === instance) {
+        instance.update();
+        setOpen(true);
+        onOpen == null ? void 0 : onOpen();
+      }
+    }
+
+    function onPopupClose(event) {
+      if (event.popup === instance) {
+        setOpen(false);
+        onClose == null ? void 0 : onClose();
+      }
+    }
+
+    context.map.on({
+      popupopen: onPopupOpen,
+      popupclose: onPopupClose
+    });
+
+    if (context.overlayContainer == null) {
+      // Attach to a Map
+      if (position != null) {
+        instance.setLatLng(position);
+      }
+
+      instance.openOn(context.map);
+    } else {
+      // Attach to container component
+      context.overlayContainer.bindPopup(instance);
+    }
+
+    return function removePopup() {
+      context.map.off({
+        popupopen: onPopupOpen,
+        popupclose: onPopupClose
+      });
+
+      if (context.overlayContainer == null) {
+        context.map.removeLayer(instance);
+      } else {
+        context.overlayContainer.unbindPopup();
+      }
+    };
+  }, [element, context, setOpen, onClose, onOpen, position]);
 });
 
 /***/ }),

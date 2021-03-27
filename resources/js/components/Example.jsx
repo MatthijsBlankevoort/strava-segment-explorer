@@ -5,7 +5,7 @@ import React, {
 import Leaflet, { divIcon } from 'leaflet';
 import ReactDOM from 'react-dom';
 import {
-  MapContainer, Polyline, TileLayer, useMap, Marker, Circle,
+  MapContainer, Polyline, TileLayer, useMap, Marker, Circle, Popup,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import styled from 'styled-components';
@@ -13,6 +13,7 @@ import polyline from '@mapbox/polyline';
 import { renderToStaticMarkup } from 'react-dom/server';
 import exploreSegments from '../services/strava';
 
+export const SEGMENT_EXPLORE_RADIUS = 10000;
 const MyComponent = ({ setLocation }) => {
   const map = useMap();
   const options = {
@@ -58,24 +59,48 @@ function Example() {
   }, [location, exploreSegments, setSegments]);
 
   const iconMarkup = renderToStaticMarkup(<StyledIcon className="fas fa-circle" />);
+
+  const segmentIconMarkup = renderToStaticMarkup(<StyledIcon className="fas fa-map-marker-alt" />);
   const customMarkerIcon = divIcon({
     html: iconMarkup,
     className: 'user-icon',
   });
 
+  const segmentMarker = divIcon({
+    html: segmentIconMarkup,
+    className: 'segment-icon',
+  });
   return (
     <StyledContainer
       center={[location.lat ?? 0, location.lng ?? 0]}
-      zoom={20}
+      zoom={13}
       scrollWheelZoom={false}
     >
       <MyComponent setLocation={setLocation} />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+
       />
       {segments?.map((segment) => (
-        <Polyline positions={polyline.decode(segment.points)} />
+        <>
+
+          <Polyline color="orange" positions={polyline.decode(segment.points)} />
+          <Marker icon={segmentMarker} position={segment.start_latlng}>
+            <Popup>
+              <h3>{segment.name}</h3>
+              <p>
+                Afstand:
+                {' '}
+                <strong>
+                  {(segment.distance / 1000).toFixed(2)}
+                  {' '}
+                  km
+                </strong>
+              </p>
+            </Popup>
+          </Marker>
+        </>
       ))}
       {location.lat && location.lng && (
         <Marker icon={customMarkerIcon} position={[location.lat, location.lng]} />
@@ -83,8 +108,8 @@ function Example() {
       {location.lat && location.lng && (
       <Circle
         center={{ lat: location.lat, lng: location.lng }}
-        color="orange"
-        radius={location.radius}
+        color="dodgerblue"
+        radius={SEGMENT_EXPLORE_RADIUS * 2}
       />
       )}
     </StyledContainer>
@@ -104,7 +129,18 @@ const StyledButton = styled.button`
 `;
 
 const StyledIcon = styled.i`
-    color: orange;
+
+    &.fa-map-marker-alt {
+        color: limegreen;
+        font-size: 1.5rem;
+    }
+
+    &.fa-circle {
+        color: dodgerblue;
+    }
+    position: absolute;
+    right: 0;
+    bottom: 0;
 `;
 export default Example;
 
