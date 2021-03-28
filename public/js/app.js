@@ -3529,7 +3529,16 @@ function Example() {
     };
   }();
 
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(360),
+      _useState8 = _slicedToArray(_useState7, 2),
+      heading = _useState8[0],
+      setHeading = _useState8[1];
+
+  window.addEventListener('deviceorientation', function (evt) {
+    setHeading(360 - evt.alpha);
+  }, false);
   var iconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(UserIconContainer, {
+    rotation: heading,
     id: "user-icon",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledIcon, {
       className: "fas fa-angle-up"
@@ -3596,11 +3605,17 @@ function Example() {
                 children: [(segment.distance / 1000).toFixed(2), ' ', "km"]
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
-              children: ["Persoonlijk Record (PR):", ' ', getTimeInMinutes(segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle === void 0 ? void 0 : _segmentEfforts$athle.pr_elapsed_time), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {})]
+              children: ["Persoonlijk Record (PR):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
+                children: getTimeInMinutes(segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle === void 0 ? void 0 : _segmentEfforts$athle.pr_elapsed_time)
+              })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
-              children: ["Snelste tijd (KOM):", ' ', segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$xoms = segmentEfforts.xoms) === null || _segmentEfforts$xoms === void 0 ? void 0 : _segmentEfforts$xoms.kom, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {})]
+              children: ["Snelste tijd (KOM):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
+                children: segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$xoms = segmentEfforts.xoms) === null || _segmentEfforts$xoms === void 0 ? void 0 : _segmentEfforts$xoms.kom
+              })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
-              children: ["Pogingen:", ' ', segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle2 = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle2 === void 0 ? void 0 : _segmentEfforts$athle2.effort_count]
+              children: ["Pogingen:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
+                children: segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle2 = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle2 === void 0 ? void 0 : _segmentEfforts$athle2.effort_count
+              })]
             })]
           })
         }, segment.id)]
@@ -3622,7 +3637,9 @@ function Example() {
 var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_15__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_16__.MapContainer)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
 var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.button(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 0;\n    right: 0;\n    z-index: 999;\n"])));
 var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.i(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    &.fa-map-marker-alt {\n        color: orange;\n        font-size: 1.5rem;\n        position: absolute;\n        right: 0;\n        bottom: 0;\n    }\n\n    &.fa-circle, &.fa-angle-up {\n        color: dodgerblue;\n        position: relative;\n    }\n\n"])));
-var UserIconContainer = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    display: flex;\n    flex-flow: column;\n    justify-content: space-between;\n    align-items: center;\n"])));
+var UserIconContainer = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    ", "\n\n\n    display: flex;\n    flex-flow: column;\n    justify-content: center;\n    align-items: center;\n"])), function (props) {
+  return " transform: rotate(".concat(props.rotation, "deg);");
+});
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Example);
 
 if (document.getElementById('example')) {
@@ -3671,7 +3688,7 @@ var exploreSegments = /*#__PURE__*/function () {
             _context.next = 4;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/explore?bounds=").concat(bounds, "&activity_type=riding"), {
               headers: {
-                Authorization: "Bearer ".concat("78c3134198db55098631f6561b2f1b4460ef4a2c")
+                Authorization: "Bearer ".concat("041a0b0de4cc5453f9ae398428f4b325a8a0dade")
               }
             }).then(function (response) {
               return response.data.segments;
@@ -3703,7 +3720,7 @@ var getSegmentEfforts = /*#__PURE__*/function () {
             _context2.next = 2;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/").concat(id), {
               headers: {
-                Authorization: "Bearer ".concat("78c3134198db55098631f6561b2f1b4460ef4a2c")
+                Authorization: "Bearer ".concat("041a0b0de4cc5453f9ae398428f4b325a8a0dade")
               }
             }).then(function (response) {
               return response.data;

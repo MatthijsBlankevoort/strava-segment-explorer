@@ -64,8 +64,14 @@ function Example() {
   const onMarkerClick = async (segment) => {
     setSegmentEfforts(await getSegmentEfforts(segment.id));
   };
+
+  const [heading, setHeading] = useState(360);
+
+  window.addEventListener('deviceorientation', (evt) => {
+    setHeading(360 - evt.alpha);
+  }, false);
   const iconMarkup = renderToStaticMarkup(
-    <UserIconContainer id="user-icon">
+    <UserIconContainer rotation={heading} id="user-icon">
       <StyledIcon className="fas fa-angle-up" />
       <StyledIcon className="fas fa-circle" />
     </UserIconContainer>,
@@ -104,7 +110,6 @@ function Example() {
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
-
       />
       {segments?.map((segment) => (
         <>
@@ -131,21 +136,26 @@ function Example() {
               <p>
                 Persoonlijk Record (PR):
                 {' '}
-                {getTimeInMinutes(segmentEfforts?.athlete_segment_stats?.pr_elapsed_time)}
-                <strong />
+                <strong>
+                  {getTimeInMinutes(segmentEfforts?.athlete_segment_stats?.pr_elapsed_time)}
+                </strong>
               </p>
 
               <p>
                 Snelste tijd (KOM):
                 {' '}
-                {segmentEfforts?.xoms?.kom}
-                <strong />
+                <strong>
+                  {segmentEfforts?.xoms?.kom}
+                </strong>
               </p>
 
               <p>
                 Pogingen:
                 {' '}
-                {segmentEfforts?.athlete_segment_stats?.effort_count}
+                <strong>
+
+                  {segmentEfforts?.athlete_segment_stats?.effort_count}
+                </strong>
               </p>
 
             </Popup>
@@ -195,9 +205,12 @@ const StyledIcon = styled.i`
 `;
 
 const UserIconContainer = styled.div`
+    ${(props) => ` transform: rotate(${props.rotation}deg);`}
+
+
     display: flex;
     flex-flow: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 `;
 
