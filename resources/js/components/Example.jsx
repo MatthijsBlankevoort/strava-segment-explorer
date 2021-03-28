@@ -64,7 +64,12 @@ function Example() {
   const onMarkerClick = async (segment) => {
     setSegmentEfforts(await getSegmentEfforts(segment.id));
   };
-  const iconMarkup = renderToStaticMarkup(<StyledIcon className="fas fa-circle" />);
+  const iconMarkup = renderToStaticMarkup(
+    <UserIconContainer id="user-icon">
+      <StyledIcon className="fas fa-angle-up" />
+      <StyledIcon className="fas fa-circle" />
+    </UserIconContainer>,
+  );
 
   const segmentIconMarkup = renderToStaticMarkup(<StyledIcon className="fas fa-map-marker-alt" />);
   const customMarkerIcon = divIcon({
@@ -174,19 +179,28 @@ const StyledButton = styled.button`
 `;
 
 const StyledIcon = styled.i`
-
     &.fa-map-marker-alt {
-        color: limegreen;
+        color: orange;
         font-size: 1.5rem;
+        position: absolute;
+        right: 0;
+        bottom: 0;
     }
 
-    &.fa-circle {
+    &.fa-circle, &.fa-angle-up {
         color: dodgerblue;
+        position: relative;
     }
-    position: absolute;
-    right: 0;
-    bottom: 0;
+
 `;
+
+const UserIconContainer = styled.div`
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+`;
+
 export default Example;
 
 if (document.getElementById('example')) {

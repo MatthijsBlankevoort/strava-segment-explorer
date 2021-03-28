@@ -3370,7 +3370,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom_server__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-dom/server */ "./node_modules/react-dom/server.browser.js");
 /* harmony import */ var _services_strava__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/strava */ "./resources/js/services/strava.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var _templateObject, _templateObject2, _templateObject3;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -3529,8 +3529,13 @@ function Example() {
     };
   }();
 
-  var iconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledIcon, {
-    className: "fas fa-circle"
+  var iconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(UserIconContainer, {
+    id: "user-icon",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledIcon, {
+      className: "fas fa-angle-up"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledIcon, {
+      className: "fas fa-circle"
+    })]
   }));
   var segmentIconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledIcon, {
     className: "fas fa-map-marker-alt"
@@ -3616,7 +3621,8 @@ function Example() {
 
 var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_15__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_16__.MapContainer)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
 var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.button(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 0;\n    right: 0;\n    z-index: 999;\n"])));
-var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.i(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n\n    &.fa-map-marker-alt {\n        color: limegreen;\n        font-size: 1.5rem;\n    }\n\n    &.fa-circle {\n        color: dodgerblue;\n    }\n    position: absolute;\n    right: 0;\n    bottom: 0;\n"])));
+var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.i(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    &.fa-map-marker-alt {\n        color: orange;\n        font-size: 1.5rem;\n        position: absolute;\n        right: 0;\n        bottom: 0;\n    }\n\n    &.fa-circle, &.fa-angle-up {\n        color: dodgerblue;\n        position: relative;\n    }\n\n"])));
+var UserIconContainer = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    display: flex;\n    flex-flow: column;\n    justify-content: space-between;\n    align-items: center;\n"])));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Example);
 
 if (document.getElementById('example')) {
