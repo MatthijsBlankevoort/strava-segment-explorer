@@ -10002,8 +10002,9 @@ h3 {
     border-color: #dee2e6;
   }
 }
-.leaflet-marker-icon {
+.user-icon {
   height: 1000px;
-  color: orange !important;
 }
-
+.user-icon i {
+  color: orange;
+}

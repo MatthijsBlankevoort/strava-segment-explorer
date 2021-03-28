@@ -1,11 +1,10 @@
 import axios from 'axios';
-import { getBounds } from 'geolib';
 import CheapRuler from 'cheap-ruler';
 import { SEGMENT_EXPLORE_RADIUS } from '../components/Example';
 
 const STRAVA_BASE_URL = 'https://www.strava.com/api/v3';
 
-const exploreSegments = async (lat, lng) => {
+export const exploreSegments = async (lat, lng) => {
   const ruler = new CheapRuler(53.0686472, 'meters');
 
   const bounds = ruler.bufferPoint([lat, lng], SEGMENT_EXPLORE_RADIUS);
@@ -15,4 +14,9 @@ const exploreSegments = async (lat, lng) => {
   return segments;
 };
 
-export default exploreSegments;
+export const getSegmentEfforts = async (id) => {
+  const segments = await axios.get(`${STRAVA_BASE_URL}/segments/${id}`, {
+    headers: { Authorization: `Bearer ${process.env.MIX_STRAVA_API_KEY}` },
+  }).then((response) => response.data);
+  return segments;
+};

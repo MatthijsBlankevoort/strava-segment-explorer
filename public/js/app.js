@@ -3471,6 +3471,11 @@ function Example() {
       segments = _useState4[0],
       setSegments = _useState4[1];
 
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
+      _useState6 = _slicedToArray(_useState5, 2),
+      segmentEfforts = _useState6[0],
+      setSegmentEfforts = _useState6[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
@@ -3483,7 +3488,7 @@ function Example() {
 
             _context.t0 = setSegments;
             _context.next = 4;
-            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_7__.default)(location.lat, location.lng);
+            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments)(location.lat, location.lng);
 
           case 4:
             _context.t1 = _context.sent;
@@ -3495,7 +3500,35 @@ function Example() {
         }
       }
     }, _callee);
-  })), [location, _services_strava__WEBPACK_IMPORTED_MODULE_7__.default, setSegments]);
+  })), [location, _services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments, setSegments]);
+
+  var onMarkerClick = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(segment) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.t0 = setSegmentEfforts;
+              _context2.next = 3;
+              return (0,_services_strava__WEBPACK_IMPORTED_MODULE_7__.getSegmentEfforts)(segment.id);
+
+            case 3:
+              _context2.t1 = _context2.sent;
+              (0, _context2.t0)(_context2.t1);
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function onMarkerClick(_x) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
   var iconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledIcon, {
     className: "fas fa-circle"
   }));
@@ -3510,6 +3543,22 @@ function Example() {
     html: segmentIconMarkup,
     className: 'segment-icon'
   });
+
+  var getTimeInMinutes = function getTimeInMinutes(timeInSeconds) {
+    var minutes = Math.floor(timeInSeconds / 60);
+    var seconds = timeInSeconds - minutes * 60;
+
+    if (seconds < 10) {
+      seconds = "0".concat(seconds);
+    }
+
+    if (timeInSeconds < 60) {
+      return "".concat(seconds, "s");
+    }
+
+    return "".concat(minutes, ":").concat(seconds);
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(StyledContainer, {
     center: [(_location$lat = location.lat) !== null && _location$lat !== void 0 ? _location$lat : 0, (_location$lng = location.lng) !== null && _location$lng !== void 0 ? _location$lng : 0],
     zoom: 13,
@@ -3520,11 +3569,18 @@ function Example() {
       attribution: "\xA9 <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
       url: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
     }), segments === null || segments === void 0 ? void 0 : segments.map(function (segment) {
+      var _segmentEfforts$athle, _segmentEfforts$xoms, _segmentEfforts$athle2;
+
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_11__.Polyline, {
           color: "orange",
           positions: _mapbox_polyline__WEBPACK_IMPORTED_MODULE_5___default().decode(segment.points)
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.Marker, {
+          eventHandlers: {
+            click: function click() {
+              return onMarkerClick(segment);
+            }
+          },
           icon: segmentMarker,
           position: segment.start_latlng,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_leaflet__WEBPACK_IMPORTED_MODULE_13__.Popup, {
@@ -3534,9 +3590,15 @@ function Example() {
               children: ["Afstand:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("strong", {
                 children: [(segment.distance / 1000).toFixed(2), ' ', "km"]
               })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+              children: ["Persoonlijk Record (PR):", ' ', getTimeInMinutes(segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle === void 0 ? void 0 : _segmentEfforts$athle.pr_elapsed_time), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {})]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+              children: ["Snelste tijd (KOM):", ' ', segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$xoms = segmentEfforts.xoms) === null || _segmentEfforts$xoms === void 0 ? void 0 : _segmentEfforts$xoms.kom, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {})]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+              children: ["Pogingen:", ' ', segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle2 = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle2 === void 0 ? void 0 : _segmentEfforts$athle2.effort_count]
             })]
           })
-        })]
+        }, segment.id)]
       });
     }), location.lat && location.lng && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.Marker, {
       icon: customMarkerIcon,
@@ -3572,16 +3634,15 @@ if (document.getElementById('example')) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "exploreSegments": () => (/* binding */ exploreSegments),
+/* harmony export */   "getSegmentEfforts": () => (/* binding */ getSegmentEfforts)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var geolib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! geolib */ "./node_modules/geolib/es/index.js");
-/* harmony import */ var geolib__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(geolib__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var cheap_ruler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cheap-ruler */ "./node_modules/cheap-ruler/index.js");
-/* harmony import */ var _components_Example__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Example */ "./resources/js/components/Example.jsx");
+/* harmony import */ var cheap_ruler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cheap-ruler */ "./node_modules/cheap-ruler/index.js");
+/* harmony import */ var _components_Example__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Example */ "./resources/js/components/Example.jsx");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3591,9 +3652,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-
 var STRAVA_BASE_URL = 'https://www.strava.com/api/v3';
-
 var exploreSegments = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(lat, lng) {
     var ruler, bounds, segments;
@@ -3601,12 +3660,12 @@ var exploreSegments = /*#__PURE__*/function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            ruler = new cheap_ruler__WEBPACK_IMPORTED_MODULE_3__.default(53.0686472, 'meters');
-            bounds = ruler.bufferPoint([lat, lng], _components_Example__WEBPACK_IMPORTED_MODULE_4__.SEGMENT_EXPLORE_RADIUS);
+            ruler = new cheap_ruler__WEBPACK_IMPORTED_MODULE_2__.default(53.0686472, 'meters');
+            bounds = ruler.bufferPoint([lat, lng], _components_Example__WEBPACK_IMPORTED_MODULE_3__.SEGMENT_EXPLORE_RADIUS);
             _context.next = 4;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/explore?bounds=").concat(bounds, "&activity_type=riding"), {
               headers: {
-                Authorization: "Bearer ".concat("c62cb2fce7265459fc8b2f05ee8bd6140484fe58")
+                Authorization: "Bearer ".concat("78c3134198db55098631f6561b2f1b4460ef4a2c")
               }
             }).then(function (response) {
               return response.data.segments;
@@ -3628,8 +3687,38 @@ var exploreSegments = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
+var getSegmentEfforts = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(id) {
+    var segments;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/").concat(id), {
+              headers: {
+                Authorization: "Bearer ".concat("78c3134198db55098631f6561b2f1b4460ef4a2c")
+              }
+            }).then(function (response) {
+              return response.data;
+            });
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (exploreSegments);
+          case 2:
+            segments = _context2.sent;
+            return _context2.abrupt("return", segments);
+
+          case 4:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function getSegmentEfforts(_x3) {
+    return _ref2.apply(this, arguments);
+  };
+}();
 
 /***/ }),
 
@@ -8760,468 +8849,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/vendor/leaflet/dist/marker-icon.png?2b3e1faf89f94a4835397e7a43b4f77d");
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/computeDestinationPoint.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/geolib/es/computeDestinationPoint.js ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _toDeg=_interopRequireDefault(__webpack_require__(/*! ./toDeg */ "./node_modules/geolib/es/toDeg.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var computeDestinationPoint=function computeDestinationPoint(start,distance,bearing){var radius=arguments.length>3&&arguments[3]!==undefined?arguments[3]:6371000;var lat=(0,_getLatitude.default)(start);var lng=(0,_getLongitude.default)(start);var delta=distance/radius;var theta=(0,_toRad.default)(bearing);var phi1=(0,_toRad.default)(lat);var lambda1=(0,_toRad.default)(lng);var phi2=Math.asin(Math.sin(phi1)*Math.cos(delta)+Math.cos(phi1)*Math.sin(delta)*Math.cos(theta));var lambda2=lambda1+Math.atan2(Math.sin(theta)*Math.sin(delta)*Math.cos(phi1),Math.cos(delta)-Math.sin(phi1)*Math.sin(phi2));var longitude=(0,_toDeg.default)(lambda2);if(longitude<_constants.MINLON||longitude>_constants.MAXLON){lambda2=(lambda2+3*Math.PI)%(2*Math.PI)-Math.PI;longitude=(0,_toDeg.default)(lambda2)}return{latitude:(0,_toDeg.default)(phi2),longitude:longitude}};var _default=computeDestinationPoint;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/constants.js":
-/*!*********************************************!*\
-  !*** ./node_modules/geolib/es/constants.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.areaConversion=exports.timeConversion=exports.distanceConversion=exports.altitudeKeys=exports.latitudeKeys=exports.longitudeKeys=exports.MAXLON=exports.MINLON=exports.MAXLAT=exports.MINLAT=exports.earthRadius=exports.sexagesimalPattern=void 0;var sexagesimalPattern=/^([0-9]{1,3})°\s*([0-9]{1,3}(?:\.(?:[0-9]{1,}))?)['′]\s*(([0-9]{1,3}(\.([0-9]{1,}))?)["″]\s*)?([NEOSW]?)$/;exports.sexagesimalPattern=sexagesimalPattern;var earthRadius=6378137;exports.earthRadius=earthRadius;var MINLAT=-90;exports.MINLAT=MINLAT;var MAXLAT=90;exports.MAXLAT=MAXLAT;var MINLON=-180;exports.MINLON=MINLON;var MAXLON=180;exports.MAXLON=MAXLON;var longitudeKeys=["lng","lon","longitude",0];exports.longitudeKeys=longitudeKeys;var latitudeKeys=["lat","latitude",1];exports.latitudeKeys=latitudeKeys;var altitudeKeys=["alt","altitude","elevation","elev",2];exports.altitudeKeys=altitudeKeys;var distanceConversion={m:1,km:0.001,cm:100,mm:1000,mi:1/1609.344,sm:1/1852.216,ft:100/30.48,in:100/2.54,yd:1/0.9144};exports.distanceConversion=distanceConversion;var timeConversion={m:60,h:3600,d:86400};exports.timeConversion=timeConversion;var areaConversion={m2:1,km2:0.000001,ha:0.0001,a:0.01,ft2:10.763911,yd2:1.19599,in2:1550.0031};exports.areaConversion=areaConversion;areaConversion.sqm=areaConversion.m2;areaConversion.sqkm=areaConversion.km2;areaConversion.sqft=areaConversion.ft2;areaConversion.sqyd=areaConversion.yd2;areaConversion.sqin=areaConversion.in2;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/convertArea.js":
-/*!***********************************************!*\
-  !*** ./node_modules/geolib/es/convertArea.js ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var convertArea=function convertArea(squareMeters){var targetUnit=arguments.length>1&&arguments[1]!==undefined?arguments[1]:"m";var factor=_constants.areaConversion[targetUnit];if(factor){return squareMeters*factor}throw new Error("Invalid unit used for area conversion.")};var _default=convertArea;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/convertDistance.js":
-/*!***************************************************!*\
-  !*** ./node_modules/geolib/es/convertDistance.js ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var convertDistance=function convertDistance(meters){var targetUnit=arguments.length>1&&arguments[1]!==undefined?arguments[1]:"m";var factor=_constants.distanceConversion[targetUnit];if(factor){return meters*factor}throw new Error("Invalid unit used for distance conversion.")};var _default=convertDistance;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/convertSpeed.js":
-/*!************************************************!*\
-  !*** ./node_modules/geolib/es/convertSpeed.js ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var convertSpeed=function convertSpeed(metersPerSecond){var targetUnit=arguments.length>1&&arguments[1]!==undefined?arguments[1]:"kmh";switch(targetUnit){case"kmh":return metersPerSecond*_constants.timeConversion.h*_constants.distanceConversion.km;case"mph":return metersPerSecond*_constants.timeConversion.h*_constants.distanceConversion.mi;default:return metersPerSecond;}};var _default=convertSpeed;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/decimalToSexagesimal.js":
-/*!********************************************************!*\
-  !*** ./node_modules/geolib/es/decimalToSexagesimal.js ***!
-  \********************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;function _slicedToArray(arr,i){return _arrayWithHoles(arr)||_iterableToArrayLimit(arr,i)||_unsupportedIterableToArray(arr,i)||_nonIterableRest()}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _unsupportedIterableToArray(o,minLen){if(!o)return;if(typeof o==="string")return _arrayLikeToArray(o,minLen);var n=Object.prototype.toString.call(o).slice(8,-1);if(n==="Object"&&o.constructor)n=o.constructor.name;if(n==="Map"||n==="Set")return Array.from(o);if(n==="Arguments"||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return _arrayLikeToArray(o,minLen)}function _arrayLikeToArray(arr,len){if(len==null||len>arr.length)len=arr.length;for(var i=0,arr2=new Array(len);i<len;i++){arr2[i]=arr[i]}return arr2}function _iterableToArrayLimit(arr,i){if(typeof Symbol==="undefined"||!(Symbol.iterator in Object(arr)))return;var _arr=[];var _n=true;var _d=false;var _e=undefined;try{for(var _i=arr[Symbol.iterator](),_s;!(_n=(_s=_i.next()).done);_n=true){_arr.push(_s.value);if(i&&_arr.length===i)break}}catch(err){_d=true;_e=err}finally{try{if(!_n&&_i["return"]!=null)_i["return"]()}finally{if(_d)throw _e}}return _arr}function _arrayWithHoles(arr){if(Array.isArray(arr))return arr}var imprecise=function imprecise(number){var factor=Math.pow(10,12);return Math.round(number*factor)/factor};var decimal2sexagesimal=function decimal2sexagesimal(decimal){var _decimal$toString$spl=decimal.toString().split("."),_decimal$toString$spl2=_slicedToArray(_decimal$toString$spl,2),pre=_decimal$toString$spl2[0],post=_decimal$toString$spl2[1];var deg=Math.abs(Number(pre));var minFull=imprecise(Number("0."+(post||0))*60);var min=Math.floor(minFull);var sec=imprecise((minFull%min||0)*60);return deg+"\xB0 "+Number(min.toFixed(6)).toString().split(".").map(function(v,i){return i===0?v.padStart(2,"0"):v}).join(".")+"' "+Number(sec.toFixed(4)).toString().split(".").map(function(v,i){return i===0?v.padStart(2,"0"):v}).join(".")+"\""};var _default=decimal2sexagesimal;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/findNearest.js":
-/*!***********************************************!*\
-  !*** ./node_modules/geolib/es/findNearest.js ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _orderByDistance=_interopRequireDefault(__webpack_require__(/*! ./orderByDistance */ "./node_modules/geolib/es/orderByDistance.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var findNearest=function findNearest(point,coords){return(0,_orderByDistance.default)(point,coords)[0]};var _default=findNearest;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getAreaOfPolygon.js":
-/*!****************************************************!*\
-  !*** ./node_modules/geolib/es/getAreaOfPolygon.js ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getAreaOfPolygon=function getAreaOfPolygon(points){var area=0;if(points.length>2){var lowerIndex;var middleIndex;var upperIndex;for(var i=0;i<points.length;i++){if(i===points.length-2){lowerIndex=points.length-2;middleIndex=points.length-1;upperIndex=0}else if(i===points.length-1){lowerIndex=points.length-1;middleIndex=0;upperIndex=1}else{lowerIndex=i;middleIndex=i+1;upperIndex=i+2}var p1lon=(0,_getLongitude.default)(points[lowerIndex]);var p2lat=(0,_getLatitude.default)(points[middleIndex]);var p3lon=(0,_getLongitude.default)(points[upperIndex]);area+=((0,_toRad.default)(p3lon)-(0,_toRad.default)(p1lon))*Math.sin((0,_toRad.default)(p2lat))}area=area*_constants.earthRadius*_constants.earthRadius/2}return Math.abs(area)};var _default=getAreaOfPolygon;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getBounds.js":
-/*!*********************************************!*\
-  !*** ./node_modules/geolib/es/getBounds.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getBounds=function getBounds(points){if(Array.isArray(points)===false||points.length===0){throw new Error("No points were given.")}return points.reduce(function(stats,point){var latitude=(0,_getLatitude.default)(point);var longitude=(0,_getLongitude.default)(point);return{maxLat:Math.max(latitude,stats.maxLat),minLat:Math.min(latitude,stats.minLat),maxLng:Math.max(longitude,stats.maxLng),minLng:Math.min(longitude,stats.minLng)}},{maxLat:-Infinity,minLat:Infinity,maxLng:-Infinity,minLng:Infinity})};var _default=getBounds;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getBoundsOfDistance.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/geolib/es/getBoundsOfDistance.js ***!
-  \*******************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _toDeg=_interopRequireDefault(__webpack_require__(/*! ./toDeg */ "./node_modules/geolib/es/toDeg.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getBoundsOfDistance=function getBoundsOfDistance(point,distance){var latitude=(0,_getLatitude.default)(point);var longitude=(0,_getLongitude.default)(point);var radLat=(0,_toRad.default)(latitude);var radLon=(0,_toRad.default)(longitude);var radDist=distance/_constants.earthRadius;var minLat=radLat-radDist;var maxLat=radLat+radDist;var MAX_LAT_RAD=(0,_toRad.default)(_constants.MAXLAT);var MIN_LAT_RAD=(0,_toRad.default)(_constants.MINLAT);var MAX_LON_RAD=(0,_toRad.default)(_constants.MAXLON);var MIN_LON_RAD=(0,_toRad.default)(_constants.MINLON);var minLon;var maxLon;if(minLat>MIN_LAT_RAD&&maxLat<MAX_LAT_RAD){var deltaLon=Math.asin(Math.sin(radDist)/Math.cos(radLat));minLon=radLon-deltaLon;if(minLon<MIN_LON_RAD){minLon+=Math.PI*2}maxLon=radLon+deltaLon;if(maxLon>MAX_LON_RAD){maxLon-=Math.PI*2}}else{minLat=Math.max(minLat,MIN_LAT_RAD);maxLat=Math.min(maxLat,MAX_LAT_RAD);minLon=MIN_LON_RAD;maxLon=MAX_LON_RAD}return[{latitude:(0,_toDeg.default)(minLat),longitude:(0,_toDeg.default)(minLon)},{latitude:(0,_toDeg.default)(maxLat),longitude:(0,_toDeg.default)(maxLon)}]};var _default=getBoundsOfDistance;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getCenter.js":
-/*!*********************************************!*\
-  !*** ./node_modules/geolib/es/getCenter.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _toDeg=_interopRequireDefault(__webpack_require__(/*! ./toDeg */ "./node_modules/geolib/es/toDeg.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getCenter=function getCenter(points){if(Array.isArray(points)===false||points.length===0){return false}var numberOfPoints=points.length;var sum=points.reduce(function(acc,point){var pointLat=(0,_toRad.default)((0,_getLatitude.default)(point));var pointLon=(0,_toRad.default)((0,_getLongitude.default)(point));return{X:acc.X+Math.cos(pointLat)*Math.cos(pointLon),Y:acc.Y+Math.cos(pointLat)*Math.sin(pointLon),Z:acc.Z+Math.sin(pointLat)}},{X:0,Y:0,Z:0});var X=sum.X/numberOfPoints;var Y=sum.Y/numberOfPoints;var Z=sum.Z/numberOfPoints;return{longitude:(0,_toDeg.default)(Math.atan2(Y,X)),latitude:(0,_toDeg.default)(Math.atan2(Z,Math.sqrt(X*X+Y*Y)))}};var _default=getCenter;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getCenterOfBounds.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/geolib/es/getCenterOfBounds.js ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getBounds=_interopRequireDefault(__webpack_require__(/*! ./getBounds */ "./node_modules/geolib/es/getBounds.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getCenterOfBounds=function getCenterOfBounds(coords){var bounds=(0,_getBounds.default)(coords);var latitude=bounds.minLat+(bounds.maxLat-bounds.minLat)/2;var longitude=bounds.minLng+(bounds.maxLng-bounds.minLng)/2;return{latitude:parseFloat(latitude.toFixed(6)),longitude:parseFloat(longitude.toFixed(6))}};var _default=getCenterOfBounds;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getCompassDirection.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/geolib/es/getCompassDirection.js ***!
-  \*******************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getRhumbLineBearing=_interopRequireDefault(__webpack_require__(/*! ./getRhumbLineBearing */ "./node_modules/geolib/es/getRhumbLineBearing.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getCompassDirection=function getCompassDirection(origin,dest){var bearingFn=arguments.length>2&&arguments[2]!==undefined?arguments[2]:_getRhumbLineBearing.default;var bearing=typeof bearingFn==="function"?bearingFn(origin,dest):(0,_getRhumbLineBearing.default)(origin,dest);if(isNaN(bearing)){throw new Error("Could not calculate bearing for given points. Check your bearing function")}switch(Math.round(bearing/22.5)){case 1:return"NNE";case 2:return"NE";case 3:return"ENE";case 4:return"E";case 5:return"ESE";case 6:return"SE";case 7:return"SSE";case 8:return"S";case 9:return"SSW";case 10:return"SW";case 11:return"WSW";case 12:return"W";case 13:return"WNW";case 14:return"NW";case 15:return"NNW";default:return"N";}};var _default=getCompassDirection;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getCoordinateKey.js":
-/*!****************************************************!*\
-  !*** ./node_modules/geolib/es/getCoordinateKey.js ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var getCoordinateKey=function getCoordinateKey(point,keysToLookup){return keysToLookup.reduce(function(foundKey,key){if(typeof point==="undefined"||point===null){throw new Error("'".concat(point,"' is no valid coordinate."))}if(Object.prototype.hasOwnProperty.call(point,key)&&typeof key!=="undefined"&&typeof foundKey==="undefined"){foundKey=key;return key}return foundKey},undefined)};var _default=getCoordinateKey;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getCoordinateKeys.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/geolib/es/getCoordinateKeys.js ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var _getCoordinateKey=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKey */ "./node_modules/geolib/es/getCoordinateKey.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable});keys.push.apply(keys,symbols)}return keys}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){_defineProperty(target,key,source[key])})}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source))}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key))})}}return target}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true})}else{obj[key]=value}return obj}var getCoordinateKeys=function getCoordinateKeys(point){var keysToLookup=arguments.length>1&&arguments[1]!==undefined?arguments[1]:{longitude:_constants.longitudeKeys,latitude:_constants.latitudeKeys,altitude:_constants.altitudeKeys};var longitude=(0,_getCoordinateKey.default)(point,keysToLookup.longitude);var latitude=(0,_getCoordinateKey.default)(point,keysToLookup.latitude);var altitude=(0,_getCoordinateKey.default)(point,keysToLookup.altitude);return _objectSpread({latitude:latitude,longitude:longitude},altitude?{altitude:altitude}:{})};var _default=getCoordinateKeys;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getDistance.js":
-/*!***********************************************!*\
-  !*** ./node_modules/geolib/es/getDistance.js ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _robustAcos=_interopRequireDefault(__webpack_require__(/*! ./robustAcos */ "./node_modules/geolib/es/robustAcos.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getDistance=function getDistance(from,to){var accuracy=arguments.length>2&&arguments[2]!==undefined?arguments[2]:1;accuracy=typeof accuracy!=="undefined"&&!isNaN(accuracy)?accuracy:1;var fromLat=(0,_getLatitude.default)(from);var fromLon=(0,_getLongitude.default)(from);var toLat=(0,_getLatitude.default)(to);var toLon=(0,_getLongitude.default)(to);var distance=Math.acos((0,_robustAcos.default)(Math.sin((0,_toRad.default)(toLat))*Math.sin((0,_toRad.default)(fromLat))+Math.cos((0,_toRad.default)(toLat))*Math.cos((0,_toRad.default)(fromLat))*Math.cos((0,_toRad.default)(fromLon)-(0,_toRad.default)(toLon))))*_constants.earthRadius;return Math.round(distance/accuracy)*accuracy};var _default=getDistance;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getDistanceFromLine.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/geolib/es/getDistanceFromLine.js ***!
-  \*******************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));var _robustAcos=_interopRequireDefault(__webpack_require__(/*! ./robustAcos */ "./node_modules/geolib/es/robustAcos.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getDistanceFromLine=function getDistanceFromLine(point,lineStart,lineEnd){var d1=(0,_getDistance.default)(lineStart,point);var d2=(0,_getDistance.default)(point,lineEnd);var d3=(0,_getDistance.default)(lineStart,lineEnd);var alpha=Math.acos((0,_robustAcos.default)((d1*d1+d3*d3-d2*d2)/(2*d1*d3)));var beta=Math.acos((0,_robustAcos.default)((d2*d2+d3*d3-d1*d1)/(2*d2*d3)));if(alpha>Math.PI/2){return d1}if(beta>Math.PI/2){return d2}return Math.sin(alpha)*d1};var _default=getDistanceFromLine;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getGreatCircleBearing.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/geolib/es/getGreatCircleBearing.js ***!
-  \*********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _toDeg=_interopRequireDefault(__webpack_require__(/*! ./toDeg */ "./node_modules/geolib/es/toDeg.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getGreatCircleBearing=function getGreatCircleBearing(origin,dest){var destLat=(0,_getLatitude.default)(dest);var detLon=(0,_getLongitude.default)(dest);var originLat=(0,_getLatitude.default)(origin);var originLon=(0,_getLongitude.default)(origin);var bearing=((0,_toDeg.default)(Math.atan2(Math.sin((0,_toRad.default)(detLon)-(0,_toRad.default)(originLon))*Math.cos((0,_toRad.default)(destLat)),Math.cos((0,_toRad.default)(originLat))*Math.sin((0,_toRad.default)(destLat))-Math.sin((0,_toRad.default)(originLat))*Math.cos((0,_toRad.default)(destLat))*Math.cos((0,_toRad.default)(detLon)-(0,_toRad.default)(originLon))))+360)%360;return bearing};var _default=getGreatCircleBearing;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getLatitude.js":
-/*!***********************************************!*\
-  !*** ./node_modules/geolib/es/getLatitude.js ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var _getCoordinateKey=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKey */ "./node_modules/geolib/es/getCoordinateKey.js"));var _toDecimal=_interopRequireDefault(__webpack_require__(/*! ./toDecimal */ "./node_modules/geolib/es/toDecimal.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getLatitude=function getLatitude(point,raw){var latKey=(0,_getCoordinateKey.default)(point,_constants.latitudeKeys);if(typeof latKey==="undefined"||latKey===null){return}var value=point[latKey];return raw===true?value:(0,_toDecimal.default)(value)};var _default=getLatitude;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getLongitude.js":
-/*!************************************************!*\
-  !*** ./node_modules/geolib/es/getLongitude.js ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var _getCoordinateKey=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKey */ "./node_modules/geolib/es/getCoordinateKey.js"));var _toDecimal=_interopRequireDefault(__webpack_require__(/*! ./toDecimal */ "./node_modules/geolib/es/toDecimal.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getLongitude=function getLongitude(point,raw){var latKey=(0,_getCoordinateKey.default)(point,_constants.longitudeKeys);if(typeof latKey==="undefined"||latKey===null){return}var value=point[latKey];return raw===true?value:(0,_toDecimal.default)(value)};var _default=getLongitude;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getPathLength.js":
-/*!*************************************************!*\
-  !*** ./node_modules/geolib/es/getPathLength.js ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}function _typeof(obj){"@babel/helpers - typeof";if(typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"){_typeof=function _typeof(obj){return typeof obj}}else{_typeof=function _typeof(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj}}return _typeof(obj)}var getPathLength=function getPathLength(points){var distanceFn=arguments.length>1&&arguments[1]!==undefined?arguments[1]:_getDistance.default;return points.reduce(function(acc,point){if(_typeof(acc)==="object"&&acc.last!==null){acc.distance+=distanceFn(point,acc.last)}acc.last=point;return acc},{last:null,distance:0}).distance};var _default=getPathLength;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getPreciseDistance.js":
-/*!******************************************************!*\
-  !*** ./node_modules/geolib/es/getPreciseDistance.js ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getDistance=function getDistance(start,end){var accuracy=arguments.length>2&&arguments[2]!==undefined?arguments[2]:1;accuracy=typeof accuracy!=="undefined"&&!isNaN(accuracy)?accuracy:1;var startLat=(0,_getLatitude.default)(start);var startLon=(0,_getLongitude.default)(start);var endLat=(0,_getLatitude.default)(end);var endLon=(0,_getLongitude.default)(end);var b=6356752.314245;var ellipsoidParams=1/298.257223563;var L=(0,_toRad.default)(endLon-startLon);var cosSigma;var sigma;var sinAlpha;var cosSqAlpha;var cos2SigmaM;var sinSigma;var U1=Math.atan((1-ellipsoidParams)*Math.tan((0,_toRad.default)(parseFloat(startLat))));var U2=Math.atan((1-ellipsoidParams)*Math.tan((0,_toRad.default)(parseFloat(endLat))));var sinU1=Math.sin(U1);var cosU1=Math.cos(U1);var sinU2=Math.sin(U2);var cosU2=Math.cos(U2);var lambda=L;var lambdaP;var iterLimit=100;do{var sinLambda=Math.sin(lambda);var cosLambda=Math.cos(lambda);sinSigma=Math.sqrt(cosU2*sinLambda*(cosU2*sinLambda)+(cosU1*sinU2-sinU1*cosU2*cosLambda)*(cosU1*sinU2-sinU1*cosU2*cosLambda));if(sinSigma===0){return 0}cosSigma=sinU1*sinU2+cosU1*cosU2*cosLambda;sigma=Math.atan2(sinSigma,cosSigma);sinAlpha=cosU1*cosU2*sinLambda/sinSigma;cosSqAlpha=1-sinAlpha*sinAlpha;cos2SigmaM=cosSigma-2*sinU1*sinU2/cosSqAlpha;if(isNaN(cos2SigmaM)){cos2SigmaM=0}var C=ellipsoidParams/16*cosSqAlpha*(4+ellipsoidParams*(4-3*cosSqAlpha));lambdaP=lambda;lambda=L+(1-C)*ellipsoidParams*sinAlpha*(sigma+C*sinSigma*(cos2SigmaM+C*cosSigma*(-1+2*cos2SigmaM*cos2SigmaM)))}while(Math.abs(lambda-lambdaP)>1e-12&&--iterLimit>0);if(iterLimit===0){return NaN}var uSq=cosSqAlpha*(_constants.earthRadius*_constants.earthRadius-b*b)/(b*b);var A=1+uSq/16384*(4096+uSq*(-768+uSq*(320-175*uSq)));var B=uSq/1024*(256+uSq*(-128+uSq*(74-47*uSq)));var deltaSigma=B*sinSigma*(cos2SigmaM+B/4*(cosSigma*(-1+2*cos2SigmaM*cos2SigmaM)-B/6*cos2SigmaM*(-3+4*sinSigma*sinSigma)*(-3+4*cos2SigmaM*cos2SigmaM)));var distance=b*A*(sigma-deltaSigma);return Math.round(distance/accuracy)*accuracy};var _default=getDistance;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getRhumbLineBearing.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/geolib/es/getRhumbLineBearing.js ***!
-  \*******************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _toDeg=_interopRequireDefault(__webpack_require__(/*! ./toDeg */ "./node_modules/geolib/es/toDeg.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getRhumbLineBearing=function getRhumbLineBearing(origin,dest){var diffLon=(0,_toRad.default)((0,_getLongitude.default)(dest))-(0,_toRad.default)((0,_getLongitude.default)(origin));var diffPhi=Math.log(Math.tan((0,_toRad.default)((0,_getLatitude.default)(dest))/2+Math.PI/4)/Math.tan((0,_toRad.default)((0,_getLatitude.default)(origin))/2+Math.PI/4));if(Math.abs(diffLon)>Math.PI){if(diffLon>0){diffLon=(Math.PI*2-diffLon)*-1}else{diffLon=Math.PI*2+diffLon}}return((0,_toDeg.default)(Math.atan2(diffLon,diffPhi))+360)%360};var _default=getRhumbLineBearing;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getRoughCompassDirection.js":
-/*!************************************************************!*\
-  !*** ./node_modules/geolib/es/getRoughCompassDirection.js ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var getRoughCompassDirection=function getRoughCompassDirection(exact){if(/^NNE|NE|NNW|N$/.test(exact)){return"N"}if(/^ENE|E|ESE|SE$/.test(exact)){return"E"}if(/^SSE|S|SSW|SW$/.test(exact)){return"S"}if(/^WSW|W|WNW|NW$/.test(exact)){return"W"}};var _default=getRoughCompassDirection;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/getSpeed.js":
-/*!********************************************!*\
-  !*** ./node_modules/geolib/es/getSpeed.js ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var getSpeed=function getSpeed(start,end){var distanceFn=arguments.length>2&&arguments[2]!==undefined?arguments[2]:_getDistance.default;var distance=distanceFn(start,end);var time=Number(end.time)-Number(start.time);var metersPerSecond=distance/time*1000;return metersPerSecond};var _default=getSpeed;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/index.js":
-/*!*****************************************!*\
-  !*** ./node_modules/geolib/es/index.js ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));var _exportNames={computeDestinationPoint:true,convertArea:true,convertDistance:true,convertSpeed:true,decimalToSexagesimal:true,findNearest:true,getAreaOfPolygon:true,getBounds:true,getBoundsOfDistance:true,getCenter:true,getCenterOfBounds:true,getCompassDirection:true,getCoordinateKey:true,getCoordinateKeys:true,getDistance:true,getDistanceFromLine:true,getGreatCircleBearing:true,getLatitude:true,getLongitude:true,getPathLength:true,getPreciseDistance:true,getRhumbLineBearing:true,getRoughCompassDirection:true,getSpeed:true,isDecimal:true,isPointInLine:true,isPointInPolygon:true,isPointNearLine:true,isPointWithinRadius:true,isSexagesimal:true,isValidCoordinate:true,isValidLatitude:true,isValidLongitude:true,orderByDistance:true,sexagesimalToDecimal:true,toDecimal:true,toRad:true,toDeg:true,wktToPolygon:true};Object.defineProperty(exports, "computeDestinationPoint", ({enumerable:true,get:function get(){return _computeDestinationPoint.default}}));Object.defineProperty(exports, "convertArea", ({enumerable:true,get:function get(){return _convertArea.default}}));Object.defineProperty(exports, "convertDistance", ({enumerable:true,get:function get(){return _convertDistance.default}}));Object.defineProperty(exports, "convertSpeed", ({enumerable:true,get:function get(){return _convertSpeed.default}}));Object.defineProperty(exports, "decimalToSexagesimal", ({enumerable:true,get:function get(){return _decimalToSexagesimal.default}}));Object.defineProperty(exports, "findNearest", ({enumerable:true,get:function get(){return _findNearest.default}}));Object.defineProperty(exports, "getAreaOfPolygon", ({enumerable:true,get:function get(){return _getAreaOfPolygon.default}}));Object.defineProperty(exports, "getBounds", ({enumerable:true,get:function get(){return _getBounds.default}}));Object.defineProperty(exports, "getBoundsOfDistance", ({enumerable:true,get:function get(){return _getBoundsOfDistance.default}}));Object.defineProperty(exports, "getCenter", ({enumerable:true,get:function get(){return _getCenter.default}}));Object.defineProperty(exports, "getCenterOfBounds", ({enumerable:true,get:function get(){return _getCenterOfBounds.default}}));Object.defineProperty(exports, "getCompassDirection", ({enumerable:true,get:function get(){return _getCompassDirection.default}}));Object.defineProperty(exports, "getCoordinateKey", ({enumerable:true,get:function get(){return _getCoordinateKey.default}}));Object.defineProperty(exports, "getCoordinateKeys", ({enumerable:true,get:function get(){return _getCoordinateKeys.default}}));Object.defineProperty(exports, "getDistance", ({enumerable:true,get:function get(){return _getDistance.default}}));Object.defineProperty(exports, "getDistanceFromLine", ({enumerable:true,get:function get(){return _getDistanceFromLine.default}}));Object.defineProperty(exports, "getGreatCircleBearing", ({enumerable:true,get:function get(){return _getGreatCircleBearing.default}}));Object.defineProperty(exports, "getLatitude", ({enumerable:true,get:function get(){return _getLatitude.default}}));Object.defineProperty(exports, "getLongitude", ({enumerable:true,get:function get(){return _getLongitude.default}}));Object.defineProperty(exports, "getPathLength", ({enumerable:true,get:function get(){return _getPathLength.default}}));Object.defineProperty(exports, "getPreciseDistance", ({enumerable:true,get:function get(){return _getPreciseDistance.default}}));Object.defineProperty(exports, "getRhumbLineBearing", ({enumerable:true,get:function get(){return _getRhumbLineBearing.default}}));Object.defineProperty(exports, "getRoughCompassDirection", ({enumerable:true,get:function get(){return _getRoughCompassDirection.default}}));Object.defineProperty(exports, "getSpeed", ({enumerable:true,get:function get(){return _getSpeed.default}}));Object.defineProperty(exports, "isDecimal", ({enumerable:true,get:function get(){return _isDecimal.default}}));Object.defineProperty(exports, "isPointInLine", ({enumerable:true,get:function get(){return _isPointInLine.default}}));Object.defineProperty(exports, "isPointInPolygon", ({enumerable:true,get:function get(){return _isPointInPolygon.default}}));Object.defineProperty(exports, "isPointNearLine", ({enumerable:true,get:function get(){return _isPointNearLine.default}}));Object.defineProperty(exports, "isPointWithinRadius", ({enumerable:true,get:function get(){return _isPointWithinRadius.default}}));Object.defineProperty(exports, "isSexagesimal", ({enumerable:true,get:function get(){return _isSexagesimal.default}}));Object.defineProperty(exports, "isValidCoordinate", ({enumerable:true,get:function get(){return _isValidCoordinate.default}}));Object.defineProperty(exports, "isValidLatitude", ({enumerable:true,get:function get(){return _isValidLatitude.default}}));Object.defineProperty(exports, "isValidLongitude", ({enumerable:true,get:function get(){return _isValidLongitude.default}}));Object.defineProperty(exports, "orderByDistance", ({enumerable:true,get:function get(){return _orderByDistance.default}}));Object.defineProperty(exports, "sexagesimalToDecimal", ({enumerable:true,get:function get(){return _sexagesimalToDecimal.default}}));Object.defineProperty(exports, "toDecimal", ({enumerable:true,get:function get(){return _toDecimal.default}}));Object.defineProperty(exports, "toRad", ({enumerable:true,get:function get(){return _toRad.default}}));Object.defineProperty(exports, "toDeg", ({enumerable:true,get:function get(){return _toDeg.default}}));Object.defineProperty(exports, "wktToPolygon", ({enumerable:true,get:function get(){return _wktToPolygon.default}}));var _computeDestinationPoint=_interopRequireDefault(__webpack_require__(/*! ./computeDestinationPoint */ "./node_modules/geolib/es/computeDestinationPoint.js"));var _convertArea=_interopRequireDefault(__webpack_require__(/*! ./convertArea */ "./node_modules/geolib/es/convertArea.js"));var _convertDistance=_interopRequireDefault(__webpack_require__(/*! ./convertDistance */ "./node_modules/geolib/es/convertDistance.js"));var _convertSpeed=_interopRequireDefault(__webpack_require__(/*! ./convertSpeed */ "./node_modules/geolib/es/convertSpeed.js"));var _decimalToSexagesimal=_interopRequireDefault(__webpack_require__(/*! ./decimalToSexagesimal */ "./node_modules/geolib/es/decimalToSexagesimal.js"));var _findNearest=_interopRequireDefault(__webpack_require__(/*! ./findNearest */ "./node_modules/geolib/es/findNearest.js"));var _getAreaOfPolygon=_interopRequireDefault(__webpack_require__(/*! ./getAreaOfPolygon */ "./node_modules/geolib/es/getAreaOfPolygon.js"));var _getBounds=_interopRequireDefault(__webpack_require__(/*! ./getBounds */ "./node_modules/geolib/es/getBounds.js"));var _getBoundsOfDistance=_interopRequireDefault(__webpack_require__(/*! ./getBoundsOfDistance */ "./node_modules/geolib/es/getBoundsOfDistance.js"));var _getCenter=_interopRequireDefault(__webpack_require__(/*! ./getCenter */ "./node_modules/geolib/es/getCenter.js"));var _getCenterOfBounds=_interopRequireDefault(__webpack_require__(/*! ./getCenterOfBounds */ "./node_modules/geolib/es/getCenterOfBounds.js"));var _getCompassDirection=_interopRequireDefault(__webpack_require__(/*! ./getCompassDirection */ "./node_modules/geolib/es/getCompassDirection.js"));var _getCoordinateKey=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKey */ "./node_modules/geolib/es/getCoordinateKey.js"));var _getCoordinateKeys=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKeys */ "./node_modules/geolib/es/getCoordinateKeys.js"));var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));var _getDistanceFromLine=_interopRequireDefault(__webpack_require__(/*! ./getDistanceFromLine */ "./node_modules/geolib/es/getDistanceFromLine.js"));var _getGreatCircleBearing=_interopRequireDefault(__webpack_require__(/*! ./getGreatCircleBearing */ "./node_modules/geolib/es/getGreatCircleBearing.js"));var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));var _getPathLength=_interopRequireDefault(__webpack_require__(/*! ./getPathLength */ "./node_modules/geolib/es/getPathLength.js"));var _getPreciseDistance=_interopRequireDefault(__webpack_require__(/*! ./getPreciseDistance */ "./node_modules/geolib/es/getPreciseDistance.js"));var _getRhumbLineBearing=_interopRequireDefault(__webpack_require__(/*! ./getRhumbLineBearing */ "./node_modules/geolib/es/getRhumbLineBearing.js"));var _getRoughCompassDirection=_interopRequireDefault(__webpack_require__(/*! ./getRoughCompassDirection */ "./node_modules/geolib/es/getRoughCompassDirection.js"));var _getSpeed=_interopRequireDefault(__webpack_require__(/*! ./getSpeed */ "./node_modules/geolib/es/getSpeed.js"));var _isDecimal=_interopRequireDefault(__webpack_require__(/*! ./isDecimal */ "./node_modules/geolib/es/isDecimal.js"));var _isPointInLine=_interopRequireDefault(__webpack_require__(/*! ./isPointInLine */ "./node_modules/geolib/es/isPointInLine.js"));var _isPointInPolygon=_interopRequireDefault(__webpack_require__(/*! ./isPointInPolygon */ "./node_modules/geolib/es/isPointInPolygon.js"));var _isPointNearLine=_interopRequireDefault(__webpack_require__(/*! ./isPointNearLine */ "./node_modules/geolib/es/isPointNearLine.js"));var _isPointWithinRadius=_interopRequireDefault(__webpack_require__(/*! ./isPointWithinRadius */ "./node_modules/geolib/es/isPointWithinRadius.js"));var _isSexagesimal=_interopRequireDefault(__webpack_require__(/*! ./isSexagesimal */ "./node_modules/geolib/es/isSexagesimal.js"));var _isValidCoordinate=_interopRequireDefault(__webpack_require__(/*! ./isValidCoordinate */ "./node_modules/geolib/es/isValidCoordinate.js"));var _isValidLatitude=_interopRequireDefault(__webpack_require__(/*! ./isValidLatitude */ "./node_modules/geolib/es/isValidLatitude.js"));var _isValidLongitude=_interopRequireDefault(__webpack_require__(/*! ./isValidLongitude */ "./node_modules/geolib/es/isValidLongitude.js"));var _orderByDistance=_interopRequireDefault(__webpack_require__(/*! ./orderByDistance */ "./node_modules/geolib/es/orderByDistance.js"));var _sexagesimalToDecimal=_interopRequireDefault(__webpack_require__(/*! ./sexagesimalToDecimal */ "./node_modules/geolib/es/sexagesimalToDecimal.js"));var _toDecimal=_interopRequireDefault(__webpack_require__(/*! ./toDecimal */ "./node_modules/geolib/es/toDecimal.js"));var _toRad=_interopRequireDefault(__webpack_require__(/*! ./toRad */ "./node_modules/geolib/es/toRad.js"));var _toDeg=_interopRequireDefault(__webpack_require__(/*! ./toDeg */ "./node_modules/geolib/es/toDeg.js"));var _wktToPolygon=_interopRequireDefault(__webpack_require__(/*! ./wktToPolygon */ "./node_modules/geolib/es/wktToPolygon.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");Object.keys(_constants).forEach(function(key){if(key==="default"||key==="__esModule")return;if(Object.prototype.hasOwnProperty.call(_exportNames,key))return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _constants[key]}})});function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/isDecimal.js":
-/*!*********************************************!*\
-  !*** ./node_modules/geolib/es/isDecimal.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var isDecimal=function isDecimal(value){var checkedValue=value.toString().trim();if(isNaN(parseFloat(checkedValue))){return false}return parseFloat(checkedValue)===Number(checkedValue)};var _default=isDecimal;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/isPointInLine.js":
-/*!*************************************************!*\
-  !*** ./node_modules/geolib/es/isPointInLine.js ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isPointInLine=function isPointInLine(point,lineStart,lineEnd){return(0,_getDistance.default)(lineStart,point)+(0,_getDistance.default)(point,lineEnd)===(0,_getDistance.default)(lineStart,lineEnd)};var _default=isPointInLine;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/isPointInPolygon.js":
-/*!****************************************************!*\
-  !*** ./node_modules/geolib/es/isPointInPolygon.js ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getLatitude=_interopRequireDefault(__webpack_require__(/*! ./getLatitude */ "./node_modules/geolib/es/getLatitude.js"));var _getLongitude=_interopRequireDefault(__webpack_require__(/*! ./getLongitude */ "./node_modules/geolib/es/getLongitude.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isPointInPolygon=function isPointInPolygon(point,polygon){var isInside=false;var totalPolys=polygon.length;for(var i=-1,j=totalPolys-1;++i<totalPolys;j=i){if(((0,_getLongitude.default)(polygon[i])<=(0,_getLongitude.default)(point)&&(0,_getLongitude.default)(point)<(0,_getLongitude.default)(polygon[j])||(0,_getLongitude.default)(polygon[j])<=(0,_getLongitude.default)(point)&&(0,_getLongitude.default)(point)<(0,_getLongitude.default)(polygon[i]))&&(0,_getLatitude.default)(point)<((0,_getLatitude.default)(polygon[j])-(0,_getLatitude.default)(polygon[i]))*((0,_getLongitude.default)(point)-(0,_getLongitude.default)(polygon[i]))/((0,_getLongitude.default)(polygon[j])-(0,_getLongitude.default)(polygon[i]))+(0,_getLatitude.default)(polygon[i])){isInside=!isInside}}return isInside};var _default=isPointInPolygon;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/isPointNearLine.js":
-/*!***************************************************!*\
-  !*** ./node_modules/geolib/es/isPointNearLine.js ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistanceFromLine=_interopRequireDefault(__webpack_require__(/*! ./getDistanceFromLine */ "./node_modules/geolib/es/getDistanceFromLine.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isPointNearLine=function isPointNearLine(point,start,end,distance){return(0,_getDistanceFromLine.default)(point,start,end)<distance};var _default=isPointNearLine;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/isPointWithinRadius.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/geolib/es/isPointWithinRadius.js ***!
-  \*******************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isPointWithinRadius=function isPointWithinRadius(point,center,radius){return(0,_getDistance.default)(point,center)<radius};var _default=isPointWithinRadius;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/isSexagesimal.js":
-/*!*************************************************!*\
-  !*** ./node_modules/geolib/es/isSexagesimal.js ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var isSexagesimal=function isSexagesimal(value){return _constants.sexagesimalPattern.test(value.toString().trim())};var _default=isSexagesimal;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/isValidCoordinate.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/geolib/es/isValidCoordinate.js ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getCoordinateKeys2=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKeys */ "./node_modules/geolib/es/getCoordinateKeys.js"));var _isValidLatitude=_interopRequireDefault(__webpack_require__(/*! ./isValidLatitude */ "./node_modules/geolib/es/isValidLatitude.js"));var _isValidLongitude=_interopRequireDefault(__webpack_require__(/*! ./isValidLongitude */ "./node_modules/geolib/es/isValidLongitude.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isValidCoordinate=function isValidCoordinate(point){var _getCoordinateKeys=(0,_getCoordinateKeys2.default)(point),latitude=_getCoordinateKeys.latitude,longitude=_getCoordinateKeys.longitude;if(Array.isArray(point)&&point.length>=2){return(0,_isValidLongitude.default)(point[0])&&(0,_isValidLatitude.default)(point[1])}if(typeof latitude==="undefined"||typeof longitude==="undefined"){return false}var lon=point[longitude];var lat=point[latitude];if(typeof lat==="undefined"||typeof lon==="undefined"){return false}if((0,_isValidLatitude.default)(lat)===false||(0,_isValidLongitude.default)(lon)===false){return false}return true};var _default=isValidCoordinate;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/isValidLatitude.js":
-/*!***************************************************!*\
-  !*** ./node_modules/geolib/es/isValidLatitude.js ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _isDecimal=_interopRequireDefault(__webpack_require__(/*! ./isDecimal */ "./node_modules/geolib/es/isDecimal.js"));var _isSexagesimal=_interopRequireDefault(__webpack_require__(/*! ./isSexagesimal */ "./node_modules/geolib/es/isSexagesimal.js"));var _sexagesimalToDecimal=_interopRequireDefault(__webpack_require__(/*! ./sexagesimalToDecimal */ "./node_modules/geolib/es/sexagesimalToDecimal.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isValidLatitude=function isValidLatitude(value){if((0,_isDecimal.default)(value)){if(parseFloat(value)>_constants.MAXLAT||value<_constants.MINLAT){return false}return true}if((0,_isSexagesimal.default)(value)){return isValidLatitude((0,_sexagesimalToDecimal.default)(value))}return false};var _default=isValidLatitude;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/isValidLongitude.js":
-/*!****************************************************!*\
-  !*** ./node_modules/geolib/es/isValidLongitude.js ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _isDecimal=_interopRequireDefault(__webpack_require__(/*! ./isDecimal */ "./node_modules/geolib/es/isDecimal.js"));var _isSexagesimal=_interopRequireDefault(__webpack_require__(/*! ./isSexagesimal */ "./node_modules/geolib/es/isSexagesimal.js"));var _sexagesimalToDecimal=_interopRequireDefault(__webpack_require__(/*! ./sexagesimalToDecimal */ "./node_modules/geolib/es/sexagesimalToDecimal.js"));var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var isValidLongitude=function isValidLongitude(value){if((0,_isDecimal.default)(value)){if(parseFloat(value)>_constants.MAXLON||value<_constants.MINLON){return false}return true}if((0,_isSexagesimal.default)(value)){return isValidLongitude((0,_sexagesimalToDecimal.default)(value))}return false};var _default=isValidLongitude;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/orderByDistance.js":
-/*!***************************************************!*\
-  !*** ./node_modules/geolib/es/orderByDistance.js ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _getDistance=_interopRequireDefault(__webpack_require__(/*! ./getDistance */ "./node_modules/geolib/es/getDistance.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}var orderByDistance=function orderByDistance(point,coords){var distanceFn=arguments.length>2&&arguments[2]!==undefined?arguments[2]:_getDistance.default;distanceFn=typeof distanceFn==="function"?distanceFn:_getDistance.default;return coords.slice().sort(function(a,b){return distanceFn(point,a)-distanceFn(point,b)})};var _default=orderByDistance;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/robustAcos.js":
-/*!**********************************************!*\
-  !*** ./node_modules/geolib/es/robustAcos.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var robustAcos=function robustAcos(value){if(value>1){return 1}if(value<-1){return-1}return value};var _default=robustAcos;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/sexagesimalToDecimal.js":
-/*!********************************************************!*\
-  !*** ./node_modules/geolib/es/sexagesimalToDecimal.js ***!
-  \********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _constants=__webpack_require__(/*! ./constants */ "./node_modules/geolib/es/constants.js");var sexagesimalToDecimal=function sexagesimalToDecimal(sexagesimal){var data=new RegExp(_constants.sexagesimalPattern).exec(sexagesimal);if(typeof data==="undefined"||data===null){throw new Error("Given value is not in sexagesimal format")}var min=Number(data[2])/60||0;var sec=Number(data[4])/3600||0;var decimal=parseFloat(data[1])+min+sec;return["S","W"].includes(data[7])?-decimal:decimal};var _default=sexagesimalToDecimal;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/toDecimal.js":
-/*!*********************************************!*\
-  !*** ./node_modules/geolib/es/toDecimal.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var _isDecimal=_interopRequireDefault(__webpack_require__(/*! ./isDecimal */ "./node_modules/geolib/es/isDecimal.js"));var _isSexagesimal=_interopRequireDefault(__webpack_require__(/*! ./isSexagesimal */ "./node_modules/geolib/es/isSexagesimal.js"));var _sexagesimalToDecimal=_interopRequireDefault(__webpack_require__(/*! ./sexagesimalToDecimal */ "./node_modules/geolib/es/sexagesimalToDecimal.js"));var _isValidCoordinate=_interopRequireDefault(__webpack_require__(/*! ./isValidCoordinate */ "./node_modules/geolib/es/isValidCoordinate.js"));var _getCoordinateKeys=_interopRequireDefault(__webpack_require__(/*! ./getCoordinateKeys */ "./node_modules/geolib/es/getCoordinateKeys.js"));function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj}}function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable});keys.push.apply(keys,symbols)}return keys}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){_defineProperty(target,key,source[key])})}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source))}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key))})}}return target}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true})}else{obj[key]=value}return obj}var toDecimal=function toDecimal(value){if((0,_isDecimal.default)(value)){return Number(value)}if((0,_isSexagesimal.default)(value)){return(0,_sexagesimalToDecimal.default)(value)}if((0,_isValidCoordinate.default)(value)){var keys=(0,_getCoordinateKeys.default)(value);if(Array.isArray(value)){return value.map(function(v,index){return[0,1].includes(index)?toDecimal(v):v})}return _objectSpread(_objectSpread(_objectSpread({},value),keys.latitude&&_defineProperty({},keys.latitude,toDecimal(value[keys.latitude]))),keys.longitude&&_defineProperty({},keys.longitude,toDecimal(value[keys.longitude])))}if(Array.isArray(value)){return value.map(function(point){return(0,_isValidCoordinate.default)(point)?toDecimal(point):point})}return value};var _default=toDecimal;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/toDeg.js":
-/*!*****************************************!*\
-  !*** ./node_modules/geolib/es/toDeg.js ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var toDeg=function toDeg(value){return value*180/Math.PI};var _default=toDeg;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/toRad.js":
-/*!*****************************************!*\
-  !*** ./node_modules/geolib/es/toRad.js ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;var toRad=function toRad(value){return value*Math.PI/180};var _default=toRad;exports.default=_default;
-
-/***/ }),
-
-/***/ "./node_modules/geolib/es/wktToPolygon.js":
-/*!************************************************!*\
-  !*** ./node_modules/geolib/es/wktToPolygon.js ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", ({value:true}));exports.default=void 0;function _slicedToArray(arr,i){return _arrayWithHoles(arr)||_iterableToArrayLimit(arr,i)||_unsupportedIterableToArray(arr,i)||_nonIterableRest()}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function _unsupportedIterableToArray(o,minLen){if(!o)return;if(typeof o==="string")return _arrayLikeToArray(o,minLen);var n=Object.prototype.toString.call(o).slice(8,-1);if(n==="Object"&&o.constructor)n=o.constructor.name;if(n==="Map"||n==="Set")return Array.from(o);if(n==="Arguments"||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return _arrayLikeToArray(o,minLen)}function _arrayLikeToArray(arr,len){if(len==null||len>arr.length)len=arr.length;for(var i=0,arr2=new Array(len);i<len;i++){arr2[i]=arr[i]}return arr2}function _iterableToArrayLimit(arr,i){if(typeof Symbol==="undefined"||!(Symbol.iterator in Object(arr)))return;var _arr=[];var _n=true;var _d=false;var _e=undefined;try{for(var _i=arr[Symbol.iterator](),_s;!(_n=(_s=_i.next()).done);_n=true){_arr.push(_s.value);if(i&&_arr.length===i)break}}catch(err){_d=true;_e=err}finally{try{if(!_n&&_i["return"]!=null)_i["return"]()}finally{if(_d)throw _e}}return _arr}function _arrayWithHoles(arr){if(Array.isArray(arr))return arr}var wktToPolygon=function wktToPolygon(wkt){if(!wkt.startsWith("POLYGON")){throw new Error("Invalid wkt.")}var coordsText=wkt.slice(wkt.indexOf("(")+2,wkt.indexOf(")")).split(", ");var polygon=coordsText.map(function(coordText){var _coordText$split=coordText.split(" "),_coordText$split2=_slicedToArray(_coordText$split,2),longitude=_coordText$split2[0],latitude=_coordText$split2[1];return{longitude:parseFloat(longitude),latitude:parseFloat(latitude)}});return polygon};var _default=wktToPolygon;exports.default=_default;
 
 /***/ }),
 
