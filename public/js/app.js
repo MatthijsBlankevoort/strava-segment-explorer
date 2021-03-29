@@ -3455,7 +3455,7 @@ var MyComponent = function MyComponent(_ref) {
 };
 
 function Example() {
-  var _location$lat, _location$lng;
+  var _location$lat, _location$lng, _segmentEfforts$athle, _segmentEfforts$xoms, _segmentEfforts$athle2;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
     lat: 53.0686489,
@@ -3471,10 +3471,15 @@ function Example() {
       segments = _useState4[0],
       setSegments = _useState4[1];
 
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(),
       _useState6 = _slicedToArray(_useState5, 2),
-      segmentEfforts = _useState6[0],
-      setSegmentEfforts = _useState6[1];
+      selectedSegment = _useState6[0],
+      setSelectedSegment = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
+      _useState8 = _slicedToArray(_useState7, 2),
+      segmentEfforts = _useState8[0],
+      setSegmentEfforts = _useState8[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -3529,10 +3534,10 @@ function Example() {
     };
   }();
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(360),
-      _useState8 = _slicedToArray(_useState7, 2),
-      heading = _useState8[0],
-      setHeading = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(360),
+      _useState10 = _slicedToArray(_useState9, 2),
+      heading = _useState10[0],
+      setHeading = _useState10[1];
 
   window.addEventListener('deviceorientation', function (evt) {
     setHeading(360 - evt.alpha);
@@ -3582,8 +3587,43 @@ function Example() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_10__.TileLayer, {
       attribution: "\xA9 <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
       url: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
-    }), segments === null || segments === void 0 ? void 0 : segments.map(function (segment) {
-      var _segmentEfforts$athle, _segmentEfforts$xoms, _segmentEfforts$athle2;
+    }), selectedSegment ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_11__.Polyline, {
+        color: "limegreen",
+        positions: _mapbox_polyline__WEBPACK_IMPORTED_MODULE_5___default().decode(selectedSegment.points)
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.Marker, {
+        eventHandlers: {
+          click: function click() {
+            return onMarkerClick(selectedSegment);
+          }
+        },
+        icon: segmentMarker,
+        position: selectedSegment.start_latlng,
+        color: "limegreen",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_leaflet__WEBPACK_IMPORTED_MODULE_13__.Popup, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
+            children: selectedSegment.name
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+            children: ["Afstand:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("strong", {
+              children: [(selectedSegment.distance / 1000).toFixed(2), ' ', "km"]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+            children: ["Persoonlijk Record (PR):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
+              children: getTimeInMinutes(segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle === void 0 ? void 0 : _segmentEfforts$athle.pr_elapsed_time)
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+            children: ["Snelste tijd (KOM):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
+              children: segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$xoms = segmentEfforts.xoms) === null || _segmentEfforts$xoms === void 0 ? void 0 : _segmentEfforts$xoms.kom
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
+            children: ["Pogingen:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
+              children: segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle2 = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle2 === void 0 ? void 0 : _segmentEfforts$athle2.effort_count
+            })]
+          })]
+        })
+      }, selectedSegment.id)]
+    }) : segments === null || segments === void 0 ? void 0 : segments.map(function (segment) {
+      var _segmentEfforts$athle3, _segmentEfforts$xoms2, _segmentEfforts$athle4;
 
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_11__.Polyline, {
@@ -3606,16 +3646,22 @@ function Example() {
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
               children: ["Persoonlijk Record (PR):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
-                children: getTimeInMinutes(segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle === void 0 ? void 0 : _segmentEfforts$athle.pr_elapsed_time)
+                children: getTimeInMinutes(segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle3 = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle3 === void 0 ? void 0 : _segmentEfforts$athle3.pr_elapsed_time)
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
               children: ["Snelste tijd (KOM):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
-                children: segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$xoms = segmentEfforts.xoms) === null || _segmentEfforts$xoms === void 0 ? void 0 : _segmentEfforts$xoms.kom
+                children: segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$xoms2 = segmentEfforts.xoms) === null || _segmentEfforts$xoms2 === void 0 ? void 0 : _segmentEfforts$xoms2.kom
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
               children: ["Pogingen:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
-                children: segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle2 = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle2 === void 0 ? void 0 : _segmentEfforts$athle2.effort_count
+                children: segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle4 = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle4 === void 0 ? void 0 : _segmentEfforts$athle4.effort_count
               })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+              onClick: function onClick() {
+                return setSelectedSegment(segment);
+              },
+              className: "btn btn-primary",
+              children: "selecteer segment"
             })]
           })
         }, segment.id)]

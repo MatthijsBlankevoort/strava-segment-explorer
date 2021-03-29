@@ -53,6 +53,7 @@ const MyComponent = ({ setLocation }) => {
 function Example() {
   const [location, setLocation] = useState({ lat: 53.0686489, lng: 4.824401, radius: 20 });
   const [segments, setSegments] = useState([]);
+  const [selectedSegment, setSelectedSegment] = useState();
   const [segmentEfforts, setSegmentEfforts] = useState({});
 
   useEffect(async () => {
@@ -99,7 +100,6 @@ function Example() {
     }
     return `${minutes}:${seconds}`;
   };
-
   return (
     <StyledContainer
       center={[location.lat ?? 0, location.lng ?? 0]}
@@ -111,23 +111,24 @@ function Example() {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
       />
-      {segments?.map((segment) => (
+      {selectedSegment ? (
         <>
 
-          <Polyline color="orange" positions={polyline.decode(segment.points)} />
+          <Polyline color="limegreen" positions={polyline.decode(selectedSegment.points)} />
           <Marker
-            key={segment.id}
-            eventHandlers={{ click: () => onMarkerClick(segment) }}
+            key={selectedSegment.id}
+            eventHandlers={{ click: () => onMarkerClick(selectedSegment) }}
             icon={segmentMarker}
-            position={segment.start_latlng}
+            position={selectedSegment.start_latlng}
+            color="limegreen"
           >
             <Popup>
-              <h3>{segment.name}</h3>
+              <h3>{selectedSegment.name}</h3>
               <p>
                 Afstand:
                 {' '}
                 <strong>
-                  {(segment.distance / 1000).toFixed(2)}
+                  {(selectedSegment.distance / 1000).toFixed(2)}
                   {' '}
                   km
                 </strong>
@@ -161,7 +162,61 @@ function Example() {
             </Popup>
           </Marker>
         </>
-      ))}
+      )
+        : segments?.map((segment) => (
+          <>
+
+            <Polyline color="orange" positions={polyline.decode(segment.points)} />
+            <Marker
+              key={segment.id}
+              eventHandlers={{ click: () => onMarkerClick(segment) }}
+              icon={segmentMarker}
+              position={segment.start_latlng}
+            >
+              <Popup>
+                <h3>{segment.name}</h3>
+                <p>
+                  Afstand:
+                  {' '}
+                  <strong>
+                    {(segment.distance / 1000).toFixed(2)}
+                    {' '}
+                    km
+                  </strong>
+                </p>
+
+                <p>
+                  Persoonlijk Record (PR):
+                  {' '}
+                  <strong>
+                    {getTimeInMinutes(segmentEfforts?.athlete_segment_stats?.pr_elapsed_time)}
+                  </strong>
+                </p>
+
+                <p>
+                  Snelste tijd (KOM):
+                  {' '}
+                  <strong>
+                    {segmentEfforts?.xoms?.kom}
+                  </strong>
+                </p>
+
+                <p>
+                  Pogingen:
+                  {' '}
+                  <strong>
+
+                    {segmentEfforts?.athlete_segment_stats?.effort_count}
+                  </strong>
+                </p>
+
+                <button onClick={() => setSelectedSegment(segment)} className="btn btn-primary">
+                  selecteer segment
+                </button>
+              </Popup>
+            </Marker>
+          </>
+        ))}
       {location.lat && location.lng && (
         <Marker icon={customMarkerIcon} position={[location.lat, location.lng]} />
       )}
