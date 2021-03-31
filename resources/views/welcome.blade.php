@@ -29,6 +29,6 @@
     </div>
 
     <!-- React JS -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ secure_asset('js/app.js') }}" defer></script>
     </body>
 </html>

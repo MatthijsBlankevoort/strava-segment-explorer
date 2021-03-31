@@ -24,6 +24,7 @@ const MyComponent = ({ setLocation }) => {
 
   function success(pos) {
     const crd = pos.coords;
+    console.log(crd);
     map.flyTo({ lat: crd.latitude, lng: crd.longitude, radius: crd.accuracy });
     setLocation({ lat: crd.latitude, lng: crd.longitude, radius: crd.accuracy });
     console.log('Your current position is:');
@@ -66,11 +67,22 @@ function Example() {
     setSegmentEfforts(await getSegmentEfforts(segment.id));
   };
 
-  const [heading, setHeading] = useState(360);
+  const [heading, setHeading] = useState(0);
+  const handleButtonClick = () => {
+    DeviceOrientationEvent.requestPermission().then((result) => {
+      if (result === 'granted') {
+        window.addEventListener('deviceorientation', (evt) => {
+          let compassdir;
 
-  window.addEventListener('deviceorientation', (evt) => {
-    setHeading(360 - evt.alpha);
-  }, false);
+          if (evt.webkitCompassHeading) {
+            // Apple works only with this, alpha doesn't work
+            compassdir = evt.webkitCompassHeading;
+          } else compassdir = evt.alpha;
+          setHeading(compassdir);
+        }, false);
+      }
+    });
+  };
   const iconMarkup = renderToStaticMarkup(
     <UserIconContainer rotation={heading} id="user-icon">
       <StyledIcon className="fas fa-angle-up" />
@@ -106,10 +118,13 @@ function Example() {
       zoom={13}
       scrollWheelZoom={false}
     >
+      <StyledButton2 onClick={() => handleButtonClick()}>
+        Use compass
+      </StyledButton2>
       <MyComponent setLocation={setLocation} />
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+        url={`https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=${process.env.MIX_STADIA_MAPS_API_KEY}`}
       />
       {selectedSegment ? (
         <>
@@ -230,6 +245,13 @@ function Example() {
     </StyledContainer>
   );
 }
+
+const StyledButton2 = styled.button`
+    position: absolute;
+    top: 20px;
+    right: 0;
+    z-index: 999;
+`;
 
 const StyledContainer = styled(MapContainer)`
     height: 100vh;

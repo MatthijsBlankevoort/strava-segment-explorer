@@ -3370,7 +3370,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom_server__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-dom/server */ "./node_modules/react-dom/server.browser.js");
 /* harmony import */ var _services_strava__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/strava */ "./resources/js/services/strava.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var _templateObject, _templateObject2, _templateObject3, _templateObject4;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5;
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -3418,6 +3418,7 @@ var MyComponent = function MyComponent(_ref) {
 
   function success(pos) {
     var crd = pos.coords;
+    console.log(crd);
     map.flyTo({
       lat: crd.latitude,
       lng: crd.longitude,
@@ -3534,14 +3535,28 @@ function Example() {
     };
   }();
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(360),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
       _useState10 = _slicedToArray(_useState9, 2),
       heading = _useState10[0],
       setHeading = _useState10[1];
 
-  window.addEventListener('deviceorientation', function (evt) {
-    setHeading(360 - evt.alpha);
-  }, false);
+  var handleButtonClick = function handleButtonClick() {
+    DeviceOrientationEvent.requestPermission().then(function (result) {
+      if (result === 'granted') {
+        window.addEventListener('deviceorientation', function (evt) {
+          var compassdir;
+
+          if (evt.webkitCompassHeading) {
+            // Apple works only with this, alpha doesn't work
+            compassdir = evt.webkitCompassHeading;
+          } else compassdir = evt.alpha;
+
+          setHeading(compassdir);
+        }, false);
+      }
+    });
+  };
+
   var iconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(UserIconContainer, {
     rotation: heading,
     id: "user-icon",
@@ -3582,11 +3597,16 @@ function Example() {
     center: [(_location$lat = location.lat) !== null && _location$lat !== void 0 ? _location$lat : 0, (_location$lng = location.lng) !== null && _location$lng !== void 0 ? _location$lng : 0],
     zoom: 13,
     scrollWheelZoom: false,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(MyComponent, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledButton2, {
+      onClick: function onClick() {
+        return handleButtonClick();
+      },
+      children: "Use compass"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(MyComponent, {
       setLocation: setLocation
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_10__.TileLayer, {
       attribution: "\xA9 <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
-      url: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+      url: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=".concat("7bdb9552-8f8f-4b2b-a837-262355843704")
     }), selectedSegment ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_11__.Polyline, {
         color: "limegreen",
@@ -3680,10 +3700,11 @@ function Example() {
   });
 }
 
-var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_15__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_16__.MapContainer)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
-var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.button(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 0;\n    right: 0;\n    z-index: 999;\n"])));
-var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.i(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    &.fa-map-marker-alt {\n        color: orange;\n        font-size: 1.5rem;\n        position: absolute;\n        right: 0;\n        bottom: 0;\n    }\n\n    &.fa-circle, &.fa-angle-up {\n        color: dodgerblue;\n        position: relative;\n    }\n\n"])));
-var UserIconContainer = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    ", "\n\n\n    display: flex;\n    flex-flow: column;\n    justify-content: center;\n    align-items: center;\n"])), function (props) {
+var StyledButton2 = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.button(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 20px;\n    right: 0;\n    z-index: 999;\n"])));
+var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_15__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_16__.MapContainer)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
+var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.button(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 0;\n    right: 0;\n    z-index: 999;\n"])));
+var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.i(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    &.fa-map-marker-alt {\n        color: orange;\n        font-size: 1.5rem;\n        position: absolute;\n        right: 0;\n        bottom: 0;\n    }\n\n    &.fa-circle, &.fa-angle-up {\n        color: dodgerblue;\n        position: relative;\n    }\n\n"])));
+var UserIconContainer = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.div(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    ", "\n\n\n    display: flex;\n    flex-flow: column;\n    justify-content: center;\n    align-items: center;\n"])), function (props) {
   return " transform: rotate(".concat(props.rotation, "deg);");
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Example);
@@ -3734,7 +3755,7 @@ var exploreSegments = /*#__PURE__*/function () {
             _context.next = 4;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/explore?bounds=").concat(bounds, "&activity_type=riding"), {
               headers: {
-                Authorization: "Bearer ".concat("041a0b0de4cc5453f9ae398428f4b325a8a0dade")
+                Authorization: "Bearer ".concat("ae166d4a7da4be26a692dc244047bbd535631421")
               }
             }).then(function (response) {
               return response.data.segments;
@@ -3766,7 +3787,7 @@ var getSegmentEfforts = /*#__PURE__*/function () {
             _context2.next = 2;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/").concat(id), {
               headers: {
-                Authorization: "Bearer ".concat("041a0b0de4cc5453f9ae398428f4b325a8a0dade")
+                Authorization: "Bearer ".concat("ae166d4a7da4be26a692dc244047bbd535631421")
               }
             }).then(function (response) {
               return response.data;
