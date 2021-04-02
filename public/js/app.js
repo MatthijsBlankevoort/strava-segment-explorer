@@ -3347,7 +3347,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SEGMENT_EXPLORE_RADIUS": () => (/* binding */ SEGMENT_EXPLORE_RADIUS),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
@@ -3370,7 +3369,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom_server__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-dom/server */ "./node_modules/react-dom/server.browser.js");
 /* harmony import */ var _services_strava__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/strava */ "./resources/js/services/strava.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -3405,10 +3404,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var SEGMENT_EXPLORE_RADIUS = 10000;
 
 var MyComponent = function MyComponent(_ref) {
-  var setLocation = _ref.setLocation;
+  var setLocation = _ref.setLocation,
+      setHeading = _ref.setHeading;
   var map = (0,react_leaflet__WEBPACK_IMPORTED_MODULE_9__.useMap)();
   var options = {
     enableHighAccuracy: false,
@@ -3418,21 +3417,15 @@ var MyComponent = function MyComponent(_ref) {
 
   function success(pos) {
     var crd = pos.coords;
-    console.log(crd);
     map.flyTo({
       lat: crd.latitude,
-      lng: crd.longitude,
-      radius: crd.accuracy
+      lng: crd.longitude
     });
     setLocation({
       lat: crd.latitude,
       lng: crd.longitude,
-      radius: crd.accuracy
+      locationReceived: true
     });
-    console.log('Your current position is:');
-    console.log("Latitude : ".concat(crd.latitude));
-    console.log("Longitude: ".concat(crd.longitude));
-    console.log("More or less ".concat(crd.accuracy, " meters."));
   }
 
   function error(err) {
@@ -3445,9 +3438,25 @@ var MyComponent = function MyComponent(_ref) {
     } else {
       alert('Sorry, your browser does not support geolocation services.');
     }
+
+    DeviceOrientationEvent.requestPermission().then(function (result) {
+      if (result === 'granted') {
+        window.addEventListener('deviceorientation', function (evt) {
+          var compassdir;
+
+          if (evt.webkitCompassHeading) {
+            // Apple works only with this, alpha doesn't work
+            compassdir = evt.webkitCompassHeading;
+          } else compassdir = evt.alpha;
+
+          setHeading(compassdir);
+        }, false);
+      }
+    });
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledButton, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+    className: "btn btn-primary",
     onClick: function onClick() {
       return _onClick();
     },
@@ -3459,9 +3468,9 @@ function Example() {
   var _location$lat, _location$lng, _segmentEfforts$athle, _segmentEfforts$xoms, _segmentEfforts$athle2;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    lat: 53.0686489,
-    lng: 4.824401,
-    radius: 20
+    lat: 52.370216,
+    lng: 4.895168,
+    locationReceived: false
   }),
       _useState2 = _slicedToArray(_useState, 2),
       location = _useState2[0],
@@ -3482,19 +3491,24 @@ function Example() {
       segmentEfforts = _useState8[0],
       setSegmentEfforts = _useState8[1];
 
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(5 * 1000),
+      _useState10 = _slicedToArray(_useState9, 2),
+      radius = _useState10[0],
+      setRadius = _useState10[1];
+
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            if (!(location.lat && location.lng)) {
+            if (!(location.lat && location.lng && location.locationReceived)) {
               _context.next = 6;
               break;
             }
 
             _context.t0 = setSegments;
             _context.next = 4;
-            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments)(location.lat, location.lng);
+            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments)(location.lat, location.lng, radius);
 
           case 4:
             _context.t1 = _context.sent;
@@ -3506,7 +3520,7 @@ function Example() {
         }
       }
     }, _callee);
-  })), [location, _services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments, setSegments]);
+  })), [location, _services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments, setSegments, radius]);
 
   var onMarkerClick = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(segment) {
@@ -3535,27 +3549,10 @@ function Example() {
     };
   }();
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
-      _useState10 = _slicedToArray(_useState9, 2),
-      heading = _useState10[0],
-      setHeading = _useState10[1];
-
-  var handleButtonClick = function handleButtonClick() {
-    DeviceOrientationEvent.requestPermission().then(function (result) {
-      if (result === 'granted') {
-        window.addEventListener('deviceorientation', function (evt) {
-          var compassdir;
-
-          if (evt.webkitCompassHeading) {
-            // Apple works only with this, alpha doesn't work
-            compassdir = evt.webkitCompassHeading;
-          } else compassdir = evt.alpha;
-
-          setHeading(compassdir);
-        }, false);
-      }
-    });
-  };
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
+      _useState12 = _slicedToArray(_useState11, 2),
+      heading = _useState12[0],
+      setHeading = _useState12[1];
 
   var iconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(UserIconContainer, {
     rotation: heading,
@@ -3593,18 +3590,12 @@ function Example() {
     return "".concat(minutes, ":").concat(seconds);
   };
 
+  console.log(radius);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(StyledContainer, {
     center: [(_location$lat = location.lat) !== null && _location$lat !== void 0 ? _location$lat : 0, (_location$lng = location.lng) !== null && _location$lng !== void 0 ? _location$lng : 0],
-    zoom: 13,
+    zoom: 12,
     scrollWheelZoom: false,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledButton2, {
-      onClick: function onClick() {
-        return handleButtonClick();
-      },
-      children: "Use compass"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(MyComponent, {
-      setLocation: setLocation
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_10__.TileLayer, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_10__.TileLayer, {
       attribution: "\xA9 <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
       url: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=".concat("7bdb9552-8f8f-4b2b-a837-262355843704")
     }), selectedSegment ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
@@ -3689,22 +3680,44 @@ function Example() {
     }), location.lat && location.lng && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.Marker, {
       icon: customMarkerIcon,
       position: [location.lat, location.lng]
-    }), location.lat && location.lng && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_14__.Circle, {
+    }), location.lat && location.lng && radius && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_14__.Circle, {
       center: {
         lat: location.lat,
         lng: location.lng
       },
       color: "dodgerblue",
-      radius: SEGMENT_EXPLORE_RADIUS * 2
+      radius: radius
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(ConfigurationContainer, {
+      className: "container-sm",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        className: "form-group",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+          htmlFor: "radius",
+          children: ["Radius:", ' ', radius / 1000, "km", ' ']
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
+          onChange: function onChange(e) {
+            setRadius(e.target.value * 1000);
+          },
+          type: "range",
+          step: "5",
+          value: radius / 1000,
+          className: "custom-range",
+          min: "5",
+          max: "100",
+          id: "customRange2"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(MyComponent, {
+        setLocation: setLocation,
+        setHeading: setHeading
+      })]
     })]
   });
 }
 
-var StyledButton2 = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.button(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 20px;\n    right: 0;\n    z-index: 999;\n"])));
-var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_15__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_16__.MapContainer)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
-var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.button(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    position: absolute;\n    top: 0;\n    right: 0;\n    z-index: 999;\n"])));
-var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.i(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    &.fa-map-marker-alt {\n        color: orange;\n        font-size: 1.5rem;\n        position: absolute;\n        right: 0;\n        bottom: 0;\n    }\n\n    &.fa-circle, &.fa-angle-up {\n        color: dodgerblue;\n        position: relative;\n    }\n\n"])));
-var UserIconContainer = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.div(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    ", "\n\n\n    display: flex;\n    flex-flow: column;\n    justify-content: center;\n    align-items: center;\n"])), function (props) {
+var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_15__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_16__.MapContainer)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
+var ConfigurationContainer = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.div(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    background: white;\n    position: absolute;\n    height: 200px;\n    z-index: 999;\n    margin-left: auto;\n    margin-right: auto;\n    bottom: 100px;\n    display: flex;\n    flex-flow: column;\n    align-items: center;\n    justify-content: center;\n"])));
+var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.i(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    &.fa-map-marker-alt {\n        color: orange;\n        font-size: 1.5rem;\n        position: absolute;\n        right: 0;\n        bottom: 0;\n    }\n\n    &.fa-circle, &.fa-angle-up {\n        color: dodgerblue;\n        position: relative;\n    }\n\n"])));
+var UserIconContainer = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    ", "\n\n\n    display: flex;\n    flex-flow: column;\n    justify-content: center;\n    align-items: center;\n"])), function (props) {
   return " transform: rotate(".concat(props.rotation, "deg);");
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Example);
@@ -3732,7 +3745,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var cheap_ruler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cheap-ruler */ "./node_modules/cheap-ruler/index.js");
-/* harmony import */ var _components_Example__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Example */ "./resources/js/components/Example.jsx");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3741,21 +3753,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-
 var STRAVA_BASE_URL = 'https://www.strava.com/api/v3';
 var exploreSegments = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(lat, lng) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(lat, lng, radius) {
     var ruler, bounds, segments;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             ruler = new cheap_ruler__WEBPACK_IMPORTED_MODULE_2__.default(53.0686472, 'meters');
-            bounds = ruler.bufferPoint([lat, lng], _components_Example__WEBPACK_IMPORTED_MODULE_3__.SEGMENT_EXPLORE_RADIUS);
+            bounds = ruler.bufferPoint([lat, lng], radius / 2);
             _context.next = 4;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/explore?bounds=").concat(bounds, "&activity_type=riding"), {
               headers: {
-                Authorization: "Bearer ".concat("ae166d4a7da4be26a692dc244047bbd535631421")
+                Authorization: "Bearer ".concat("a7d2939399a378537b21e4dbc06b0981628ec11d")
               }
             }).then(function (response) {
               return response.data.segments;
@@ -3773,7 +3784,7 @@ var exploreSegments = /*#__PURE__*/function () {
     }, _callee);
   }));
 
-  return function exploreSegments(_x, _x2) {
+  return function exploreSegments(_x, _x2, _x3) {
     return _ref.apply(this, arguments);
   };
 }();
@@ -3787,7 +3798,7 @@ var getSegmentEfforts = /*#__PURE__*/function () {
             _context2.next = 2;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/").concat(id), {
               headers: {
-                Authorization: "Bearer ".concat("ae166d4a7da4be26a692dc244047bbd535631421")
+                Authorization: "Bearer ".concat("a7d2939399a378537b21e4dbc06b0981628ec11d")
               }
             }).then(function (response) {
               return response.data;
@@ -3805,7 +3816,7 @@ var getSegmentEfforts = /*#__PURE__*/function () {
     }, _callee2);
   }));
 
-  return function getSegmentEfforts(_x3) {
+  return function getSegmentEfforts(_x4) {
     return _ref2.apply(this, arguments);
   };
 }();

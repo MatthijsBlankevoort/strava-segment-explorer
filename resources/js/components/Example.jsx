@@ -13,9 +13,9 @@ import polyline from '@mapbox/polyline';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { exploreSegments, getSegmentEfforts } from '../services/strava';
 
-export const SEGMENT_EXPLORE_RADIUS = 10000;
-const MyComponent = ({ setLocation }) => {
+const MyComponent = ({ setLocation, setHeading }) => {
   const map = useMap();
+
   const options = {
     enableHighAccuracy: false,
     timeout: 5000,
@@ -24,13 +24,8 @@ const MyComponent = ({ setLocation }) => {
 
   function success(pos) {
     const crd = pos.coords;
-    console.log(crd);
-    map.flyTo({ lat: crd.latitude, lng: crd.longitude, radius: crd.accuracy });
-    setLocation({ lat: crd.latitude, lng: crd.longitude, radius: crd.accuracy });
-    console.log('Your current position is:');
-    console.log(`Latitude : ${crd.latitude}`);
-    console.log(`Longitude: ${crd.longitude}`);
-    console.log(`More or less ${crd.accuracy} meters.`);
+    map.flyTo({ lat: crd.latitude, lng: crd.longitude });
+    setLocation({ lat: crd.latitude, lng: crd.longitude, locationReceived: true });
   }
 
   function error(err) {
@@ -42,33 +37,7 @@ const MyComponent = ({ setLocation }) => {
     } else {
       alert('Sorry, your browser does not support geolocation services.');
     }
-  };
 
-  return (
-    <StyledButton onClick={() => onClick()}>
-      Get location
-    </StyledButton>
-  );
-};
-
-function Example() {
-  const [location, setLocation] = useState({ lat: 53.0686489, lng: 4.824401, radius: 20 });
-  const [segments, setSegments] = useState([]);
-  const [selectedSegment, setSelectedSegment] = useState();
-  const [segmentEfforts, setSegmentEfforts] = useState({});
-
-  useEffect(async () => {
-    if (location.lat && location.lng) {
-      setSegments(await exploreSegments(location.lat, location.lng));
-    }
-  }, [location, exploreSegments, setSegments]);
-
-  const onMarkerClick = async (segment) => {
-    setSegmentEfforts(await getSegmentEfforts(segment.id));
-  };
-
-  const [heading, setHeading] = useState(0);
-  const handleButtonClick = () => {
     DeviceOrientationEvent.requestPermission().then((result) => {
       if (result === 'granted') {
         window.addEventListener('deviceorientation', (evt) => {
@@ -83,6 +52,36 @@ function Example() {
       }
     });
   };
+
+  return (
+    <button className="btn btn-primary" onClick={() => onClick()}>
+      Get location
+    </button>
+  );
+};
+
+function Example() {
+  const [location, setLocation] = useState({
+    lat: 52.370216,
+    lng: 4.895168,
+    locationReceived: false,
+  });
+
+  const [segments, setSegments] = useState([]);
+  const [selectedSegment, setSelectedSegment] = useState();
+  const [segmentEfforts, setSegmentEfforts] = useState({});
+  const [radius, setRadius] = useState(5 * 1000);
+  useEffect(async () => {
+    if (location.lat && location.lng && location.locationReceived) {
+      setSegments(await exploreSegments(location.lat, location.lng, radius));
+    }
+  }, [location, exploreSegments, setSegments, radius]);
+
+  const onMarkerClick = async (segment) => {
+    setSegmentEfforts(await getSegmentEfforts(segment.id));
+  };
+
+  const [heading, setHeading] = useState(0);
   const iconMarkup = renderToStaticMarkup(
     <UserIconContainer rotation={heading} id="user-icon">
       <StyledIcon className="fas fa-angle-up" />
@@ -112,16 +111,15 @@ function Example() {
     }
     return `${minutes}:${seconds}`;
   };
+
+  console.log(radius);
   return (
     <StyledContainer
       center={[location.lat ?? 0, location.lng ?? 0]}
-      zoom={13}
+      zoom={12}
       scrollWheelZoom={false}
     >
-      <StyledButton2 onClick={() => handleButtonClick()}>
-        Use compass
-      </StyledButton2>
-      <MyComponent setLocation={setLocation} />
+
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url={`https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=${process.env.MIX_STADIA_MAPS_API_KEY}`}
@@ -235,34 +233,51 @@ function Example() {
       {location.lat && location.lng && (
         <Marker icon={customMarkerIcon} position={[location.lat, location.lng]} />
       )}
-      {location.lat && location.lng && (
+      {location.lat && location.lng && radius && (
       <Circle
         center={{ lat: location.lat, lng: location.lng }}
         color="dodgerblue"
-        radius={SEGMENT_EXPLORE_RADIUS * 2}
+        radius={radius}
       />
       )}
+      <ConfigurationContainer className="container-sm">
+        <div className="form-group">
+          <label htmlFor="radius">
+            Radius:
+            {' '}
+            {radius / 1000}
+            km
+            {' '}
+          </label>
+          <input onChange={(e) => { setRadius(e.target.value * 1000); }} type="range" step="5" value={radius / 1000} className="custom-range" min="5" max="100" id="customRange2" />
+        </div>
+
+        <MyComponent
+          setLocation={setLocation}
+          setHeading={setHeading}
+        />
+      </ConfigurationContainer>
     </StyledContainer>
   );
 }
-
-const StyledButton2 = styled.button`
-    position: absolute;
-    top: 20px;
-    right: 0;
-    z-index: 999;
-`;
 
 const StyledContainer = styled(MapContainer)`
     height: 100vh;
     width: 100vw;
 `;
 
-const StyledButton = styled.button`
+const ConfigurationContainer = styled.div`
+    background: white;
     position: absolute;
-    top: 0;
-    right: 0;
+    height: 200px;
     z-index: 999;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 100px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
 `;
 
 const StyledIcon = styled.i`
