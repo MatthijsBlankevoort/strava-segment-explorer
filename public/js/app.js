@@ -3451,7 +3451,7 @@ var Location = function Location(_ref) {
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
-    className: "btn btn-primary",
+    className: "btn btn-secondary",
     onClick: function onClick() {
       return _onClick();
     },
@@ -3498,24 +3498,14 @@ function Example() {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            if (!(location.lat && location.lng && location.locationReceived)) {
-              _context.next = 7;
-              break;
+            if (location.lat && location.lng && location.locationReceived) {
+              map === null || map === void 0 ? void 0 : (_map$m = map.m) === null || _map$m === void 0 ? void 0 : _map$m.flyTo({
+                lat: location.lat,
+                lng: location.lng
+              });
             }
 
-            map === null || map === void 0 ? void 0 : (_map$m = map.m) === null || _map$m === void 0 ? void 0 : _map$m.flyTo({
-              lat: location.lat,
-              lng: location.lng
-            });
-            _context.t0 = setSegments;
-            _context.next = 5;
-            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments)(location.lat, location.lng, radius);
-
-          case 5:
-            _context.t1 = _context.sent;
-            (0, _context.t0)(_context.t1);
-
-          case 7:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -3549,6 +3539,32 @@ function Example() {
       return _ref3.apply(this, arguments);
     };
   }();
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            if (!location.locationReceived) {
+              _context3.next = 6;
+              break;
+            }
+
+            _context3.t0 = setSegments;
+            _context3.next = 4;
+            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments)(location.lat, location.lng, radius);
+
+          case 4:
+            _context3.t1 = _context3.sent;
+            (0, _context3.t0)(_context3.t1);
+
+          case 6:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  })), [location.locationReceived]);
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
       _useState12 = _slicedToArray(_useState11, 2),
@@ -3590,6 +3606,72 @@ function Example() {
 
     return "".concat(minutes, ":").concat(seconds);
   };
+
+  var onExploreSegmentsClick = /*#__PURE__*/function () {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var _map$m2;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              if (!(location.lat && location.lng && location.locationReceived)) {
+                _context4.next = 7;
+                break;
+              }
+
+              map === null || map === void 0 ? void 0 : (_map$m2 = map.m) === null || _map$m2 === void 0 ? void 0 : _map$m2.flyTo({
+                lat: location.lat,
+                lng: location.lng
+              });
+              _context4.t0 = setSegments;
+              _context4.next = 5;
+              return (0,_services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments)(location.lat, location.lng, radius);
+
+            case 5:
+              _context4.t1 = _context4.sent;
+              (0, _context4.t0)(_context4.t1);
+
+            case 7:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    return function onExploreSegmentsClick() {
+      return _ref5.apply(this, arguments);
+    };
+  }();
+
+  var handleRadiusChange = /*#__PURE__*/function () {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(e) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              setRadius(e.target.value * 1000);
+              _context5.t0 = setSegments;
+              _context5.next = 4;
+              return (0,_services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments)(location.lat, location.lng, radius);
+
+            case 4:
+              _context5.t1 = _context5.sent;
+              (0, _context5.t0)(_context5.t1);
+
+            case 6:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    return function handleRadiusChange(_x2) {
+      return _ref6.apply(this, arguments);
+    };
+  }();
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(StyledContainer, {
@@ -3665,7 +3747,7 @@ function Example() {
             return e.preventDefault();
           },
           onChange: function onChange(e) {
-            setRadius(e.target.value * 1000);
+            return handleRadiusChange(e);
           },
           type: "range",
           step: "5",
@@ -3678,15 +3760,18 @@ function Example() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Location, {
         setLocation: setLocation,
         setHeading: setHeading
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledButton, {
-        className: "btn btn-success",
-        children: "Refresh segments"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledExploreButton, {
+        className: "btn btn-primary",
+        onClick: function onClick() {
+          return onExploreSegmentsClick();
+        },
+        children: "Explore segments"
       })]
     })]
   });
 }
 
-var StyledButton = styled_components__WEBPACK_IMPORTED_MODULE_14__.default.button(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n\n"])));
+var StyledExploreButton = styled_components__WEBPACK_IMPORTED_MODULE_14__.default.button(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: absolute;\n    right: 0;\n    top: 0;\n"])));
 var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_14__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_15__.MapContainer)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
 var ConfigurationContainer = styled_components__WEBPACK_IMPORTED_MODULE_14__.default.div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    background: white;\n    position: absolute;\n    height: 200px;\n    z-index: 999;\n    margin-left: auto;\n    margin-right: auto;\n    bottom: 0;\n    display: flex;\n    flex-flow: column;\n    align-items: center;\n    justify-content: center;\n\n    left: 0;\n    right: 0;\n    margin-left: auto;\n    margin-right: auto;\n    padding-bottom: 80px;\n"])));
 var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_14__.default.i(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    &.fa-map-marker-alt {\n        color: orange;\n        font-size: 1.5rem;\n        position: absolute;\n        right: 0;\n        bottom: 0;\n    }\n\n    &.fa-circle, &.fa-angle-up {\n        color: dodgerblue;\n        position: relative;\n    }\n\n"])));
@@ -3739,7 +3824,7 @@ var exploreSegments = /*#__PURE__*/function () {
             _context.next = 4;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/explore?bounds=").concat(bounds, "&activity_type=riding"), {
               headers: {
-                Authorization: "Bearer ".concat("a7d2939399a378537b21e4dbc06b0981628ec11d")
+                Authorization: "Bearer ".concat("1a58fa18919c02c6e54d1b875a910acc1f1f2a6b")
               }
             }).then(function (response) {
               return response.data.segments;
@@ -3771,7 +3856,7 @@ var getSegmentEfforts = /*#__PURE__*/function () {
             _context2.next = 2;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/").concat(id), {
               headers: {
-                Authorization: "Bearer ".concat("a7d2939399a378537b21e4dbc06b0981628ec11d")
+                Authorization: "Bearer ".concat("1a58fa18919c02c6e54d1b875a910acc1f1f2a6b")
               }
             }).then(function (response) {
               return response.data;

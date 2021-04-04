@@ -51,7 +51,7 @@ const Location = ({ setLocation, setHeading, map }) => {
   };
 
   return (
-    <button className="btn btn-primary" onClick={() => onClick()}>
+    <button className="btn btn-secondary" onClick={() => onClick()}>
       Get location
     </button>
   );
@@ -71,7 +71,6 @@ function Example() {
   useEffect(async () => {
     if (location.lat && location.lng && location.locationReceived) {
       map?.m?.flyTo({ lat: location.lat, lng: location.lng });
-      setSegments(await exploreSegments(location.lat, location.lng, radius));
     }
   }, [location, exploreSegments, setSegments, radius]);
 
@@ -79,6 +78,11 @@ function Example() {
     setSegmentEfforts(await getSegmentEfforts(segment.id));
   };
 
+  useEffect(async () => {
+    if (location.locationReceived) {
+      setSegments(await exploreSegments(location.lat, location.lng, radius));
+    }
+  }, [location.locationReceived]);
   const [heading, setHeading] = useState(0);
   const iconMarkup = renderToStaticMarkup(
     <UserIconContainer rotation={heading} id="user-icon">
@@ -108,6 +112,18 @@ function Example() {
       return `${seconds}s`;
     }
     return `${minutes}:${seconds}`;
+  };
+
+  const onExploreSegmentsClick = async () => {
+    if (location.lat && location.lng && location.locationReceived) {
+      map?.m?.flyTo({ lat: location.lat, lng: location.lng });
+      setSegments(await exploreSegments(location.lat, location.lng, radius));
+    }
+  };
+
+  const handleRadiusChange = async (e) => {
+    setRadius(e.target.value * 1000);
+    setSegments(await exploreSegments(location.lat, location.lng, radius));
   };
 
   return (
@@ -196,23 +212,25 @@ function Example() {
             km
             {' '}
           </label>
-          <input onTouchMove={(e) => e.preventDefault()} onChange={(e) => { setRadius(e.target.value * 1000); }} type="range" step="5" value={radius / 1000} className="custom-range" min="5" max="100" id="customRange2" />
+          <input onTouchMove={(e) => e.preventDefault()} onChange={(e) => handleRadiusChange(e)} type="range" step="5" value={radius / 1000} className="custom-range" min="5" max="100" id="customRange2" />
         </div>
 
         <Location
           setLocation={setLocation}
           setHeading={setHeading}
         />
-        <StyledButton className="btn btn-success">
-          Refresh segments
-        </StyledButton>
+        <StyledExploreButton className="btn btn-primary" onClick={() => onExploreSegmentsClick()}>
+          Explore segments
+        </StyledExploreButton>
       </ConfigurationContainer>
     </>
   );
 }
 
-const StyledButton = styled.button`
-
+const StyledExploreButton = styled.button`
+    position: absolute;
+    right: 0;
+    top: 0;
 `;
 
 const StyledContainer = styled(MapContainer)`
