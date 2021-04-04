@@ -13,9 +13,7 @@ import polyline from '@mapbox/polyline';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { exploreSegments, getSegmentEfforts } from '../services/strava';
 
-const MyComponent = ({ setLocation, setHeading }) => {
-  const map = useMap();
-
+const Location = ({ setLocation, setHeading, map }) => {
   const options = {
     enableHighAccuracy: false,
     timeout: 5000,
@@ -24,7 +22,6 @@ const MyComponent = ({ setLocation, setHeading }) => {
 
   function success(pos) {
     const crd = pos.coords;
-    map.flyTo({ lat: crd.latitude, lng: crd.longitude });
     setLocation({ lat: crd.latitude, lng: crd.longitude, locationReceived: true });
   }
 
@@ -68,11 +65,12 @@ function Example() {
   });
 
   const [segments, setSegments] = useState([]);
-  const [selectedSegment, setSelectedSegment] = useState();
+  const [map, setMap] = useState();
   const [segmentEfforts, setSegmentEfforts] = useState({});
   const [radius, setRadius] = useState(5 * 1000);
   useEffect(async () => {
     if (location.lat && location.lng && location.locationReceived) {
+      map?.m?.flyTo({ lat: location.lat, lng: location.lng });
       setSegments(await exploreSegments(location.lat, location.lng, radius));
     }
   }, [location, exploreSegments, setSegments, radius]);
@@ -112,71 +110,21 @@ function Example() {
     return `${minutes}:${seconds}`;
   };
 
-  console.log(radius);
   return (
-    <StyledContainer
-      center={[location.lat ?? 0, location.lng ?? 0]}
-      zoom={12}
-      scrollWheelZoom={false}
-    >
+    <>
 
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url={`https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=${process.env.MIX_STADIA_MAPS_API_KEY}`}
-      />
-      {selectedSegment ? (
-        <>
+      <StyledContainer
+        center={[location.lat ?? 0, location.lng ?? 0]}
+        zoom={12}
+        scrollWheelZoom={false}
+        whenCreated={(m) => setMap({ m })}
+      >
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url={`https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=${process.env.MIX_STADIA_MAPS_API_KEY}`}
+        />
 
-          <Polyline color="limegreen" positions={polyline.decode(selectedSegment.points)} />
-          <Marker
-            key={selectedSegment.id}
-            eventHandlers={{ click: () => onMarkerClick(selectedSegment) }}
-            icon={segmentMarker}
-            position={selectedSegment.start_latlng}
-            color="limegreen"
-          >
-            <Popup>
-              <h3>{selectedSegment.name}</h3>
-              <p>
-                Afstand:
-                {' '}
-                <strong>
-                  {(selectedSegment.distance / 1000).toFixed(2)}
-                  {' '}
-                  km
-                </strong>
-              </p>
-
-              <p>
-                Persoonlijk Record (PR):
-                {' '}
-                <strong>
-                  {getTimeInMinutes(segmentEfforts?.athlete_segment_stats?.pr_elapsed_time)}
-                </strong>
-              </p>
-
-              <p>
-                Snelste tijd (KOM):
-                {' '}
-                <strong>
-                  {segmentEfforts?.xoms?.kom}
-                </strong>
-              </p>
-
-              <p>
-                Pogingen:
-                {' '}
-                <strong>
-
-                  {segmentEfforts?.athlete_segment_stats?.effort_count}
-                </strong>
-              </p>
-
-            </Popup>
-          </Marker>
-        </>
-      )
-        : segments?.map((segment) => (
+        {segments?.map((segment) => (
           <>
 
             <Polyline color="orange" positions={polyline.decode(segment.points)} />
@@ -185,6 +133,7 @@ function Example() {
               eventHandlers={{ click: () => onMarkerClick(segment) }}
               icon={segmentMarker}
               position={segment.start_latlng}
+
             >
               <Popup>
                 <h3>{segment.name}</h3>
@@ -223,23 +172,21 @@ function Example() {
                   </strong>
                 </p>
 
-                <button onClick={() => setSelectedSegment(segment)} className="btn btn-primary">
-                  selecteer segment
-                </button>
               </Popup>
             </Marker>
           </>
         ))}
-      {location.lat && location.lng && (
-        <Marker icon={customMarkerIcon} position={[location.lat, location.lng]} />
-      )}
-      {location.lat && location.lng && radius && (
-      <Circle
-        center={{ lat: location.lat, lng: location.lng }}
-        color="dodgerblue"
-        radius={radius}
-      />
-      )}
+        {location.lat && location.lng && (
+          <Marker icon={customMarkerIcon} position={[location.lat, location.lng]} />
+        )}
+        {location.lat && location.lng && radius && (
+          <Circle
+            center={{ lat: location.lat, lng: location.lng }}
+            color="dodgerblue"
+            radius={radius}
+          />
+        )}
+      </StyledContainer>
       <ConfigurationContainer className="container-sm">
         <div className="form-group">
           <label htmlFor="radius">
@@ -249,17 +196,24 @@ function Example() {
             km
             {' '}
           </label>
-          <input onChange={(e) => { setRadius(e.target.value * 1000); }} type="range" step="5" value={radius / 1000} className="custom-range" min="5" max="100" id="customRange2" />
+          <input onTouchMove={(e) => e.preventDefault()} onChange={(e) => { setRadius(e.target.value * 1000); }} type="range" step="5" value={radius / 1000} className="custom-range" min="5" max="100" id="customRange2" />
         </div>
 
-        <MyComponent
+        <Location
           setLocation={setLocation}
           setHeading={setHeading}
         />
+        <StyledButton className="btn btn-success">
+          Refresh segments
+        </StyledButton>
       </ConfigurationContainer>
-    </StyledContainer>
+    </>
   );
 }
+
+const StyledButton = styled.button`
+
+`;
 
 const StyledContainer = styled(MapContainer)`
     height: 100vh;
@@ -273,11 +227,17 @@ const ConfigurationContainer = styled.div`
     z-index: 999;
     margin-left: auto;
     margin-right: auto;
-    bottom: 100px;
+    bottom: 0;
     display: flex;
     flex-flow: column;
     align-items: center;
     justify-content: center;
+
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 80px;
 `;
 
 const StyledIcon = styled.i`
