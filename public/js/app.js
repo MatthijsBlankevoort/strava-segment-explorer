@@ -5513,7 +5513,7 @@ function Example() {
         }
       }
     }, _callee3);
-  })), [location.locationReceived]);
+  })), [location.locationReceived, radius]);
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
       _useState12 = _slicedToArray(_useState11, 2),
@@ -5601,15 +5601,8 @@ function Example() {
           switch (_context5.prev = _context5.next) {
             case 0:
               setRadius(e.target.value * 1000);
-              _context5.t0 = setSegments;
-              _context5.next = 4;
-              return (0,_services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments)(location.lat, location.lng, radius);
 
-            case 4:
-              _context5.t1 = _context5.sent;
-              (0, _context5.t0)(_context5.t1);
-
-            case 6:
+            case 1:
             case "end":
               return _context5.stop();
           }
@@ -5692,10 +5685,7 @@ function Example() {
           htmlFor: "radius",
           children: ["Radius:", ' ', radius / 1000, "km", ' ']
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
-          onTouchMove: function onTouchMove(e) {
-            return e.preventDefault();
-          },
-          onChange: function onChange(e) {
+          onMouseUp: function onMouseUp(e) {
             return handleRadiusChange(e);
           },
           type: "range",
@@ -5773,7 +5763,7 @@ var exploreSegments = /*#__PURE__*/function () {
             _context.next = 4;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/explore?bounds=").concat(bounds, "&activity_type=riding"), {
               headers: {
-                Authorization: "Bearer ".concat("1a58fa18919c02c6e54d1b875a910acc1f1f2a6b")
+                Authorization: "Bearer ".concat("d50484d2f26c7d1891196362c4834d914f2905d1")
               }
             }).then(function (response) {
               return response.data.segments;
@@ -5805,7 +5795,7 @@ var getSegmentEfforts = /*#__PURE__*/function () {
             _context2.next = 2;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/").concat(id), {
               headers: {
-                Authorization: "Bearer ".concat("1a58fa18919c02c6e54d1b875a910acc1f1f2a6b")
+                Authorization: "Bearer ".concat("d50484d2f26c7d1891196362c4834d914f2905d1")
               }
             }).then(function (response) {
               return response.data;

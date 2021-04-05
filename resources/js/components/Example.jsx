@@ -82,7 +82,7 @@ function Example() {
     if (location.locationReceived) {
       setSegments(await exploreSegments(location.lat, location.lng, radius));
     }
-  }, [location.locationReceived]);
+  }, [location.locationReceived, radius]);
   const [heading, setHeading] = useState(0);
   const iconMarkup = renderToStaticMarkup(
     <UserIconContainer rotation={heading} id="user-icon">
@@ -123,7 +123,6 @@ function Example() {
 
   const handleRadiusChange = async (e) => {
     setRadius(e.target.value * 1000);
-    setSegments(await exploreSegments(location.lat, location.lng, radius));
   };
 
   return (
@@ -212,7 +211,7 @@ function Example() {
             km
             {' '}
           </label>
-          <input onTouchMove={(e) => e.preventDefault()} onChange={(e) => handleRadiusChange(e)} type="range" step="5" value={radius / 1000} className="custom-range" min="5" max="100" id="customRange2" />
+          <input onMouseUp={(e) => handleRadiusChange(e)} type="range" step="5" value={radius / 1000} className="custom-range" min="5" max="100" id="customRange2" />
         </div>
 
         <Location
