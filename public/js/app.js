@@ -5685,7 +5685,7 @@ function Example() {
           htmlFor: "radius",
           children: ["Radius:", ' ', radius / 1000, "km", ' ']
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
-          onMouseUp: function onMouseUp(e) {
+          onChange: function onChange(e) {
             return handleRadiusChange(e);
           },
           type: "range",
@@ -5751,29 +5751,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var STRAVA_BASE_URL = 'https://www.strava.com/api/v3';
-var exploreSegments = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(lat, lng, radius) {
-    var ruler, bounds, segments;
+
+var refreshAccessToken = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(req, res) {
+    var body, reauthorizeResponse;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            ruler = new cheap_ruler__WEBPACK_IMPORTED_MODULE_2__.default(53.0686472, 'meters');
-            bounds = ruler.bufferPoint([lat, lng], radius / 2);
-            _context.next = 4;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/explore?bounds=").concat(bounds, "&activity_type=riding"), {
-              headers: {
-                Authorization: "Bearer ".concat("d50484d2f26c7d1891196362c4834d914f2905d1")
-              }
-            }).then(function (response) {
-              return response.data.segments;
+            body = {
+              client_id: "18799",
+              client_secret: "fdff4fab5d43690a199f9b0ce0f0b97725581499",
+              refresh_token: "9f820831fbb08e6a3b8de835920dbec4666bd744",
+              grant_type: 'refresh_token'
+            };
+            _context.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().post('https://www.strava.com/oauth/token', body).then(function (response) {
+              return response.data;
+            })["catch"](function (err) {
+              return console.log(err);
             });
 
-          case 4:
-            segments = _context.sent;
-            return _context.abrupt("return", segments);
+          case 3:
+            reauthorizeResponse = _context.sent;
+            return _context.abrupt("return", reauthorizeResponse);
 
-          case 6:
+          case 5:
           case "end":
             return _context.stop();
         }
@@ -5781,40 +5784,104 @@ var exploreSegments = /*#__PURE__*/function () {
     }, _callee);
   }));
 
-  return function exploreSegments(_x, _x2, _x3) {
+  return function refreshAccessToken(_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }();
-var getSegmentEfforts = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(id) {
-    var segments;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+
+var exploreSegments = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(lat, lng, radius) {
+    var ruler, bounds, segments;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context3.prev = _context3.next) {
           case 0:
-            _context2.next = 2;
+            ruler = new cheap_ruler__WEBPACK_IMPORTED_MODULE_2__.default(53.0686472, 'meters');
+            bounds = ruler.bufferPoint([lat, lng], radius / 2);
+            _context3.next = 4;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/explore?bounds=").concat(bounds, "&activity_type=riding"), {
+              headers: {
+                Authorization: "Bearer ".concat("1a58fa18919c02c6e54d1b875a910acc1f1f2a6b")
+              }
+            }).then(function (response) {
+              return response.data.segments;
+            })["catch"](function (err) {
+              if (err.response && err.response.status === 401) {
+                return refreshAccessToken().then( /*#__PURE__*/function () {
+                  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(response) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+                      while (1) {
+                        switch (_context2.prev = _context2.next) {
+                          case 0:
+                            return _context2.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/explore?bounds=").concat(bounds, "&activity_type=riding"), {
+                              headers: {
+                                Authorization: "Bearer ".concat(response.access_token)
+                              }
+                            }));
+
+                          case 1:
+                          case "end":
+                            return _context2.stop();
+                        }
+                      }
+                    }, _callee2);
+                  }));
+
+                  return function (_x6) {
+                    return _ref3.apply(this, arguments);
+                  };
+                }()).then(function (response) {
+                  return response.data.segments;
+                });
+              }
+            });
+
+          case 4:
+            segments = _context3.sent;
+            return _context3.abrupt("return", segments);
+
+          case 6:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function exploreSegments(_x3, _x4, _x5) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+var getSegmentEfforts = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(id) {
+    var segments;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/").concat(id), {
               headers: {
-                Authorization: "Bearer ".concat("d50484d2f26c7d1891196362c4834d914f2905d1")
+                Authorization: "Bearer ".concat("1a58fa18919c02c6e54d1b875a910acc1f1f2a6b")
               }
             }).then(function (response) {
               return response.data;
             });
 
           case 2:
-            segments = _context2.sent;
-            return _context2.abrupt("return", segments);
+            segments = _context4.sent;
+            return _context4.abrupt("return", segments);
 
           case 4:
           case "end":
-            return _context2.stop();
+            return _context4.stop();
         }
       }
-    }, _callee2);
+    }, _callee4);
   }));
 
-  return function getSegmentEfforts(_x4) {
-    return _ref2.apply(this, arguments);
+  return function getSegmentEfforts(_x7) {
+    return _ref4.apply(this, arguments);
   };
 }();
 

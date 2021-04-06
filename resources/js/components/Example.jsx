@@ -211,7 +211,7 @@ function Example() {
             km
             {' '}
           </label>
-          <input onMouseUp={(e) => handleRadiusChange(e)} type="range" step="5" value={radius / 1000} className="custom-range" min="5" max="100" id="customRange2" />
+          <input onChange={(e) => handleRadiusChange(e)} type="range" step="5" value={radius / 1000} className="custom-range" min="5" max="100" id="customRange2" />
         </div>
 
         <Location
