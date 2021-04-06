@@ -35,6 +35,12 @@ export const exploreSegments = async (lat, lng, radius) => {
 export const getSegmentEfforts = async (id) => {
   const segments = await axios.get(`${STRAVA_BASE_URL}/segments/${id}`, {
     headers: { Authorization: `Bearer ${process.env.MIX_STRAVA_API_KEY}` },
-  }).then((response) => response.data);
+  }).then((response) => response.data).catch((err) => {
+    if (err.response && err.response.status === 401) {
+      return refreshAccessToken().then(async (response) => axios.get(`${STRAVA_BASE_URL}/segments/${id}`, {
+        headers: { Authorization: `Bearer ${response.access_token}` },
+      }).then((res) => res.data));
+    }
+  });
   return segments;
 };

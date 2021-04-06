@@ -5853,31 +5853,60 @@ var exploreSegments = /*#__PURE__*/function () {
   };
 }();
 var getSegmentEfforts = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(id) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(id) {
     var segments;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
       while (1) {
-        switch (_context4.prev = _context4.next) {
+        switch (_context5.prev = _context5.next) {
           case 0:
-            _context4.next = 2;
+            _context5.next = 2;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/").concat(id), {
               headers: {
                 Authorization: "Bearer ".concat("1a58fa18919c02c6e54d1b875a910acc1f1f2a6b")
               }
             }).then(function (response) {
               return response.data;
+            })["catch"](function (err) {
+              if (err.response && err.response.status === 401) {
+                return refreshAccessToken().then( /*#__PURE__*/function () {
+                  var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(response) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+                      while (1) {
+                        switch (_context4.prev = _context4.next) {
+                          case 0:
+                            return _context4.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/").concat(id), {
+                              headers: {
+                                Authorization: "Bearer ".concat(response.access_token)
+                              }
+                            }).then(function (res) {
+                              return res.data;
+                            }));
+
+                          case 1:
+                          case "end":
+                            return _context4.stop();
+                        }
+                      }
+                    }, _callee4);
+                  }));
+
+                  return function (_x8) {
+                    return _ref5.apply(this, arguments);
+                  };
+                }());
+              }
             });
 
           case 2:
-            segments = _context4.sent;
-            return _context4.abrupt("return", segments);
+            segments = _context5.sent;
+            return _context5.abrupt("return", segments);
 
           case 4:
           case "end":
-            return _context4.stop();
+            return _context5.stop();
         }
       }
-    }, _callee4);
+    }, _callee5);
   }));
 
   return function getSegmentEfforts(_x7) {
