@@ -5813,7 +5813,7 @@ var refreshAccessToken = /*#__PURE__*/function () {
             body = {
               client_id: "18799",
               client_secret: "fdff4fab5d43690a199f9b0ce0f0b97725581499",
-              refresh_token: "9f820831fbb08e6a3b8de835920dbec4666bd744",
+              refresh_token: localStorage.getItem('refresh_token_strava') || '',
               grant_type: type
             };
             _context.next = 3;

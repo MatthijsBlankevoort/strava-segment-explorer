@@ -7,7 +7,7 @@ export const refreshAccessToken = async (type) => {
   const body = {
     client_id: process.env.MIX_STRAVA_CLIENT_ID,
     client_secret: process.env.MIX_STRAVA_CLIENT_SECRET,
-    refresh_token: process.env.MIX_STRAVA_REFRESH_TOKEN,
+    refresh_token: localStorage.getItem('refresh_token_strava') || '',
     grant_type: type,
   };
 
