@@ -11,6 +11,7 @@ import 'leaflet/dist/leaflet.css';
 import styled from 'styled-components';
 import polyline from '@mapbox/polyline';
 import { renderToStaticMarkup } from 'react-dom/server';
+import axios from 'axios';
 import { exploreSegments, getSegmentEfforts } from '../services/strava';
 
 const Location = ({ setLocation, setHeading, map }) => {
@@ -56,7 +57,9 @@ const Location = ({ setLocation, setHeading, map }) => {
     </button>
   );
 };
-
+function getQueryStringValue(key) {
+  return decodeURIComponent(window.location.search.replace(new RegExp(`^(?:.*[&\\?]${encodeURIComponent(key).replace(/[\.\+\*]/g, '\\$&')}(?:\\=([^&]*))?)?.*$`, 'i'), '$1'));
+}
 function Example() {
   const [location, setLocation] = useState({
     lat: 52.370216,
@@ -77,6 +80,21 @@ function Example() {
   const onMarkerClick = async (segment) => {
     setSegmentEfforts(await getSegmentEfforts(segment.id));
   };
+
+  useEffect(async () => {
+    const code = getQueryStringValue('code');
+    if (code) {
+      const body = {
+        client_id: process.env.MIX_STRAVA_CLIENT_ID,
+        client_secret: process.env.MIX_STRAVA_CLIENT_SECRET,
+        code,
+        grant_type: 'authorization_code',
+      };
+
+      const reauthorizeResponse = await axios.post('https://www.strava.com/oauth/token', body).then((response) => response.data).catch((err) => console.log(err));
+      localStorage.setItem('refresh_token_strava', reauthorizeResponse.refresh_token);
+    }
+  }, [window.location.search]);
 
   useEffect(async () => {
     if (location.locationReceived) {
@@ -221,6 +239,14 @@ function Example() {
         <StyledExploreButton className="btn btn-primary" onClick={() => onExploreSegmentsClick()}>
           Explore segments
         </StyledExploreButton>
+        <StyledConnectStravaButton
+          className="btn btn-warning"
+          onClick={
+            () => window.location.href = `https://www.strava.com/oauth/authorize?client_id=${process.env.MIX_STRAVA_CLIENT_ID}&redirect_uri=http://localhost&response_type=code&activity=read_all`
+            }
+        >
+          Connect Strava
+        </StyledConnectStravaButton>
       </ConfigurationContainer>
     </>
   );
@@ -230,6 +256,12 @@ const StyledExploreButton = styled.button`
     position: absolute;
     right: 0;
     top: 0;
+`;
+
+const StyledConnectStravaButton = styled.button`
+    position: absolute;
+    right: 0;
+    bottom: 0;
 `;
 
 const StyledContainer = styled(MapContainer)`

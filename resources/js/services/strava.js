@@ -3,12 +3,12 @@ import CheapRuler from 'cheap-ruler';
 
 const STRAVA_BASE_URL = 'https://www.strava.com/api/v3';
 
-const refreshAccessToken = async (req, res) => {
+export const refreshAccessToken = async (type) => {
   const body = {
     client_id: process.env.MIX_STRAVA_CLIENT_ID,
     client_secret: process.env.MIX_STRAVA_CLIENT_SECRET,
     refresh_token: process.env.MIX_STRAVA_REFRESH_TOKEN,
-    grant_type: 'refresh_token',
+    grant_type: type,
   };
 
   const reauthorizeResponse = await axios.post('https://www.strava.com/oauth/token', body).then((response) => response.data).catch((err) => console.log(err));
@@ -24,7 +24,7 @@ export const exploreSegments = async (lat, lng, radius) => {
     headers: { Authorization: `Bearer ${process.env.MIX_STRAVA_API_KEY}` },
   }).then((response) => response.data.segments).catch((err) => {
     if (err.response && err.response.status === 401) {
-      return refreshAccessToken().then(async (response) => axios.get(`${STRAVA_BASE_URL}/segments/explore?bounds=${bounds}&activity_type=riding`, {
+      return refreshAccessToken('refresh_token').then(async (response) => axios.get(`${STRAVA_BASE_URL}/segments/explore?bounds=${bounds}&activity_type=riding`, {
         headers: { Authorization: `Bearer ${response.access_token}` },
       })).then((response) => response.data.segments);
     }
@@ -37,7 +37,7 @@ export const getSegmentEfforts = async (id) => {
     headers: { Authorization: `Bearer ${process.env.MIX_STRAVA_API_KEY}` },
   }).then((response) => response.data).catch((err) => {
     if (err.response && err.response.status === 401) {
-      return refreshAccessToken().then(async (response) => axios.get(`${STRAVA_BASE_URL}/segments/${id}`, {
+      return refreshAccessToken('refresh_token').then(async (response) => axios.get(`${STRAVA_BASE_URL}/segments/${id}`, {
         headers: { Authorization: `Bearer ${response.access_token}` },
       }).then((res) => res.data));
     }

@@ -5304,20 +5304,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/TileLayer.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Polyline.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Marker.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Popup.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Circle.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/MapContainer.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/TileLayer.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Polyline.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Marker.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Popup.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Circle.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/MapContainer.js");
 /* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _mapbox_polyline__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mapbox/polyline */ "./node_modules/@mapbox/polyline/src/polyline.js");
 /* harmony import */ var _mapbox_polyline__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_mapbox_polyline__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var react_dom_server__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-dom/server */ "./node_modules/react-dom/server.browser.js");
-/* harmony import */ var _services_strava__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/strava */ "./resources/js/services/strava.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5;
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _services_strava__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../services/strava */ "./resources/js/services/strava.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6;
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -5340,6 +5342,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /* eslint-disable no-tabs */
+
 
 
 
@@ -5399,7 +5402,7 @@ var Location = function Location(_ref) {
     });
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("button", {
     className: "btn btn-secondary",
     onClick: function onClick() {
       return _onClick();
@@ -5407,6 +5410,10 @@ var Location = function Location(_ref) {
     children: "Get location"
   });
 };
+
+function getQueryStringValue(key) {
+  return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]".concat(encodeURIComponent(key).replace(/[\.\+\*]/g, '\\$&'), "(?:\\=([^&]*))?)?.*$"), 'i'), '$1'));
+}
 
 function Example() {
   var _location$lat, _location$lng;
@@ -5460,7 +5467,7 @@ function Example() {
         }
       }
     }, _callee);
-  })), [location, _services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments, setSegments, radius]);
+  })), [location, _services_strava__WEBPACK_IMPORTED_MODULE_8__.exploreSegments, setSegments, radius]);
 
   var onMarkerClick = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(segment) {
@@ -5470,7 +5477,7 @@ function Example() {
             case 0:
               _context2.t0 = setSegmentEfforts;
               _context2.next = 3;
-              return (0,_services_strava__WEBPACK_IMPORTED_MODULE_7__.getSegmentEfforts)(segment.id);
+              return (0,_services_strava__WEBPACK_IMPORTED_MODULE_8__.getSegmentEfforts)(segment.id);
 
             case 3:
               _context2.t1 = _context2.sent;
@@ -5490,29 +5497,66 @@ function Example() {
   }();
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+    var code, body, reauthorizeResponse;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            if (!location.locationReceived) {
-              _context3.next = 6;
+            code = getQueryStringValue('code');
+
+            if (!code) {
+              _context3.next = 7;
               break;
             }
 
-            _context3.t0 = setSegments;
-            _context3.next = 4;
-            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments)(location.lat, location.lng, radius);
+            body = {
+              client_id: "18799",
+              client_secret: "fdff4fab5d43690a199f9b0ce0f0b97725581499",
+              code: code,
+              grant_type: 'authorization_code'
+            };
+            _context3.next = 5;
+            return axios__WEBPACK_IMPORTED_MODULE_7___default().post('https://www.strava.com/oauth/token', body).then(function (response) {
+              return response.data;
+            })["catch"](function (err) {
+              return console.log(err);
+            });
 
-          case 4:
-            _context3.t1 = _context3.sent;
-            (0, _context3.t0)(_context3.t1);
+          case 5:
+            reauthorizeResponse = _context3.sent;
+            localStorage.setItem('refresh_token_strava', reauthorizeResponse.refresh_token);
 
-          case 6:
+          case 7:
           case "end":
             return _context3.stop();
         }
       }
     }, _callee3);
+  })), [window.location.search]);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            if (!location.locationReceived) {
+              _context4.next = 6;
+              break;
+            }
+
+            _context4.t0 = setSegments;
+            _context4.next = 4;
+            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_8__.exploreSegments)(location.lat, location.lng, radius);
+
+          case 4:
+            _context4.t1 = _context4.sent;
+            (0, _context4.t0)(_context4.t1);
+
+          case 6:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
   })), [location.locationReceived, radius]);
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
@@ -5520,16 +5564,16 @@ function Example() {
       heading = _useState12[0],
       setHeading = _useState12[1];
 
-  var iconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(UserIconContainer, {
+  var iconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(UserIconContainer, {
     rotation: heading,
     id: "user-icon",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledIcon, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(StyledIcon, {
       className: "fas fa-angle-up"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledIcon, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(StyledIcon, {
       className: "fas fa-circle"
     })]
   }));
-  var segmentIconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledIcon, {
+  var segmentIconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(StyledIcon, {
     className: "fas fa-map-marker-alt"
   }));
   var customMarkerIcon = (0,leaflet__WEBPACK_IMPORTED_MODULE_2__.divIcon)({
@@ -5557,15 +5601,15 @@ function Example() {
   };
 
   var onExploreSegmentsClick = /*#__PURE__*/function () {
-    var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+    var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
       var _map$m2;
 
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
               if (!(location.lat && location.lng && location.locationReceived)) {
-                _context4.next = 7;
+                _context5.next = 7;
                 break;
               }
 
@@ -5573,36 +5617,15 @@ function Example() {
                 lat: location.lat,
                 lng: location.lng
               });
-              _context4.t0 = setSegments;
-              _context4.next = 5;
-              return (0,_services_strava__WEBPACK_IMPORTED_MODULE_7__.exploreSegments)(location.lat, location.lng, radius);
+              _context5.t0 = setSegments;
+              _context5.next = 5;
+              return (0,_services_strava__WEBPACK_IMPORTED_MODULE_8__.exploreSegments)(location.lat, location.lng, radius);
 
             case 5:
-              _context4.t1 = _context4.sent;
-              (0, _context4.t0)(_context4.t1);
+              _context5.t1 = _context5.sent;
+              (0, _context5.t0)(_context5.t1);
 
             case 7:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }));
-
-    return function onExploreSegmentsClick() {
-      return _ref5.apply(this, arguments);
-    };
-  }();
-
-  var handleRadiusChange = /*#__PURE__*/function () {
-    var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(e) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
-        while (1) {
-          switch (_context5.prev = _context5.next) {
-            case 0:
-              setRadius(e.target.value * 1000);
-
-            case 1:
             case "end":
               return _context5.stop();
           }
@@ -5610,13 +5633,34 @@ function Example() {
       }, _callee5);
     }));
 
-    return function handleRadiusChange(_x2) {
+    return function onExploreSegmentsClick() {
       return _ref6.apply(this, arguments);
     };
   }();
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(StyledContainer, {
+  var handleRadiusChange = /*#__PURE__*/function () {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(e) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              setRadius(e.target.value * 1000);
+
+            case 1:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+
+    return function handleRadiusChange(_x2) {
+      return _ref7.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(StyledContainer, {
       center: [(_location$lat = location.lat) !== null && _location$lat !== void 0 ? _location$lat : 0, (_location$lng = location.lng) !== null && _location$lng !== void 0 ? _location$lng : 0],
       zoom: 12,
       scrollWheelZoom: false,
@@ -5625,17 +5669,17 @@ function Example() {
           m: m
         });
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_9__.TileLayer, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_10__.TileLayer, {
         attribution: "\xA9 <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
         url: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=".concat("7bdb9552-8f8f-4b2b-a837-262355843704")
       }), segments === null || segments === void 0 ? void 0 : segments.map(function (segment) {
         var _segmentEfforts$athle, _segmentEfforts$xoms, _segmentEfforts$athle2;
 
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_10__.Polyline, {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_11__.Polyline, {
             color: "orange",
             positions: _mapbox_polyline__WEBPACK_IMPORTED_MODULE_5___default().decode(segment.points)
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_11__.Marker, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.Marker, {
             eventHandlers: {
               click: function click() {
                 return onMarkerClick(segment);
@@ -5643,33 +5687,33 @@ function Example() {
             },
             icon: segmentMarker,
             position: segment.start_latlng,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.Popup, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h3", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_leaflet__WEBPACK_IMPORTED_MODULE_13__.Popup, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h3", {
                 children: segment.name
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
-                children: ["Afstand:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("strong", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("p", {
+                children: ["Afstand:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("strong", {
                   children: [(segment.distance / 1000).toFixed(2), ' ', "km"]
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
-                children: ["Persoonlijk Record (PR):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("p", {
+                children: ["Persoonlijk Record (PR):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("strong", {
                   children: getTimeInMinutes(segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle === void 0 ? void 0 : _segmentEfforts$athle.pr_elapsed_time)
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
-                children: ["Snelste tijd (KOM):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("p", {
+                children: ["Snelste tijd (KOM):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("strong", {
                   children: segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$xoms = segmentEfforts.xoms) === null || _segmentEfforts$xoms === void 0 ? void 0 : _segmentEfforts$xoms.kom
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("p", {
-                children: ["Pogingen:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("strong", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("p", {
+                children: ["Pogingen:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("strong", {
                   children: segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle2 = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle2 === void 0 ? void 0 : _segmentEfforts$athle2.effort_count
                 })]
               })]
             })
           }, segment.id)]
         });
-      }), location.lat && location.lng && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_11__.Marker, {
+      }), location.lat && location.lng && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.Marker, {
         icon: customMarkerIcon,
         position: [location.lat, location.lng]
-      }), location.lat && location.lng && radius && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_13__.Circle, {
+      }), location.lat && location.lng && radius && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_14__.Circle, {
         center: {
           lat: location.lat,
           lng: location.lng
@@ -5677,14 +5721,14 @@ function Example() {
         color: "dodgerblue",
         radius: radius
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(ConfigurationContainer, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(ConfigurationContainer, {
       className: "container-sm",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("div", {
         className: "form-group",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)("label", {
           htmlFor: "radius",
           children: ["Radius:", ' ', radius / 1000, "km", ' ']
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("input", {
           onChange: function onChange(e) {
             return handleRadiusChange(e);
           },
@@ -5696,31 +5740,38 @@ function Example() {
           max: "100",
           id: "customRange2"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Location, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Location, {
         setLocation: setLocation,
         setHeading: setHeading
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(StyledExploreButton, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(StyledExploreButton, {
         className: "btn btn-primary",
         onClick: function onClick() {
           return onExploreSegmentsClick();
         },
         children: "Explore segments"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(StyledConnectStravaButton, {
+        className: "btn btn-warning",
+        onClick: function onClick() {
+          return window.location.href = "https://www.strava.com/oauth/authorize?client_id=".concat("18799", "&redirect_uri=http://localhost&response_type=code&activity=read_all");
+        },
+        children: "Connect Strava"
       })]
     })]
   });
 }
 
-var StyledExploreButton = styled_components__WEBPACK_IMPORTED_MODULE_14__.default.button(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: absolute;\n    right: 0;\n    top: 0;\n"])));
-var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_14__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_15__.MapContainer)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
-var ConfigurationContainer = styled_components__WEBPACK_IMPORTED_MODULE_14__.default.div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    background: white;\n    position: absolute;\n    height: 200px;\n    z-index: 999;\n    margin-left: auto;\n    margin-right: auto;\n    bottom: 0;\n    display: flex;\n    flex-flow: column;\n    align-items: center;\n    justify-content: center;\n\n    left: 0;\n    right: 0;\n    margin-left: auto;\n    margin-right: auto;\n    padding-bottom: 80px;\n"])));
-var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_14__.default.i(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    &.fa-map-marker-alt {\n        color: orange;\n        font-size: 1.5rem;\n        position: absolute;\n        right: 0;\n        bottom: 0;\n    }\n\n    &.fa-circle, &.fa-angle-up {\n        color: dodgerblue;\n        position: relative;\n    }\n\n"])));
-var UserIconContainer = styled_components__WEBPACK_IMPORTED_MODULE_14__.default.div(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    ", "\n\n\n    display: flex;\n    flex-flow: column;\n    justify-content: center;\n    align-items: center;\n"])), function (props) {
+var StyledExploreButton = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.button(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: absolute;\n    right: 0;\n    top: 0;\n"])));
+var StyledConnectStravaButton = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.button(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: absolute;\n    right: 0;\n    bottom: 0;\n"])));
+var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_15__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_16__.MapContainer)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
+var ConfigurationContainer = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    background: white;\n    position: absolute;\n    height: 200px;\n    z-index: 999;\n    margin-left: auto;\n    margin-right: auto;\n    bottom: 0;\n    display: flex;\n    flex-flow: column;\n    align-items: center;\n    justify-content: center;\n\n    left: 0;\n    right: 0;\n    margin-left: auto;\n    margin-right: auto;\n    padding-bottom: 80px;\n"])));
+var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.i(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    &.fa-map-marker-alt {\n        color: orange;\n        font-size: 1.5rem;\n        position: absolute;\n        right: 0;\n        bottom: 0;\n    }\n\n    &.fa-circle, &.fa-angle-up {\n        color: dodgerblue;\n        position: relative;\n    }\n\n"])));
+var UserIconContainer = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.div(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["\n    ", "\n\n\n    display: flex;\n    flex-flow: column;\n    justify-content: center;\n    align-items: center;\n"])), function (props) {
   return " transform: rotate(".concat(props.rotation, "deg);");
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Example);
 
 if (document.getElementById('example')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_3__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(Example, {}), document.getElementById('example'));
+  react_dom__WEBPACK_IMPORTED_MODULE_3__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(Example, {}), document.getElementById('example'));
 }
 
 /***/ }),
@@ -5734,6 +5785,7 @@ if (document.getElementById('example')) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "refreshAccessToken": () => (/* binding */ refreshAccessToken),
 /* harmony export */   "exploreSegments": () => (/* binding */ exploreSegments),
 /* harmony export */   "getSegmentEfforts": () => (/* binding */ getSegmentEfforts)
 /* harmony export */ });
@@ -5751,9 +5803,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var STRAVA_BASE_URL = 'https://www.strava.com/api/v3';
-
 var refreshAccessToken = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(req, res) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(type) {
     var body, reauthorizeResponse;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
       while (1) {
@@ -5763,7 +5814,7 @@ var refreshAccessToken = /*#__PURE__*/function () {
               client_id: "18799",
               client_secret: "fdff4fab5d43690a199f9b0ce0f0b97725581499",
               refresh_token: "9f820831fbb08e6a3b8de835920dbec4666bd744",
-              grant_type: 'refresh_token'
+              grant_type: type
             };
             _context.next = 3;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().post('https://www.strava.com/oauth/token', body).then(function (response) {
@@ -5784,11 +5835,10 @@ var refreshAccessToken = /*#__PURE__*/function () {
     }, _callee);
   }));
 
-  return function refreshAccessToken(_x, _x2) {
+  return function refreshAccessToken(_x) {
     return _ref.apply(this, arguments);
   };
 }();
-
 var exploreSegments = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(lat, lng, radius) {
     var ruler, bounds, segments;
@@ -5807,7 +5857,7 @@ var exploreSegments = /*#__PURE__*/function () {
               return response.data.segments;
             })["catch"](function (err) {
               if (err.response && err.response.status === 401) {
-                return refreshAccessToken().then( /*#__PURE__*/function () {
+                return refreshAccessToken('refresh_token').then( /*#__PURE__*/function () {
                   var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(response) {
                     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
                       while (1) {
@@ -5827,7 +5877,7 @@ var exploreSegments = /*#__PURE__*/function () {
                     }, _callee2);
                   }));
 
-                  return function (_x6) {
+                  return function (_x5) {
                     return _ref3.apply(this, arguments);
                   };
                 }()).then(function (response) {
@@ -5848,7 +5898,7 @@ var exploreSegments = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function exploreSegments(_x3, _x4, _x5) {
+  return function exploreSegments(_x2, _x3, _x4) {
     return _ref2.apply(this, arguments);
   };
 }();
@@ -5868,7 +5918,7 @@ var getSegmentEfforts = /*#__PURE__*/function () {
               return response.data;
             })["catch"](function (err) {
               if (err.response && err.response.status === 401) {
-                return refreshAccessToken().then( /*#__PURE__*/function () {
+                return refreshAccessToken('refresh_token').then( /*#__PURE__*/function () {
                   var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(response) {
                     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
                       while (1) {
@@ -5890,7 +5940,7 @@ var getSegmentEfforts = /*#__PURE__*/function () {
                     }, _callee4);
                   }));
 
-                  return function (_x8) {
+                  return function (_x7) {
                     return _ref5.apply(this, arguments);
                   };
                 }());
@@ -5909,7 +5959,7 @@ var getSegmentEfforts = /*#__PURE__*/function () {
     }, _callee5);
   }));
 
-  return function getSegmentEfforts(_x7) {
+  return function getSegmentEfforts(_x6) {
     return _ref4.apply(this, arguments);
   };
 }();
