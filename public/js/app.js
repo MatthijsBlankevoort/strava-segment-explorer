@@ -5505,7 +5505,7 @@ function Example() {
             code = getQueryStringValue('code');
 
             if (!code) {
-              _context3.next = 7;
+              _context3.next = 8;
               break;
             }
 
@@ -5524,9 +5524,10 @@ function Example() {
 
           case 5:
             reauthorizeResponse = _context3.sent;
-            localStorage.setItem('refresh_token_strava', reauthorizeResponse.refresh_token);
+            localStorage.setItem(_services_strava__WEBPACK_IMPORTED_MODULE_8__.REFRESH_TOKEN_KEY, reauthorizeResponse.refresh_token);
+            localStorage.setItem(_services_strava__WEBPACK_IMPORTED_MODULE_8__.ACCESS_TOKEN_KEY, reauthorizeResponse.access_token);
 
-          case 7:
+          case 8:
           case "end":
             return _context3.stop();
         }
@@ -5760,7 +5761,7 @@ function Example() {
   });
 }
 
-var StyledExploreButton = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.button(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: absolute;\n    right: 0;\n    top: 0;\n"])));
+var StyledExploreButton = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.button(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: absolute;\n    left: 0;\n    bottom: 0;\n"])));
 var StyledConnectStravaButton = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.button(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: absolute;\n    right: 0;\n    bottom: 0;\n"])));
 var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_15__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_16__.MapContainer)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
 var ConfigurationContainer = styled_components__WEBPACK_IMPORTED_MODULE_15__.default.div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    background: white;\n    position: absolute;\n    height: 200px;\n    z-index: 999;\n    margin-left: auto;\n    margin-right: auto;\n    bottom: 0;\n    display: flex;\n    flex-flow: column;\n    align-items: center;\n    justify-content: center;\n\n    left: 0;\n    right: 0;\n    margin-left: auto;\n    margin-right: auto;\n    padding-bottom: 80px;\n"])));
@@ -5785,6 +5786,8 @@ if (document.getElementById('example')) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "REFRESH_TOKEN_KEY": () => (/* binding */ REFRESH_TOKEN_KEY),
+/* harmony export */   "ACCESS_TOKEN_KEY": () => (/* binding */ ACCESS_TOKEN_KEY),
 /* harmony export */   "refreshAccessToken": () => (/* binding */ refreshAccessToken),
 /* harmony export */   "exploreSegments": () => (/* binding */ exploreSegments),
 /* harmony export */   "getSegmentEfforts": () => (/* binding */ getSegmentEfforts)
@@ -5803,6 +5806,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var STRAVA_BASE_URL = 'https://www.strava.com/api/v3';
+var REFRESH_TOKEN_KEY = 'refresh_token_strava';
+var ACCESS_TOKEN_KEY = 'access_token_strava';
+var refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+var accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
 var refreshAccessToken = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(type) {
     var body, reauthorizeResponse;
@@ -5813,7 +5820,7 @@ var refreshAccessToken = /*#__PURE__*/function () {
             body = {
               client_id: "18799",
               client_secret: "fdff4fab5d43690a199f9b0ce0f0b97725581499",
-              refresh_token: localStorage.getItem('refresh_token_strava') || '',
+              refresh_token: refreshToken || '',
               grant_type: type
             };
             _context.next = 3;
@@ -5825,9 +5832,10 @@ var refreshAccessToken = /*#__PURE__*/function () {
 
           case 3:
             reauthorizeResponse = _context.sent;
+            localStorage.setItem(ACCESS_TOKEN_KEY, reauthorizeResponse.access_token);
             return _context.abrupt("return", reauthorizeResponse);
 
-          case 5:
+          case 6:
           case "end":
             return _context.stop();
         }
@@ -5851,7 +5859,7 @@ var exploreSegments = /*#__PURE__*/function () {
             _context3.next = 4;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/explore?bounds=").concat(bounds, "&activity_type=riding"), {
               headers: {
-                Authorization: "Bearer ".concat("1a58fa18919c02c6e54d1b875a910acc1f1f2a6b")
+                Authorization: "Bearer ".concat(accessToken)
               }
             }).then(function (response) {
               return response.data.segments;
@@ -5912,7 +5920,7 @@ var getSegmentEfforts = /*#__PURE__*/function () {
             _context5.next = 2;
             return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/segments/").concat(id), {
               headers: {
-                Authorization: "Bearer ".concat("1a58fa18919c02c6e54d1b875a910acc1f1f2a6b")
+                Authorization: "Bearer ".concat(accessToken)
               }
             }).then(function (response) {
               return response.data;

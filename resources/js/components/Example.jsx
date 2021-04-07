@@ -12,7 +12,9 @@ import styled from 'styled-components';
 import polyline from '@mapbox/polyline';
 import { renderToStaticMarkup } from 'react-dom/server';
 import axios from 'axios';
-import { exploreSegments, getSegmentEfforts } from '../services/strava';
+import {
+  ACCESS_TOKEN_KEY, exploreSegments, getSegmentEfforts, REFRESH_TOKEN_KEY,
+} from '../services/strava';
 
 const Location = ({ setLocation, setHeading, map }) => {
   const options = {
@@ -92,7 +94,8 @@ function Example() {
       };
 
       const reauthorizeResponse = await axios.post('https://www.strava.com/oauth/token', body).then((response) => response.data).catch((err) => console.log(err));
-      localStorage.setItem('refresh_token_strava', reauthorizeResponse.refresh_token);
+      localStorage.setItem(REFRESH_TOKEN_KEY, reauthorizeResponse.refresh_token);
+      localStorage.setItem(ACCESS_TOKEN_KEY, reauthorizeResponse.access_token);
     }
   }, [window.location.search]);
 
@@ -254,8 +257,8 @@ function Example() {
 
 const StyledExploreButton = styled.button`
     position: absolute;
-    right: 0;
-    top: 0;
+    left: 0;
+    bottom: 0;
 `;
 
 const StyledConnectStravaButton = styled.button`
