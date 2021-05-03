@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import polyline from '@mapbox/polyline';
 import { renderToStaticMarkup } from 'react-dom/server';
 import axios from 'axios';
+import FileModal from './FileModal';
 import {
   ACCESS_TOKEN_KEY, exploreSegments, getSegmentEfforts, REFRESH_TOKEN_KEY,
 } from '../services/strava';
@@ -113,6 +114,7 @@ function Example() {
   );
 
   const segmentIconMarkup = renderToStaticMarkup(<StyledIcon className="fas fa-map-marker-alt" />);
+
   const customMarkerIcon = divIcon({
     html: iconMarkup,
     className: 'user-icon',
@@ -146,6 +148,7 @@ function Example() {
     setRadius(e.target.value * 1000);
   };
 
+  const [modalIsOpen, toggleModal] = useState(false);
   return (
     <>
 
@@ -208,6 +211,19 @@ function Example() {
                   </strong>
                 </p>
 
+                <div>
+                  <button
+                    className="btn btn-secondary mt-2"
+                    onClick={() => {
+                      toggleModal(true);
+                      console.log(modalIsOpen);
+                      console.log('asdf');
+                    }}
+                  >
+                    View images
+
+                  </button>
+                </div>
               </Popup>
             </Marker>
           </>
@@ -223,6 +239,12 @@ function Example() {
           />
         )}
       </StyledContainer>
+
+      <FileModal
+        modalIsOpen={modalIsOpen}
+        toggleModal={toggleModal}
+      />
+
       <ConfigurationContainer className="container-sm">
         <div className="form-group">
           <label htmlFor="radius">
@@ -245,7 +267,7 @@ function Example() {
         <StyledConnectStravaButton
           className="btn btn-warning"
           onClick={
-            () => window.location.href = `https://www.strava.com/oauth/authorize?client_id=${process.env.MIX_STRAVA_CLIENT_ID}&redirect_uri=http://localhost&response_type=code&activity=read_all`
+            () => { window.location.href = `https://www.strava.com/oauth/authorize?client_id=${process.env.MIX_STRAVA_CLIENT_ID}&redirect_uri=https://91b8647b6a64.ngrok.io/&response_type=code&activity=read_all`; }
             }
         >
           Connect Strava

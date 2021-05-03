@@ -48,6 +48,7 @@
         "leaflet-control-geocoder": "^2.2.0",
         "react-is": "^17.0.1",
         "react-leaflet": "^3.0.5",
+        "react-modal": "^3.13.1",
         "styled-components": "^5.2.1"
     }
 }
