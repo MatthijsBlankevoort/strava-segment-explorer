@@ -15,14 +15,16 @@ const customStyles = {
   overlay: { zIndex: 1000 },
 };
 
-const FileModal = ({ modalIsOpen, toggleModal }) => {
+const FileModal = ({
+  modalIsOpen, toggleModal, athlete, segment,
+}) => {
   const [file, setFile] = useState();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const fd = new FormData();
-    console.log(file[0]);
     fd.append('file', file[0]);
-    console.log(fd);
+    fd.append('athleteId', athlete.id);
+    fd.append('segmentId', segment.id);
     await axios.post('/api/files', fd).catch((err) => console.error(err));
   };
   return (
@@ -37,7 +39,6 @@ const FileModal = ({ modalIsOpen, toggleModal }) => {
         <input
           id="myFileInput"
           onChange={(e) => {
-            console.log(e.target.files);
             setFile(e.target.files);
           }}
           type="file"

@@ -5439,15 +5439,25 @@ function Example() {
       map = _useState6[0],
       setMap = _useState6[1];
 
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(),
       _useState8 = _slicedToArray(_useState7, 2),
-      segmentEfforts = _useState8[0],
-      setSegmentEfforts = _useState8[1];
+      authenticatedAthlete = _useState8[0],
+      setAuthenticatedAthlete = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(5 * 1000),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
       _useState10 = _slicedToArray(_useState9, 2),
-      radius = _useState10[0],
-      setRadius = _useState10[1];
+      segmentEfforts = _useState10[0],
+      setSegmentEfforts = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
+      _useState12 = _slicedToArray(_useState11, 2),
+      selectedSegment = _useState12[0],
+      setSelectedSegment = _useState12[1];
+
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(5 * 1000),
+      _useState14 = _slicedToArray(_useState13, 2),
+      radius = _useState14[0],
+      setRadius = _useState14[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     var _map$m;
@@ -5477,15 +5487,16 @@ function Example() {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
+              setSelectedSegment(segment);
               _context2.t0 = setSegmentEfforts;
-              _context2.next = 3;
+              _context2.next = 4;
               return (0,_services_strava__WEBPACK_IMPORTED_MODULE_9__.getSegmentEfforts)(segment.id);
 
-            case 3:
+            case 4:
               _context2.t1 = _context2.sent;
               (0, _context2.t0)(_context2.t1);
 
-            case 5:
+            case 6:
             case "end":
               return _context2.stop();
           }
@@ -5541,31 +5552,51 @@ function Example() {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            if (!location.locationReceived) {
-              _context4.next = 6;
-              break;
-            }
+            _context4.t0 = setAuthenticatedAthlete;
+            _context4.next = 3;
+            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_9__.getAuthenticatedAthlete)();
 
-            _context4.t0 = setSegments;
-            _context4.next = 4;
-            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_9__.exploreSegments)(location.lat, location.lng, radius);
-
-          case 4:
+          case 3:
             _context4.t1 = _context4.sent;
             (0, _context4.t0)(_context4.t1);
 
-          case 6:
+          case 5:
           case "end":
             return _context4.stop();
         }
       }
     }, _callee4);
+  })), []);
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            if (!location.locationReceived) {
+              _context5.next = 6;
+              break;
+            }
+
+            _context5.t0 = setSegments;
+            _context5.next = 4;
+            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_9__.exploreSegments)(location.lat, location.lng, radius);
+
+          case 4:
+            _context5.t1 = _context5.sent;
+            (0, _context5.t0)(_context5.t1);
+
+          case 6:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
   })), [location.locationReceived, radius]);
 
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
-      _useState12 = _slicedToArray(_useState11, 2),
-      heading = _useState12[0],
-      setHeading = _useState12[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
+      _useState16 = _slicedToArray(_useState15, 2),
+      heading = _useState16[0],
+      setHeading = _useState16[1];
 
   var iconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(UserIconContainer, {
     rotation: heading,
@@ -5604,15 +5635,15 @@ function Example() {
   };
 
   var onExploreSegmentsClick = /*#__PURE__*/function () {
-    var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+    var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
       var _map$m2;
 
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
               if (!(location.lat && location.lng && location.locationReceived)) {
-                _context5.next = 7;
+                _context6.next = 7;
                 break;
               }
 
@@ -5620,36 +5651,15 @@ function Example() {
                 lat: location.lat,
                 lng: location.lng
               });
-              _context5.t0 = setSegments;
-              _context5.next = 5;
+              _context6.t0 = setSegments;
+              _context6.next = 5;
               return (0,_services_strava__WEBPACK_IMPORTED_MODULE_9__.exploreSegments)(location.lat, location.lng, radius);
 
             case 5:
-              _context5.t1 = _context5.sent;
-              (0, _context5.t0)(_context5.t1);
+              _context6.t1 = _context6.sent;
+              (0, _context6.t0)(_context6.t1);
 
             case 7:
-            case "end":
-              return _context5.stop();
-          }
-        }
-      }, _callee5);
-    }));
-
-    return function onExploreSegmentsClick() {
-      return _ref6.apply(this, arguments);
-    };
-  }();
-
-  var handleRadiusChange = /*#__PURE__*/function () {
-    var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(e) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
-        while (1) {
-          switch (_context6.prev = _context6.next) {
-            case 0:
-              setRadius(e.target.value * 1000);
-
-            case 1:
             case "end":
               return _context6.stop();
           }
@@ -5657,15 +5667,36 @@ function Example() {
       }, _callee6);
     }));
 
-    return function handleRadiusChange(_x2) {
+    return function onExploreSegmentsClick() {
       return _ref7.apply(this, arguments);
     };
   }();
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
-      _useState14 = _slicedToArray(_useState13, 2),
-      modalIsOpen = _useState14[0],
-      toggleModal = _useState14[1];
+  var handleRadiusChange = /*#__PURE__*/function () {
+    var _ref8 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(e) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              setRadius(e.target.value * 1000);
+
+            case 1:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
+    }));
+
+    return function handleRadiusChange(_x2) {
+      return _ref8.apply(this, arguments);
+    };
+  }();
+
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState18 = _slicedToArray(_useState17, 2),
+      modalIsOpen = _useState18[0],
+      toggleModal = _useState18[1];
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(StyledContainer, {
@@ -5741,6 +5772,8 @@ function Example() {
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_FileModal__WEBPACK_IMPORTED_MODULE_8__.default, {
       modalIsOpen: modalIsOpen,
+      athlete: authenticatedAthlete,
+      segment: selectedSegment,
       toggleModal: toggleModal
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(ConfigurationContainer, {
       className: "container-sm",
@@ -5856,7 +5889,9 @@ var customStyles = {
 
 var FileModal = function FileModal(_ref) {
   var modalIsOpen = _ref.modalIsOpen,
-      toggleModal = _ref.toggleModal;
+      toggleModal = _ref.toggleModal,
+      athlete = _ref.athlete,
+      segment = _ref.segment;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -5872,9 +5907,9 @@ var FileModal = function FileModal(_ref) {
             case 0:
               e.preventDefault();
               fd = new FormData();
-              console.log(file[0]);
               fd.append('file', file[0]);
-              console.log(fd);
+              fd.append('athleteId', athlete.id);
+              fd.append('segmentId', segment.id);
               _context.next = 7;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/files', fd)["catch"](function (err) {
                 return console.error(err);
@@ -5904,7 +5939,6 @@ var FileModal = function FileModal(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
         id: "myFileInput",
         onChange: function onChange(e) {
-          console.log(e.target.files);
           setFile(e.target.files);
         },
         type: "file",
@@ -5937,7 +5971,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ACCESS_TOKEN_KEY": () => (/* binding */ ACCESS_TOKEN_KEY),
 /* harmony export */   "refreshAccessToken": () => (/* binding */ refreshAccessToken),
 /* harmony export */   "exploreSegments": () => (/* binding */ exploreSegments),
-/* harmony export */   "getSegmentEfforts": () => (/* binding */ getSegmentEfforts)
+/* harmony export */   "getSegmentEfforts": () => (/* binding */ getSegmentEfforts),
+/* harmony export */   "getAuthenticatedAthlete": () => (/* binding */ getAuthenticatedAthlete)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -6116,6 +6151,67 @@ var getSegmentEfforts = /*#__PURE__*/function () {
 
   return function getSegmentEfforts(_x6) {
     return _ref4.apply(this, arguments);
+  };
+}();
+var getAuthenticatedAthlete = /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
+    var athlete;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _context7.next = 2;
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/athlete"), {
+              headers: {
+                Authorization: "Bearer ".concat(accessToken)
+              }
+            }).then(function (response) {
+              return response.data;
+            })["catch"](function (err) {
+              if (err.response && err.response.status === 401) {
+                return refreshAccessToken('refresh_token').then( /*#__PURE__*/function () {
+                  var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(response) {
+                    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+                      while (1) {
+                        switch (_context6.prev = _context6.next) {
+                          case 0:
+                            return _context6.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(STRAVA_BASE_URL, "/athlete"), {
+                              headers: {
+                                Authorization: "Bearer ".concat(response.access_token)
+                              }
+                            }).then(function (res) {
+                              return res.data;
+                            }));
+
+                          case 1:
+                          case "end":
+                            return _context6.stop();
+                        }
+                      }
+                    }, _callee6);
+                  }));
+
+                  return function (_x8) {
+                    return _ref7.apply(this, arguments);
+                  };
+                }());
+              }
+            });
+
+          case 2:
+            athlete = _context7.sent;
+            return _context7.abrupt("return", athlete);
+
+          case 4:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+
+  return function getAuthenticatedAthlete() {
+    return _ref6.apply(this, arguments);
   };
 }();
 

@@ -14,7 +14,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import axios from 'axios';
 import FileModal from './FileModal';
 import {
-  ACCESS_TOKEN_KEY, exploreSegments, getSegmentEfforts, REFRESH_TOKEN_KEY,
+  ACCESS_TOKEN_KEY, exploreSegments, getAuthenticatedAthlete, getSegmentEfforts, REFRESH_TOKEN_KEY,
 } from '../services/strava';
 
 const Location = ({ setLocation, setHeading, map }) => {
@@ -72,7 +72,9 @@ function Example() {
 
   const [segments, setSegments] = useState([]);
   const [map, setMap] = useState();
+  const [authenticatedAthlete, setAuthenticatedAthlete] = useState();
   const [segmentEfforts, setSegmentEfforts] = useState({});
+  const [selectedSegment, setSelectedSegment] = useState({});
   const [radius, setRadius] = useState(5 * 1000);
   useEffect(async () => {
     if (location.lat && location.lng && location.locationReceived) {
@@ -81,6 +83,7 @@ function Example() {
   }, [location, exploreSegments, setSegments, radius]);
 
   const onMarkerClick = async (segment) => {
+    setSelectedSegment(segment);
     setSegmentEfforts(await getSegmentEfforts(segment.id));
   };
 
@@ -99,6 +102,10 @@ function Example() {
       localStorage.setItem(ACCESS_TOKEN_KEY, reauthorizeResponse.access_token);
     }
   }, [window.location.search]);
+
+  useEffect(async () => {
+    setAuthenticatedAthlete(await getAuthenticatedAthlete());
+  }, []);
 
   useEffect(async () => {
     if (location.locationReceived) {
@@ -149,6 +156,7 @@ function Example() {
   };
 
   const [modalIsOpen, toggleModal] = useState(false);
+
   return (
     <>
 
@@ -242,6 +250,8 @@ function Example() {
 
       <FileModal
         modalIsOpen={modalIsOpen}
+        athlete={authenticatedAthlete}
+        segment={selectedSegment}
         toggleModal={toggleModal}
       />
 

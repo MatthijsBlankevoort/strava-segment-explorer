@@ -49,3 +49,16 @@ export const getSegmentEfforts = async (id) => {
   });
   return segments;
 };
+
+export const getAuthenticatedAthlete = async () => {
+  const athlete = await axios.get(`${STRAVA_BASE_URL}/athlete`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  }).then((response) => response.data).catch((err) => {
+    if (err.response && err.response.status === 401) {
+      return refreshAccessToken('refresh_token').then(async (response) => axios.get(`${STRAVA_BASE_URL}/athlete`, {
+        headers: { Authorization: `Bearer ${response.access_token}` },
+      }).then((res) => res.data));
+    }
+  });
+  return athlete;
+};

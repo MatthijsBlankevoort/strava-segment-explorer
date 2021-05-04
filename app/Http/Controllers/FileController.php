@@ -26,7 +26,8 @@ class FileController extends Controller
     {
         $name = $request->file('file')->getClientOriginalName();
         $path = $request->file('file')->storeAs('public', $name);
-
+        $file = new File();
+        dd($request->get('segmentId'));
         return $path;
     }
 

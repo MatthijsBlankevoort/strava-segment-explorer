@@ -15,6 +15,8 @@ class CreateFilesTable extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
+            $table->string('strava_user_id');
+            $table->string('strava_segment_id');
             $table->timestamps();
         });
     }
