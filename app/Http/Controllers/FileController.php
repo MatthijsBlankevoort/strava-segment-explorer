@@ -24,7 +24,10 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->file);
+        $name = $request->file('file')->getClientOriginalName();
+        $path = $request->file('file')->storeAs('public', $name);
+
+        return $path;
     }
 
     /**
