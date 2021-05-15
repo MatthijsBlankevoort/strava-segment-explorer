@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -24,11 +26,17 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->file('file')->getClientOriginalName();
-        $path = $request->file('file')->storeAs('public', $name);
+        $path = $request->file('file')->store('public');
+
+        $url = Storage::url($path);
+
         $file = new File();
-        dd($request->get('segmentId'));
-        return $path;
+        $file->url = $url;
+        $file->name = $request->file('file')->getClientOriginalName();
+        $file->strava_athlete_id = $request->get('athleteId');
+        $file->strava_segment_id = $request->get('segmentId');
+
+        $file->save();
     }
 
     /**

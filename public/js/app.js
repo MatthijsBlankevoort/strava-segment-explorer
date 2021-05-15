@@ -5700,6 +5700,9 @@ function Example() {
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(StyledContainer, {
+      style: {
+        height: '100vh'
+      },
       center: [(_location$lat = location.lat) !== null && _location$lat !== void 0 ? _location$lat : 0, (_location$lng = location.lng) !== null && _location$lng !== void 0 ? _location$lng : 0],
       zoom: 12,
       scrollWheelZoom: false,
@@ -5806,7 +5809,7 @@ function Example() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(StyledConnectStravaButton, {
         className: "btn btn-warning",
         onClick: function onClick() {
-          window.location.href = "https://www.strava.com/oauth/authorize?client_id=".concat("18799", "&redirect_uri=https://91b8647b6a64.ngrok.io/&response_type=code&activity=read_all");
+          window.location.href = "https://www.strava.com/oauth/authorize?client_id=".concat("18799", "&redirect_uri=https://bed06a8bd1f4.ngrok.io/&response_type=code&activity=read_all");
         },
         children: "Connect Strava"
       })]
@@ -5816,10 +5819,10 @@ function Example() {
 
 var StyledExploreButton = styled_components__WEBPACK_IMPORTED_MODULE_16__.default.button(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: absolute;\n    left: 0;\n    bottom: 0;\n"])));
 var StyledConnectStravaButton = styled_components__WEBPACK_IMPORTED_MODULE_16__.default.button(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: absolute;\n    right: 0;\n    bottom: 0;\n"])));
-var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_16__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_17__.MapContainer)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    height: 100vh;\n    width: 100vw;\n"])));
+var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_16__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_17__.MapContainer)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    width: 100vw;\n"])));
 var ConfigurationContainer = styled_components__WEBPACK_IMPORTED_MODULE_16__.default.div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    background: white;\n    position: absolute;\n    height: 200px;\n    z-index: 999;\n    margin-left: auto;\n    margin-right: auto;\n    bottom: 0;\n    display: flex;\n    flex-flow: column;\n    align-items: center;\n    justify-content: center;\n\n    left: 0;\n    right: 0;\n    margin-left: auto;\n    margin-right: auto;\n    padding-bottom: 80px;\n"])));
 var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_16__.default.i(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    &.fa-map-marker-alt {\n        color: orange;\n        font-size: 1.5rem;\n        position: absolute;\n        right: 0;\n        bottom: 0;\n    }\n\n    &.fa-circle, &.fa-angle-up {\n        color: dodgerblue;\n        position: relative;\n    }\n\n"])));
-var UserIconContainer = styled_components__WEBPACK_IMPORTED_MODULE_16__.default.div(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["\n    ", "\n\n\n    display: flex;\n    flex-flow: column;\n    justify-content: center;\n    align-items: center;\n"])), function (props) {
+var UserIconContainer = styled_components__WEBPACK_IMPORTED_MODULE_16__.default.div(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["\n    ", "\n    display: flex;\n    flex-flow: column;\n    justify-content: center;\n    align-items: center;\n"])), function (props) {
   return " transform: rotate(".concat(props.rotation, "deg);");
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Example);

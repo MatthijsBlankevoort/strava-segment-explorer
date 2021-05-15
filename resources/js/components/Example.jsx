@@ -161,6 +161,7 @@ function Example() {
     <>
 
       <StyledContainer
+        style={{ height: '100vh' }}
         center={[location.lat ?? 0, location.lng ?? 0]}
         zoom={12}
         scrollWheelZoom={false}
@@ -277,7 +278,7 @@ function Example() {
         <StyledConnectStravaButton
           className="btn btn-warning"
           onClick={
-            () => { window.location.href = `https://www.strava.com/oauth/authorize?client_id=${process.env.MIX_STRAVA_CLIENT_ID}&redirect_uri=https://91b8647b6a64.ngrok.io/&response_type=code&activity=read_all`; }
+            () => { window.location.href = `https://www.strava.com/oauth/authorize?client_id=${process.env.MIX_STRAVA_CLIENT_ID}&redirect_uri=https://bed06a8bd1f4.ngrok.io/&response_type=code&activity=read_all`; }
             }
         >
           Connect Strava
@@ -300,7 +301,6 @@ const StyledConnectStravaButton = styled.button`
 `;
 
 const StyledContainer = styled(MapContainer)`
-    height: 100vh;
     width: 100vw;
 `;
 
@@ -342,8 +342,6 @@ const StyledIcon = styled.i`
 
 const UserIconContainer = styled.div`
     ${(props) => ` transform: rotate(${props.rotation}deg);`}
-
-
     display: flex;
     flex-flow: column;
     justify-content: center;
