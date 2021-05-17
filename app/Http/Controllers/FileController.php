@@ -37,6 +37,9 @@ class FileController extends Controller
         $file->strava_segment_id = $request->get('segmentId');
 
         $file->save();
+        return $file;
+
+
     }
 
     /**
@@ -45,9 +48,17 @@ class FileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+
+        $athlete_id = $request->get('athleteId');
+        $segment_id = $request->get('segmentId');
+
+        return File::where([
+            ['strava_segment_id', $segment_id],
+            ['strava_athlete_id', $athlete_id]
+        ])->get();
+
     }
 
     /**

@@ -1,4 +1,4 @@
 require('./bootstrap');
 
 require('alpinejs');
-require('./components/Example');
+require('./components/Main');

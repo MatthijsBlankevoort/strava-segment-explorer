@@ -26,7 +26,7 @@
     </head>
     <body class="antialiased">
     <!-- React root DOM -->
-    <div id="example">
+    <div id="main">
     </div>
     <!-- React JS -->
     <script src="{{ asset('js/app.js') }}" defer></script>

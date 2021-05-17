@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('files', FileController::class);
+Route::get('/files', [FileController::class, 'show']);

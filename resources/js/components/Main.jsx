@@ -63,7 +63,7 @@ const Location = ({ setLocation, setHeading, map }) => {
 function getQueryStringValue(key) {
   return decodeURIComponent(window.location.search.replace(new RegExp(`^(?:.*[&\\?]${encodeURIComponent(key).replace(/[\.\+\*]/g, '\\$&')}(?:\\=([^&]*))?)?.*$`, 'i'), '$1'));
 }
-function Example() {
+function Main() {
   const [location, setLocation] = useState({
     lat: 52.370216,
     lng: 4.895168,
@@ -348,8 +348,8 @@ const UserIconContainer = styled.div`
     align-items: center;
 `;
 
-export default Example;
+export default Main;
 
-if (document.getElementById('example')) {
-  ReactDOM.render(<Example />, document.getElementById('example'));
+if (document.getElementById('main')) {
+  ReactDOM.render(<Main />, document.getElementById('main'));
 }
