@@ -2,6 +2,8 @@
 import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
+import ReactStars from 'react-rating-stars-component';
+
 import Leaflet, { divIcon } from 'leaflet';
 import ReactDOM from 'react-dom';
 import {
@@ -154,7 +156,9 @@ function Main() {
   const handleRadiusChange = async (e) => {
     setRadius(e.target.value * 1000);
   };
-
+  const ratingChanged = async (newRating) => {
+    await axios.post(`/rating?segmentId=${selectedSegment.id}&athleteId=${authenticatedAthlete.id}`);
+  };
   const [modalIsOpen, toggleModal] = useState(false);
 
   return (
@@ -174,7 +178,6 @@ function Main() {
 
         {segments?.map((segment) => (
           <>
-
             <Polyline color="orange" positions={polyline.decode(segment.points)} />
             <Marker
               key={segment.id}
@@ -184,7 +187,16 @@ function Main() {
 
             >
               <Popup>
-                <h3>{segment.name}</h3>
+                <h5>{segment.name}</h5>
+                <ReactStars
+                  count={5}
+                  onChange={ratingChanged}
+                  size={24}
+                  activeColor="#ffd700"
+                />
+                <span>
+                  Avg: 5 (15)
+                </span>
                 <p>
                   Afstand:
                   {' '}

@@ -5309,7 +5309,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_responsive_carousel_lib_styles_carousel_min_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-responsive-carousel/lib/styles/carousel.min.css */ "./node_modules/react-responsive-carousel/lib/styles/carousel.min.css");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-var _templateObject;
+var _templateObject, _templateObject2;
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -5438,46 +5438,49 @@ var FileModal = function FileModal(_ref) {
       }
     }, _callee2);
   })), [athlete, segment]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)((react_modal__WEBPACK_IMPORTED_MODULE_3___default()), {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)((react_modal__WEBPACK_IMPORTED_MODULE_3___default()), {
     isOpen: modalIsOpen,
     onRequestClose: function onRequestClose() {
       return toggleModal(false);
     },
     appElement: document.getElementById('example'),
     style: customStyles,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(StyledCarousel, {
-      showArrows: true,
-      children: images.map(function (image) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
-            height: "200",
-            width: "100",
-            className: "img-fluid img-thumbnail",
-            src: image.url,
-            alt: ""
-          })
-        });
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("form", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-        id: "myFileInput",
-        onChange: function onChange(e) {
-          setFile(e.target.files);
-        },
-        type: "file",
-        accept: "image/*;capture=camera"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-        onClick: function onClick(e) {
-          return handleSubmit(e);
-        },
-        type: "submit",
-        className: "btn btn-primary"
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(Container, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(StyledCarousel, {
+        showArrows: true,
+        children: images.map(function (image) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
+              height: "200",
+              width: "100",
+              className: "img-fluid img-thumbnail",
+              src: image.url,
+              alt: ""
+            })
+          });
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("form", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+          id: "myFileInput",
+          onChange: function onChange(e) {
+            setFile(e.target.files);
+          },
+          type: "file",
+          accept: "image/*;capture=camera"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+          onClick: function onClick(e) {
+            return handleSubmit(e);
+          },
+          type: "submit",
+          className: "btn btn-primary"
+        })]
       })]
-    })]
+    })
   });
 };
 
-var StyledCarousel = (0,styled_components__WEBPACK_IMPORTED_MODULE_7__.default)(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_4__.Carousel)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    max-width: 80vw;\n"])));
+var Container = styled_components__WEBPACK_IMPORTED_MODULE_7__.default.div(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    display: flex;\n    flex-flow: column;\n    align-items: center;\n"])));
+var StyledCarousel = (0,styled_components__WEBPACK_IMPORTED_MODULE_7__.default)(react_responsive_carousel__WEBPACK_IMPORTED_MODULE_4__.Carousel)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    width: 80vw;\n    @media (min-width: 576px) { width: 20vw; }\n\n"])));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FileModal);
 
 /***/ }),
@@ -5496,25 +5499,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
-/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/TileLayer.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Polyline.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Marker.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Popup.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Circle.js");
-/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/MapContainer.js");
-/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _mapbox_polyline__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mapbox/polyline */ "./node_modules/@mapbox/polyline/src/polyline.js");
-/* harmony import */ var _mapbox_polyline__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_mapbox_polyline__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var react_dom_server__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-dom/server */ "./node_modules/react-dom/server.browser.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _FileModal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./FileModal */ "./resources/js/components/FileModal.jsx");
-/* harmony import */ var _services_strava__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../services/strava */ "./resources/js/services/strava.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_rating_stars_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-rating-stars-component */ "./node_modules/react-rating-stars-component/dist/react-stars.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
+/* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/TileLayer.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Polyline.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Marker.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Popup.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/Circle.js");
+/* harmony import */ var react_leaflet__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-leaflet */ "./node_modules/react-leaflet/esm/MapContainer.js");
+/* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _mapbox_polyline__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mapbox/polyline */ "./node_modules/@mapbox/polyline/src/polyline.js");
+/* harmony import */ var _mapbox_polyline__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_mapbox_polyline__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_dom_server__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-dom/server */ "./node_modules/react-dom/server.browser.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _FileModal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./FileModal */ "./resources/js/components/FileModal.jsx");
+/* harmony import */ var _services_strava__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../services/strava */ "./resources/js/services/strava.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6;
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -5538,6 +5542,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /* eslint-disable no-tabs */
+
 
 
 
@@ -5599,7 +5604,7 @@ var Location = function Location(_ref) {
     });
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
     className: "btn btn-secondary",
     onClick: function onClick() {
       return _onClick();
@@ -5674,7 +5679,7 @@ function Main() {
         }
       }
     }, _callee);
-  })), [location, _services_strava__WEBPACK_IMPORTED_MODULE_9__.exploreSegments, setSegments, radius]);
+  })), [location, _services_strava__WEBPACK_IMPORTED_MODULE_10__.exploreSegments, setSegments, radius]);
 
   var onMarkerClick = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(segment) {
@@ -5685,7 +5690,7 @@ function Main() {
               setSelectedSegment(segment);
               _context2.t0 = setSegmentEfforts;
               _context2.next = 4;
-              return (0,_services_strava__WEBPACK_IMPORTED_MODULE_9__.getSegmentEfforts)(segment.id);
+              return (0,_services_strava__WEBPACK_IMPORTED_MODULE_10__.getSegmentEfforts)(segment.id);
 
             case 4:
               _context2.t1 = _context2.sent;
@@ -5724,7 +5729,7 @@ function Main() {
               grant_type: 'authorization_code'
             };
             _context3.next = 5;
-            return axios__WEBPACK_IMPORTED_MODULE_7___default().post('https://www.strava.com/oauth/token', body).then(function (response) {
+            return axios__WEBPACK_IMPORTED_MODULE_8___default().post('https://www.strava.com/oauth/token', body).then(function (response) {
               return response.data;
             })["catch"](function (err) {
               return console.log(err);
@@ -5732,8 +5737,8 @@ function Main() {
 
           case 5:
             reauthorizeResponse = _context3.sent;
-            localStorage.setItem(_services_strava__WEBPACK_IMPORTED_MODULE_9__.REFRESH_TOKEN_KEY, reauthorizeResponse.refresh_token);
-            localStorage.setItem(_services_strava__WEBPACK_IMPORTED_MODULE_9__.ACCESS_TOKEN_KEY, reauthorizeResponse.access_token);
+            localStorage.setItem(_services_strava__WEBPACK_IMPORTED_MODULE_10__.REFRESH_TOKEN_KEY, reauthorizeResponse.refresh_token);
+            localStorage.setItem(_services_strava__WEBPACK_IMPORTED_MODULE_10__.ACCESS_TOKEN_KEY, reauthorizeResponse.access_token);
 
           case 8:
           case "end":
@@ -5749,7 +5754,7 @@ function Main() {
           case 0:
             _context4.t0 = setAuthenticatedAthlete;
             _context4.next = 3;
-            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_9__.getAuthenticatedAthlete)();
+            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_10__.getAuthenticatedAthlete)();
 
           case 3:
             _context4.t1 = _context4.sent;
@@ -5774,7 +5779,7 @@ function Main() {
 
             _context5.t0 = setSegments;
             _context5.next = 4;
-            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_9__.exploreSegments)(location.lat, location.lng, radius);
+            return (0,_services_strava__WEBPACK_IMPORTED_MODULE_10__.exploreSegments)(location.lat, location.lng, radius);
 
           case 4:
             _context5.t1 = _context5.sent;
@@ -5793,23 +5798,23 @@ function Main() {
       heading = _useState16[0],
       setHeading = _useState16[1];
 
-  var iconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(UserIconContainer, {
+  var iconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_7__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(UserIconContainer, {
     rotation: heading,
     id: "user-icon",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(StyledIcon, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(StyledIcon, {
       className: "fas fa-angle-up"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(StyledIcon, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(StyledIcon, {
       className: "fas fa-circle"
     })]
   }));
-  var segmentIconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_6__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(StyledIcon, {
+  var segmentIconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_7__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(StyledIcon, {
     className: "fas fa-map-marker-alt"
   }));
-  var customMarkerIcon = (0,leaflet__WEBPACK_IMPORTED_MODULE_2__.divIcon)({
+  var customMarkerIcon = (0,leaflet__WEBPACK_IMPORTED_MODULE_3__.divIcon)({
     html: iconMarkup,
     className: 'user-icon'
   });
-  var segmentMarker = (0,leaflet__WEBPACK_IMPORTED_MODULE_2__.divIcon)({
+  var segmentMarker = (0,leaflet__WEBPACK_IMPORTED_MODULE_3__.divIcon)({
     html: segmentIconMarkup,
     className: 'segment-icon'
   });
@@ -5848,7 +5853,7 @@ function Main() {
               });
               _context6.t0 = setSegments;
               _context6.next = 5;
-              return (0,_services_strava__WEBPACK_IMPORTED_MODULE_9__.exploreSegments)(location.lat, location.lng, radius);
+              return (0,_services_strava__WEBPACK_IMPORTED_MODULE_10__.exploreSegments)(location.lat, location.lng, radius);
 
             case 5:
               _context6.t1 = _context6.sent;
@@ -5888,13 +5893,35 @@ function Main() {
     };
   }();
 
+  var ratingChanged = /*#__PURE__*/function () {
+    var _ref9 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8(newRating) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              _context8.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_8___default().post("/rating?segmentId=".concat(selectedSegment.id, "&athleteId=").concat(authenticatedAthlete.id));
+
+            case 2:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8);
+    }));
+
+    return function ratingChanged(_x3) {
+      return _ref9.apply(this, arguments);
+    };
+  }();
+
   var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState18 = _slicedToArray(_useState17, 2),
       modalIsOpen = _useState18[0],
       toggleModal = _useState18[1];
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(StyledContainer, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(StyledContainer, {
       style: {
         height: '100vh'
       },
@@ -5906,17 +5933,17 @@ function Main() {
           m: m
         });
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_11__.TileLayer, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.TileLayer, {
         attribution: "\xA9 <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
         url: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=".concat("7bdb9552-8f8f-4b2b-a837-262355843704")
       }), segments === null || segments === void 0 ? void 0 : segments.map(function (segment) {
         var _segmentEfforts$athle, _segmentEfforts$xoms, _segmentEfforts$athle2;
 
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.Fragment, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_12__.Polyline, {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_13__.Polyline, {
             color: "orange",
-            positions: _mapbox_polyline__WEBPACK_IMPORTED_MODULE_5___default().decode(segment.points)
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_13__.Marker, {
+            positions: _mapbox_polyline__WEBPACK_IMPORTED_MODULE_6___default().decode(segment.points)
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_14__.Marker, {
             eventHandlers: {
               click: function click() {
                 return onMarkerClick(segment);
@@ -5924,27 +5951,34 @@ function Main() {
             },
             icon: segmentMarker,
             position: segment.start_latlng,
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_leaflet__WEBPACK_IMPORTED_MODULE_14__.Popup, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h3", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_leaflet__WEBPACK_IMPORTED_MODULE_15__.Popup, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h5", {
                 children: segment.name
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("p", {
-                children: ["Afstand:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("strong", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_rating_stars_component__WEBPACK_IMPORTED_MODULE_2__.default, {
+                count: 5,
+                onChange: ratingChanged,
+                size: 24,
+                activeColor: "#ffd700"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
+                children: "Avg: 5 (15)"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("p", {
+                children: ["Afstand:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("strong", {
                   children: [(segment.distance / 1000).toFixed(2), ' ', "km"]
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("p", {
-                children: ["Persoonlijk Record (PR):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("strong", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("p", {
+                children: ["Persoonlijk Record (PR):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("strong", {
                   children: getTimeInMinutes(segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle === void 0 ? void 0 : _segmentEfforts$athle.pr_elapsed_time)
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("p", {
-                children: ["Snelste tijd (KOM):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("strong", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("p", {
+                children: ["Snelste tijd (KOM):", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("strong", {
                   children: segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$xoms = segmentEfforts.xoms) === null || _segmentEfforts$xoms === void 0 ? void 0 : _segmentEfforts$xoms.kom
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("p", {
-                children: ["Pogingen:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("strong", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("p", {
+                children: ["Pogingen:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("strong", {
                   children: segmentEfforts === null || segmentEfforts === void 0 ? void 0 : (_segmentEfforts$athle2 = segmentEfforts.athlete_segment_stats) === null || _segmentEfforts$athle2 === void 0 ? void 0 : _segmentEfforts$athle2.effort_count
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("div", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("button", {
                   className: "btn btn-secondary mt-2",
                   onClick: function onClick() {
                     toggleModal(true);
@@ -5957,10 +5991,10 @@ function Main() {
             })
           }, segment.id)]
         });
-      }), location.lat && location.lng && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_13__.Marker, {
+      }), location.lat && location.lng && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_14__.Marker, {
         icon: customMarkerIcon,
         position: [location.lat, location.lng]
-      }), location.lat && location.lng && radius && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_15__.Circle, {
+      }), location.lat && location.lng && radius && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_16__.Circle, {
         center: {
           lat: location.lat,
           lng: location.lng
@@ -5968,19 +6002,19 @@ function Main() {
         color: "dodgerblue",
         radius: radius
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_FileModal__WEBPACK_IMPORTED_MODULE_8__.default, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(_FileModal__WEBPACK_IMPORTED_MODULE_9__.default, {
       modalIsOpen: modalIsOpen,
       athlete: authenticatedAthlete,
       segment: selectedSegment,
       toggleModal: toggleModal
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(ConfigurationContainer, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(ConfigurationContainer, {
       className: "container-sm",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("div", {
         className: "form-group",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("label", {
           htmlFor: "radius",
           children: ["Radius:", ' ', radius / 1000, "km", ' ']
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("input", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("input", {
           onChange: function onChange(e) {
             return handleRadiusChange(e);
           },
@@ -5992,16 +6026,16 @@ function Main() {
           max: "100",
           id: "customRange2"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Location, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(Location, {
         setLocation: setLocation,
         setHeading: setHeading
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(StyledExploreButton, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(StyledExploreButton, {
         className: "btn btn-primary",
         onClick: function onClick() {
           return onExploreSegmentsClick();
         },
         children: "Explore segments"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(StyledConnectStravaButton, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(StyledConnectStravaButton, {
         className: "btn btn-warning",
         onClick: function onClick() {
           window.location.href = "https://www.strava.com/oauth/authorize?client_id=".concat("18799", "&redirect_uri=https://bed06a8bd1f4.ngrok.io/&response_type=code&activity=read_all");
@@ -6012,18 +6046,18 @@ function Main() {
   });
 }
 
-var StyledExploreButton = styled_components__WEBPACK_IMPORTED_MODULE_16__.default.button(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: absolute;\n    left: 0;\n    bottom: 0;\n"])));
-var StyledConnectStravaButton = styled_components__WEBPACK_IMPORTED_MODULE_16__.default.button(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: absolute;\n    right: 0;\n    bottom: 0;\n"])));
-var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_16__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_17__.MapContainer)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    width: 100vw;\n"])));
-var ConfigurationContainer = styled_components__WEBPACK_IMPORTED_MODULE_16__.default.div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    background: white;\n    position: absolute;\n    height: 200px;\n    z-index: 999;\n    margin-left: auto;\n    margin-right: auto;\n    bottom: 0;\n    display: flex;\n    flex-flow: column;\n    align-items: center;\n    justify-content: center;\n\n    left: 0;\n    right: 0;\n    margin-left: auto;\n    margin-right: auto;\n    padding-bottom: 80px;\n"])));
-var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_16__.default.i(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    &.fa-map-marker-alt {\n        color: orange;\n        font-size: 1.5rem;\n        position: absolute;\n        right: 0;\n        bottom: 0;\n    }\n\n    &.fa-circle, &.fa-angle-up {\n        color: dodgerblue;\n        position: relative;\n    }\n\n"])));
-var UserIconContainer = styled_components__WEBPACK_IMPORTED_MODULE_16__.default.div(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["\n    ", "\n    display: flex;\n    flex-flow: column;\n    justify-content: center;\n    align-items: center;\n"])), function (props) {
+var StyledExploreButton = styled_components__WEBPACK_IMPORTED_MODULE_17__.default.button(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n    position: absolute;\n    left: 0;\n    bottom: 0;\n"])));
+var StyledConnectStravaButton = styled_components__WEBPACK_IMPORTED_MODULE_17__.default.button(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    position: absolute;\n    right: 0;\n    bottom: 0;\n"])));
+var StyledContainer = (0,styled_components__WEBPACK_IMPORTED_MODULE_17__.default)(react_leaflet__WEBPACK_IMPORTED_MODULE_18__.MapContainer)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    width: 100vw;\n"])));
+var ConfigurationContainer = styled_components__WEBPACK_IMPORTED_MODULE_17__.default.div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n    background: white;\n    position: absolute;\n    height: 200px;\n    z-index: 999;\n    margin-left: auto;\n    margin-right: auto;\n    bottom: 0;\n    display: flex;\n    flex-flow: column;\n    align-items: center;\n    justify-content: center;\n\n    left: 0;\n    right: 0;\n    margin-left: auto;\n    margin-right: auto;\n    padding-bottom: 80px;\n"])));
+var StyledIcon = styled_components__WEBPACK_IMPORTED_MODULE_17__.default.i(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n    &.fa-map-marker-alt {\n        color: orange;\n        font-size: 1.5rem;\n        position: absolute;\n        right: 0;\n        bottom: 0;\n    }\n\n    &.fa-circle, &.fa-angle-up {\n        color: dodgerblue;\n        position: relative;\n    }\n\n"])));
+var UserIconContainer = styled_components__WEBPACK_IMPORTED_MODULE_17__.default.div(_templateObject6 || (_templateObject6 = _taggedTemplateLiteral(["\n    ", "\n    display: flex;\n    flex-flow: column;\n    justify-content: center;\n    align-items: center;\n"])), function (props) {
   return " transform: rotate(".concat(props.rotation, "deg);");
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Main);
 
 if (document.getElementById('main')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_3__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(Main, {}), document.getElementById('main'));
+  react_dom__WEBPACK_IMPORTED_MODULE_4__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(Main, {}), document.getElementById('main'));
 }
 
 /***/ }),
@@ -91238,6 +91272,538 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = _Modal2.default;
 module.exports = exports["default"];
+
+/***/ }),
+
+/***/ "./node_modules/react-rating-stars-component/dist/hooks/useConfig.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/react-rating-stars-component/dist/hooks/useConfig.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+exports.default = useConfig;
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+function useConfig(config) {
+    var _useState = (0, _react.useState)(config.count),
+        _useState2 = _slicedToArray(_useState, 2),
+        count = _useState2[0],
+        setCount = _useState2[1];
+
+    var _useState3 = (0, _react.useState)(config.size),
+        _useState4 = _slicedToArray(_useState3, 2),
+        size = _useState4[0],
+        setSize = _useState4[1];
+
+    var _useState5 = (0, _react.useState)(config.char),
+        _useState6 = _slicedToArray(_useState5, 2),
+        char = _useState6[0],
+        setChar = _useState6[1];
+
+    var _useState7 = (0, _react.useState)(config.color),
+        _useState8 = _slicedToArray(_useState7, 2),
+        color = _useState8[0],
+        setColor = _useState8[1];
+
+    var _useState9 = (0, _react.useState)(config.activeColor),
+        _useState10 = _slicedToArray(_useState9, 2),
+        activeColor = _useState10[0],
+        setActiveColor = _useState10[1];
+
+    var _useState11 = (0, _react.useState)(config.isHalf),
+        _useState12 = _slicedToArray(_useState11, 2),
+        isHalf = _useState12[0],
+        setIsHalf = _useState12[1];
+
+    var _useState13 = (0, _react.useState)(config.edit),
+        _useState14 = _slicedToArray(_useState13, 2),
+        edit = _useState14[0],
+        setEdit = _useState14[1];
+
+    var _useState15 = (0, _react.useState)(config.emptyIcon),
+        _useState16 = _slicedToArray(_useState15, 2),
+        emptyIcon = _useState16[0],
+        setEmptyIcon = _useState16[1];
+
+    var _useState17 = (0, _react.useState)(config.halfIcon),
+        _useState18 = _slicedToArray(_useState17, 2),
+        halfIcon = _useState18[0],
+        setHalfIcon = _useState18[1];
+
+    var _useState19 = (0, _react.useState)(config.filledIcon),
+        _useState20 = _slicedToArray(_useState19, 2),
+        filledIcon = _useState20[0],
+        setFilledIcon = _useState20[1];
+
+    var _useState21 = (0, _react.useState)(config.a11y),
+        _useState22 = _slicedToArray(_useState21, 2),
+        a11y = _useState22[0],
+        setA11y = _useState22[1];
+
+    var configObj = {
+        count: count,
+        size: size,
+        char: char,
+        color: color,
+        activeColor: activeColor,
+        isHalf: isHalf,
+        edit: edit,
+        emptyIcon: emptyIcon,
+        halfIcon: halfIcon,
+        filledIcon: filledIcon,
+        a11y: a11y
+    };
+
+    function setConfig(config) {
+        setCount(config.count);
+        setSize(config.size);
+        setChar(config.char);
+        setColor(config.color);
+        setActiveColor(config.activeColor);
+        setIsHalf(config.isHalf);
+        setEdit(config.edit);
+        setEmptyIcon(config.emptyIcon);
+        setHalfIcon(config.halfIcon);
+        setFilledIcon(config.filledIcon);
+        setA11y(config.a11y);
+    }
+
+    return [configObj, setConfig];
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-rating-stars-component/dist/react-stars.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-rating-stars-component/dist/react-stars.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _useConfig3 = __webpack_require__(/*! ./hooks/useConfig */ "./node_modules/react-rating-stars-component/dist/hooks/useConfig.js");
+
+var _useConfig4 = _interopRequireDefault(_useConfig3);
+
+var _star = __webpack_require__(/*! ./star */ "./node_modules/react-rating-stars-component/dist/star.js");
+
+var _star2 = _interopRequireDefault(_star);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var parentStyles = {
+    overflow: "hidden",
+    position: "relative"
+};
+
+function getHalfStarStyles(color, uniqueness) {
+    return '\n    .react-stars-' + uniqueness + ':before {\n      position: absolute;\n      overflow: hidden;\n      display: block;\n      z-index: 1;\n      top: 0; left: 0;\n      width: 50%;\n      content: attr(data-forhalf);\n      color: ' + color + ';\n  }';
+}
+
+function getHalfStarStyleForIcons(color) {
+    return '\n          span.react-stars-half > * {\n          color: ' + color + ';\n      }';
+};
+
+function ReactStars(props) {
+    var _useState = (0, _react.useState)(''),
+        _useState2 = _slicedToArray(_useState, 2),
+        uniqueness = _useState2[0],
+        setUniqueness = _useState2[1];
+
+    var _useState3 = (0, _react.useState)(0),
+        _useState4 = _slicedToArray(_useState3, 2),
+        currentValue = _useState4[0],
+        setCurrentValue = _useState4[1];
+
+    var _useState5 = (0, _react.useState)([]),
+        _useState6 = _slicedToArray(_useState5, 2),
+        stars = _useState6[0],
+        setStars = _useState6[1];
+
+    var _useState7 = (0, _react.useState)(false),
+        _useState8 = _slicedToArray(_useState7, 2),
+        isUsingIcons = _useState8[0],
+        setIsUsingIcons = _useState8[1];
+
+    var _useConfig = (0, _useConfig4.default)(props),
+        _useConfig2 = _slicedToArray(_useConfig, 2),
+        config = _useConfig2[0],
+        setConfig = _useConfig2[1];
+
+    var _useState9 = (0, _react.useState)(0),
+        _useState10 = _slicedToArray(_useState9, 2),
+        halfStarAt = _useState10[0],
+        setHalfStarAt = _useState10[1];
+
+    var _useState11 = (0, _react.useState)(false),
+        _useState12 = _slicedToArray(_useState11, 2),
+        halfStarHidden = _useState12[0],
+        setHalfStarHidden = _useState12[1];
+
+    var _useState13 = (0, _react.useState)(''),
+        _useState14 = _slicedToArray(_useState13, 2),
+        classNames = _useState14[0],
+        setClassNames = _useState14[1];
+
+    function iconsUsed(config) {
+        return !config.isHalf && config.emptyIcon && config.filledIcon || config.isHalf && config.emptyIcon && config.halfIcon && config.filledIcon;
+    }
+
+    function createUniqueness() {
+        setUniqueness((Math.random() + "").replace(".", ""));
+    }
+
+    (0, _react.useEffect)(function () {
+        addClassNames();
+        validateInitialValue(props.value, props.count);
+        setStars(getStars(props.value));
+        setConfig(props);
+        createUniqueness();
+        setIsUsingIcons(iconsUsed(props));
+        setHalfStarAt(Math.floor(props.value));
+        setHalfStarHidden(props.isHalf && props.value % 1 < 0.5);
+    }, []);
+
+    function validateInitialValue(value, count) {
+        if (value < 0 || value > count) {
+            setCurrentValue(0);
+        } else {
+            setCurrentValue(value);
+        }
+    }
+
+    function addClassNames() {
+        var reactStarsClass = 'react-stars';
+        setClassNames(props.classNames + (' ' + reactStarsClass));
+    }
+
+    function isDecimal(value) {
+        return value % 1 === 0;
+    }
+
+    function getRate() {
+        return config.isHalf ? Math.floor(currentValue) : Math.round(currentValue);
+    }
+
+    function getStars(activeCount) {
+        if (typeof activeCount === 'undefined') {
+            activeCount = getRate();
+        }
+
+        var stars = [];
+        for (var i = 0; i < config.count; i++) {
+            stars.push({
+                active: i <= activeCount - 1
+            });
+        }
+        return stars;
+    }
+
+    function mouseOver(event) {
+        if (!config.edit) return;
+
+        var index = Number(event.currentTarget.getAttribute('data-index'));
+
+        if (config.isHalf) {
+            var isAtHalf = moreThanHalf(event);
+            setHalfStarHidden(isAtHalf);
+            if (isAtHalf) index += 1;
+            setHalfStarAt(index);
+        } else {
+            index += 1;
+        }
+
+        updateStars(index);
+    }
+
+    function updateStars(index) {
+        var currentActive = stars.filter(function (x) {
+            return x.active;
+        });
+        if (index !== currentActive.length) {
+            setStars(getStars(index));
+        }
+    }
+
+    function moreThanHalf(event) {
+        var target = event.target;
+
+        var boundingClientRect = target.getBoundingClientRect();
+        var mouseAt = event.clientX - boundingClientRect.left;
+        mouseAt = Math.round(Math.abs(mouseAt));
+
+        return mouseAt > boundingClientRect.width / 2;
+    }
+
+    function mouseLeave() {
+        if (!config.edit) return;
+
+        updateHalfStarValues(currentValue);
+        setStars(getStars());
+    }
+
+    function updateHalfStarValues(value) {
+        if (config.isHalf) {
+            setHalfStarHidden(isDecimal(value));
+            setHalfStarAt(Math.floor(value));
+        }
+    }
+
+    function onClick(event) {
+        if (!config.edit) return;
+
+        var index = Number(event.currentTarget.getAttribute('data-index'));
+        var value = void 0;
+        if (config.isHalf) {
+            var isAtHalf = moreThanHalf(event);
+            setHalfStarHidden(isAtHalf);
+            if (isAtHalf) index += 1;
+            value = isAtHalf ? index : index + 0.5;
+            setHalfStarAt(index);
+        } else {
+            value = index = index + 1;
+        }
+
+        currentValueUpdated(value);
+    }
+
+    function renderHalfStarStyleElement() {
+        return _react2.default.createElement('style', { dangerouslySetInnerHTML: {
+                __html: isUsingIcons ? getHalfStarStyleForIcons(config.activeColor) : getHalfStarStyles(config.activeColor, uniqueness)
+            } });
+    }
+
+    function currentValueUpdated(value) {
+        if (value !== currentValue) {
+            setStars(getStars(value));
+            setCurrentValue(value);
+            props.onChange(value);
+        }
+    }
+
+    function handleKeyDown(event) {
+        if (!config.a11y && !config.edit) return;
+
+        var key = event.key;
+
+        var value = currentValue;
+
+        var keyNumber = Number(key); // e.g. "1" => 1, "ArrowUp" => NaN
+        if (keyNumber) {
+            if (Number.isInteger(keyNumber) && keyNumber > 0 && keyNumber <= config.count) {
+                value = keyNumber;
+            }
+        } else {
+            if ((key === "ArrowUp" || key === "ArrowRight") && value < config.count) {
+                event.preventDefault();
+
+                value += config.isHalf ? 0.5 : 1;
+            } else if ((key === "ArrowDown" || key === "ArrowLeft") && value > 0.5) {
+                event.preventDefault();
+                value -= config.isHalf ? 0.5 : 1;
+            }
+        }
+
+        updateHalfStarValues(value);
+
+        currentValueUpdated(value);
+    }
+
+    function renderStars() {
+        return stars.map(function (star, i) {
+            return _react2.default.createElement(_star2.default, {
+                key: i,
+                index: i,
+                active: star.active,
+                config: config,
+                onMouseOver: mouseOver,
+                onMouseLeave: mouseLeave,
+                onClick: onClick,
+                halfStarHidden: halfStarHidden,
+                halfStarAt: halfStarAt,
+                isUsingIcons: isUsingIcons,
+                uniqueness: uniqueness
+            });
+        });
+    }
+
+    return _react2.default.createElement(
+        'div',
+        { className: 'react-stars-wrapper-' + uniqueness,
+            style: { display: 'flex' } },
+        _react2.default.createElement(
+            'div',
+            { tabIndex: config.a11y && config.edit ? 0 : null,
+                'aria-label': 'add rating by typing an integer from 0 to 5 or pressing arrow keys',
+                onKeyDown: handleKeyDown,
+                className: classNames,
+                style: parentStyles },
+            config.isHalf && renderHalfStarStyleElement(),
+            renderStars(),
+            _react2.default.createElement(
+                'p',
+                { style: { position: 'absolute', left: '-200rem' }, role: 'status' },
+                currentValue
+            )
+        )
+    );
+}
+
+ReactStars.propTypes = {
+    classNames: _propTypes2.default.string,
+    edit: _propTypes2.default.bool,
+    half: _propTypes2.default.bool,
+    value: _propTypes2.default.number,
+    count: _propTypes2.default.number,
+    char: _propTypes2.default.string,
+    size: _propTypes2.default.number,
+    color: _propTypes2.default.string,
+    activeColor: _propTypes2.default.string,
+    emptyIcon: _propTypes2.default.element,
+    halfIcon: _propTypes2.default.element,
+    filledIcon: _propTypes2.default.element,
+    a11y: _propTypes2.default.bool
+};
+
+ReactStars.defaultProps = {
+    edit: true,
+    half: false,
+    value: 0,
+    count: 5,
+    char: '★',
+    size: 15,
+    color: 'gray',
+    activeColor: '#ffd700',
+    a11y: true,
+
+    onChange: function onChange() {}
+};
+
+exports.default = ReactStars;
+
+/***/ }),
+
+/***/ "./node_modules/react-rating-stars-component/dist/star.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-rating-stars-component/dist/star.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+    value: true
+}));
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = Star;
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var defaultStyles = {
+    position: "relative",
+    overflow: "hidden",
+    cursor: "pointer",
+    display: "block",
+    float: "left"
+};
+
+function Star(props) {
+    var index = props.index,
+        active = props.active,
+        config = props.config,
+        onMouseOver = props.onMouseOver,
+        onMouseLeave = props.onMouseLeave,
+        onClick = props.onClick,
+        halfStarHidden = props.halfStarHidden,
+        halfStarAt = props.halfStarAt,
+        isUsingIcons = props.isUsingIcons,
+        uniqueness = props.uniqueness;
+    var color = config.color,
+        activeColor = config.activeColor,
+        size = config.size,
+        char = config.char,
+        isHalf = config.isHalf,
+        edit = config.edit,
+        halfIcon = config.halfIcon,
+        emptyIcon = config.emptyIcon,
+        filledIcon = config.filledIcon;
+
+
+    var starClass = '';
+    var half = false;
+
+    if (isHalf && !halfStarHidden && halfStarAt === index) {
+        if (!isUsingIcons) starClass = "react-stars-" + uniqueness;else starClass = 'react-stars-half';
+        half = true;
+    }
+
+    var style = _extends({}, defaultStyles, {
+        color: active ? activeColor : color,
+        cursor: edit ? 'pointer' : 'default',
+        fontSize: size + "px"
+    });
+
+    function renderIcon() {
+        if (!isUsingIcons) {
+            return char;
+        } else {
+            if (active) {
+                return filledIcon;
+            } else if (!active && half) {
+                return halfIcon;
+            } else {
+                return emptyIcon;
+            }
+        }
+    }
+
+    return _react2.default.createElement(
+        "span",
+        {
+            className: starClass,
+            style: style,
+            key: index,
+            "data-index": index,
+            "data-forhalf": filledIcon ? index : char,
+            onMouseOver: onMouseOver,
+            onMouseMove: onMouseOver,
+            onMouseLeave: onMouseLeave,
+            onClick: onClick },
+        renderIcon()
+    );
+}
 
 /***/ }),
 

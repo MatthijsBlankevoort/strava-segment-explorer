@@ -41,6 +41,9 @@
         "tailwindcss": "^2.0.2"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.35",
+        "@fortawesome/free-solid-svg-icons": "^5.15.3",
+        "@fortawesome/react-fontawesome": "^0.1.14",
         "@mapbox/polyline": "^1.1.1",
         "cheap-ruler": "^3.0.1",
         "geolib": "^3.3.1",
@@ -49,6 +52,7 @@
         "react-is": "^17.0.1",
         "react-leaflet": "^3.0.5",
         "react-modal": "^3.13.1",
+        "react-rating-stars-component": "^2.2.0",
         "react-responsive-carousel": "^3.2.18",
         "styled-components": "^5.2.1"
     }

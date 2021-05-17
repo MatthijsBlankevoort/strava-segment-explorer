@@ -54,33 +54,44 @@ const FileModal = ({
       style={customStyles}
     >
 
-      <StyledCarousel showArrows>
-        {images.map((image) => (
+      <Container>
 
-          <div>
-            <img height="200" width="100" className="img-fluid img-thumbnail" src={image.url} alt="" />
-          </div>
-        ))}
+        <StyledCarousel showArrows>
+          {images.map((image) => (
 
-      </StyledCarousel>
+            <div>
+              <img height="200" width="100" className="img-fluid img-thumbnail" src={image.url} alt="" />
+            </div>
+          ))}
 
-      <form>
-        <input
-          id="myFileInput"
-          onChange={(e) => {
-            setFile(e.target.files);
-          }}
-          type="file"
-          accept="image/*;capture=camera"
-        />
-        <input onClick={(e) => handleSubmit(e)} type="submit" className="btn btn-primary" />
-      </form>
+        </StyledCarousel>
+
+        <form>
+          <input
+            id="myFileInput"
+            onChange={(e) => {
+              setFile(e.target.files);
+            }}
+            type="file"
+            accept="image/*;capture=camera"
+          />
+          <input onClick={(e) => handleSubmit(e)} type="submit" className="btn btn-primary" />
+        </form>
+      </Container>
     </Modal>
   );
 };
 
+const Container = styled.div`
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+`;
+
 const StyledCarousel = styled(Carousel)`
-    max-width: 80vw;
+    width: 80vw;
+    @media (min-width: 576px) { width: 20vw; }
+
 `;
 
 export default FileModal;
