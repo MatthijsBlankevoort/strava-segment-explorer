@@ -5641,23 +5641,28 @@ function Main() {
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(),
       _useState8 = _slicedToArray(_useState7, 2),
-      authenticatedAthlete = _useState8[0],
-      setAuthenticatedAthlete = _useState8[1];
+      rating = _useState8[0],
+      setSelectedSegmentRating = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(),
       _useState10 = _slicedToArray(_useState9, 2),
-      segmentEfforts = _useState10[0],
-      setSegmentEfforts = _useState10[1];
+      authenticatedAthlete = _useState10[0],
+      setAuthenticatedAthlete = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
       _useState12 = _slicedToArray(_useState11, 2),
-      selectedSegment = _useState12[0],
-      setSelectedSegment = _useState12[1];
+      segmentEfforts = _useState12[0],
+      setSegmentEfforts = _useState12[1];
 
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(5 * 1000),
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
       _useState14 = _slicedToArray(_useState13, 2),
-      radius = _useState14[0],
-      setRadius = _useState14[1];
+      selectedSegment = _useState14[0],
+      setSelectedSegment = _useState14[1];
+
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(5 * 1000),
+      _useState16 = _slicedToArray(_useState15, 2),
+      radius = _useState16[0],
+      setRadius = _useState16[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
     var _map$m;
@@ -5683,20 +5688,29 @@ function Main() {
 
   var onMarkerClick = /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(segment) {
+      var segmentRating;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              setSelectedSegment(segment);
+              _context2.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_8___default().get("/api/rating?segmentId=".concat(segment.id, "&athleteId=").concat(authenticatedAthlete.id)).then(function (res) {
+                return res.data;
+              });
+
+            case 2:
+              segmentRating = _context2.sent;
               _context2.t0 = setSegmentEfforts;
-              _context2.next = 4;
+              _context2.next = 6;
               return (0,_services_strava__WEBPACK_IMPORTED_MODULE_10__.getSegmentEfforts)(segment.id);
 
-            case 4:
+            case 6:
               _context2.t1 = _context2.sent;
               (0, _context2.t0)(_context2.t1);
+              setSelectedSegmentRating(segmentRating);
+              setSelectedSegment(segment);
 
-            case 6:
+            case 10:
             case "end":
               return _context2.stop();
           }
@@ -5793,10 +5807,10 @@ function Main() {
     }, _callee5);
   })), [location.locationReceived, radius]);
 
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
-      _useState16 = _slicedToArray(_useState15, 2),
-      heading = _useState16[0],
-      setHeading = _useState16[1];
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(0),
+      _useState18 = _slicedToArray(_useState17, 2),
+      heading = _useState18[0],
+      setHeading = _useState18[1];
 
   var iconMarkup = (0,react_dom_server__WEBPACK_IMPORTED_MODULE_7__.renderToStaticMarkup)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(UserIconContainer, {
     rotation: heading,
@@ -5900,7 +5914,9 @@ function Main() {
           switch (_context8.prev = _context8.next) {
             case 0:
               _context8.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_8___default().post("/rating?segmentId=".concat(selectedSegment.id, "&athleteId=").concat(authenticatedAthlete.id));
+              return axios__WEBPACK_IMPORTED_MODULE_8___default().post("/api/rating?segmentId=".concat(selectedSegment.id, "&athleteId=").concat(authenticatedAthlete.id, "&rating=").concat(newRating)).then(function (res) {
+                return setSelectedSegmentRating(res.data);
+              });
 
             case 2:
             case "end":
@@ -5915,11 +5931,12 @@ function Main() {
     };
   }();
 
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
-      _useState18 = _slicedToArray(_useState17, 2),
-      modalIsOpen = _useState18[0],
-      toggleModal = _useState18[1];
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState20 = _slicedToArray(_useState19, 2),
+      modalIsOpen = _useState20[0],
+      toggleModal = _useState20[1];
 
+  console.log(rating);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(StyledContainer, {
       style: {
@@ -5937,7 +5954,7 @@ function Main() {
         attribution: "\xA9 <a href=\"http://osm.org/copyright\">OpenStreetMap</a> contributors",
         url: "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=".concat("7bdb9552-8f8f-4b2b-a837-262355843704")
       }), segments === null || segments === void 0 ? void 0 : segments.map(function (segment) {
-        var _segmentEfforts$athle, _segmentEfforts$xoms, _segmentEfforts$athle2;
+        var _parseFloat, _segmentEfforts$athle, _segmentEfforts$xoms, _segmentEfforts$athle2;
 
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.Fragment, {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_leaflet__WEBPACK_IMPORTED_MODULE_13__.Polyline, {
@@ -5954,13 +5971,14 @@ function Main() {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(react_leaflet__WEBPACK_IMPORTED_MODULE_15__.Popup, {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("h5", {
                 children: segment.name
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_rating_stars_component__WEBPACK_IMPORTED_MODULE_2__.default, {
+              }), rating && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(react_rating_stars_component__WEBPACK_IMPORTED_MODULE_2__.default, {
                 count: 5,
+                value: rating.user_rating,
                 onChange: ratingChanged,
                 size: 24,
                 activeColor: "#ffd700"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)("span", {
-                children: "Avg: 5 (15)"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("span", {
+                children: ["Avg:", ' ', (_parseFloat = parseFloat(rating === null || rating === void 0 ? void 0 : rating.avg_rating)) === null || _parseFloat === void 0 ? void 0 : _parseFloat.toFixed(2), ' ', "(", rating === null || rating === void 0 ? void 0 : rating.rating_count, ")"]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("p", {
                 children: ["Afstand:", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)("strong", {
                   children: [(segment.distance / 1000).toFixed(2), ' ', "km"]
@@ -6038,7 +6056,7 @@ function Main() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx)(StyledConnectStravaButton, {
         className: "btn btn-warning",
         onClick: function onClick() {
-          window.location.href = "https://www.strava.com/oauth/authorize?client_id=".concat("18799", "&redirect_uri=https://bed06a8bd1f4.ngrok.io/&response_type=code&activity=read_all");
+          window.location.href = "https://www.strava.com/oauth/authorize?client_id=".concat("18799", "&redirect_uri=https://f365bbff62a2.ngrok.io&response_type=code&activity=read_all");
         },
         children: "Connect Strava"
       })]

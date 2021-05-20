@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\RatingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('files', FileController::class);
 Route::get('/files', [FileController::class, 'show']);
+
+Route::post('/rating', [RatingController::class, 'store']);
+Route::get('/rating', [RatingController::class, 'show']);

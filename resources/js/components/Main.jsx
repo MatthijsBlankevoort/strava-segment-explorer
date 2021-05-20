@@ -74,6 +74,7 @@ function Main() {
 
   const [segments, setSegments] = useState([]);
   const [map, setMap] = useState();
+  const [rating, setSelectedSegmentRating] = useState();
   const [authenticatedAthlete, setAuthenticatedAthlete] = useState();
   const [segmentEfforts, setSegmentEfforts] = useState({});
   const [selectedSegment, setSelectedSegment] = useState({});
@@ -85,8 +86,10 @@ function Main() {
   }, [location, exploreSegments, setSegments, radius]);
 
   const onMarkerClick = async (segment) => {
-    setSelectedSegment(segment);
+    const segmentRating = await axios.get(`/api/rating?segmentId=${segment.id}&athleteId=${authenticatedAthlete.id}`).then((res) => res.data);
     setSegmentEfforts(await getSegmentEfforts(segment.id));
+    setSelectedSegmentRating(segmentRating);
+    setSelectedSegment(segment);
   };
 
   useEffect(async () => {
@@ -157,10 +160,10 @@ function Main() {
     setRadius(e.target.value * 1000);
   };
   const ratingChanged = async (newRating) => {
-    await axios.post(`/rating?segmentId=${selectedSegment.id}&athleteId=${authenticatedAthlete.id}`);
+    await axios.post(`/api/rating?segmentId=${selectedSegment.id}&athleteId=${authenticatedAthlete.id}&rating=${newRating}`).then((res) => setSelectedSegmentRating(res.data));
   };
   const [modalIsOpen, toggleModal] = useState(false);
-
+  console.log(rating);
   return (
     <>
 
@@ -188,14 +191,23 @@ function Main() {
             >
               <Popup>
                 <h5>{segment.name}</h5>
+                {rating && (
                 <ReactStars
                   count={5}
+                  value={rating.user_rating}
                   onChange={ratingChanged}
                   size={24}
                   activeColor="#ffd700"
                 />
+                )}
                 <span>
-                  Avg: 5 (15)
+                  Avg:
+                  {' '}
+                  {parseFloat(rating?.avg_rating)?.toFixed(2)}
+                  {' '}
+                  (
+                  {rating?.rating_count}
+                  )
                 </span>
                 <p>
                   Afstand:
@@ -290,7 +302,7 @@ function Main() {
         <StyledConnectStravaButton
           className="btn btn-warning"
           onClick={
-            () => { window.location.href = `https://www.strava.com/oauth/authorize?client_id=${process.env.MIX_STRAVA_CLIENT_ID}&redirect_uri=https://bed06a8bd1f4.ngrok.io/&response_type=code&activity=read_all`; }
+            () => { window.location.href = `https://www.strava.com/oauth/authorize?client_id=${process.env.MIX_STRAVA_CLIENT_ID}&redirect_uri=https://f365bbff62a2.ngrok.io&response_type=code&activity=read_all`; }
             }
         >
           Connect Strava
