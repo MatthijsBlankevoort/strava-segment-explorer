@@ -15,53 +15,11 @@ import polyline from '@mapbox/polyline';
 import { renderToStaticMarkup } from 'react-dom/server';
 import axios from 'axios';
 import FileModal from './FileModal';
+import LocationButton from './LocationButton';
 import {
   ACCESS_TOKEN_KEY, exploreSegments, getAuthenticatedAthlete, getSegmentEfforts, REFRESH_TOKEN_KEY,
 } from '../services/strava';
 
-const Location = ({ setLocation, setHeading, map }) => {
-  const options = {
-    enableHighAccuracy: false,
-    timeout: 5000,
-    maximumAge: 2000,
-  };
-
-  function success(pos) {
-    const crd = pos.coords;
-    setLocation({ lat: crd.latitude, lng: crd.longitude, locationReceived: true });
-  }
-
-  function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-  }
-  const onClick = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(success, error, options);
-    } else {
-      alert('Sorry, your browser does not support geolocation services.');
-    }
-
-    DeviceOrientationEvent.requestPermission().then((result) => {
-      if (result === 'granted') {
-        window.addEventListener('deviceorientation', (evt) => {
-          let compassdir;
-
-          if (evt.webkitCompassHeading) {
-            // Apple works only with this, alpha doesn't work
-            compassdir = evt.webkitCompassHeading;
-          } else compassdir = evt.alpha;
-          setHeading(compassdir);
-        }, false);
-      }
-    });
-  };
-
-  return (
-    <button className="btn btn-secondary" onClick={() => onClick()}>
-      Get location
-    </button>
-  );
-};
 function getQueryStringValue(key) {
   return decodeURIComponent(window.location.search.replace(new RegExp(`^(?:.*[&\\?]${encodeURIComponent(key).replace(/[\.\+\*]/g, '\\$&')}(?:\\=([^&]*))?)?.*$`, 'i'), '$1'));
 }
@@ -116,7 +74,8 @@ function Main() {
     if (location.locationReceived) {
       setSegments(await exploreSegments(location.lat, location.lng, radius));
     }
-  }, [location.locationReceived, radius]);
+  }, [location.locationReceived, radius, localStorage.getItem(REFRESH_TOKEN_KEY), localStorage.getItem(ACCESS_TOKEN_KEY)]);
+
   const [heading, setHeading] = useState(0);
   const iconMarkup = renderToStaticMarkup(
     <UserIconContainer rotation={heading} id="user-icon">
@@ -163,7 +122,7 @@ function Main() {
     await axios.post(`/api/rating?segmentId=${selectedSegment.id}&athleteId=${authenticatedAthlete.id}&rating=${newRating}`).then((res) => setSelectedSegmentRating(res.data));
   };
   const [modalIsOpen, toggleModal] = useState(false);
-  console.log(rating);
+
   return (
     <>
 
@@ -192,23 +151,26 @@ function Main() {
               <Popup>
                 <h5>{segment.name}</h5>
                 {rating && (
-                <ReactStars
-                  count={5}
-                  value={rating.user_rating}
-                  onChange={ratingChanged}
-                  size={24}
-                  activeColor="#ffd700"
-                />
+                <>
+
+                  <ReactStars
+                    count={5}
+                    value={rating.user_rating}
+                    onChange={ratingChanged}
+                    size={24}
+                    activeColor="#ffd700"
+                  />
+                  <span>
+                    Avg:
+                    {' '}
+                    {parseFloat(rating?.avg_rating)?.toFixed(2)}
+                    {' '}
+                    (
+                    {rating?.rating_count}
+                    )
+                  </span>
+                </>
                 )}
-                <span>
-                  Avg:
-                  {' '}
-                  {parseFloat(rating?.avg_rating)?.toFixed(2)}
-                  {' '}
-                  (
-                  {rating?.rating_count}
-                  )
-                </span>
                 <p>
                   Afstand:
                   {' '}
@@ -292,7 +254,7 @@ function Main() {
           <input onChange={(e) => handleRadiusChange(e)} type="range" step="5" value={radius / 1000} className="custom-range" min="5" max="100" id="customRange2" />
         </div>
 
-        <Location
+        <LocationButton
           setLocation={setLocation}
           setHeading={setHeading}
         />
@@ -302,7 +264,7 @@ function Main() {
         <StyledConnectStravaButton
           className="btn btn-warning"
           onClick={
-            () => { window.location.href = `https://www.strava.com/oauth/authorize?client_id=${process.env.MIX_STRAVA_CLIENT_ID}&redirect_uri=https://f365bbff62a2.ngrok.io&response_type=code&activity=read_all`; }
+            () => { window.location.href = `https://www.strava.com/oauth/authorize?client_id=${process.env.MIX_STRAVA_CLIENT_ID}&redirect_uri=${process.env.MIX_APP_URL}&response_type=code&activity=read_all`; }
             }
         >
           Connect Strava

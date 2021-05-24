@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('files', FileController::class);
+Route::post('/files',[ FileController::class, 'store']);
 Route::get('/files', [FileController::class, 'show']);
 
 Route::post('/rating', [RatingController::class, 'store']);

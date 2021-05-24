@@ -22,7 +22,7 @@ export const refreshAccessToken = async (type) => {
 };
 
 export const exploreSegments = async (lat, lng, radius) => {
-  const ruler = new CheapRuler(53.0686472, 'meters');
+  const ruler = new CheapRuler(lat, 'meters');
 
   const bounds = ruler.bufferPoint([lat, lng], radius / 2);
   const segments = await axios.get(`${STRAVA_BASE_URL}/segments/explore?bounds=${bounds}&activity_type=riding`, {
